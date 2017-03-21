@@ -1,37 +1,52 @@
-## Welcome to GitHub Pages
+### Logo
+<img src="http://cfile28.uf.tistory.com/image/2247293458D11CA41A6175" width="100" height="100">
 
-You can use the [editor on GitHub](https://github.com/garyGitgit/codingstarter/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### About CodingStarter 
+CodingStarter is an Android application project, which is made for Korean middle/high students and beginners in programming. CodingStarter has basic **C** and **Java** curriculum contents, and you can learn basic C and Java easily on your hands. You can upgrade your level while learning the courses and solving quiz from other users.<br>
+⭐️ **Be the best in your group and make your group as a top one among other groups!** :star:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Target users
+Middle school/high school students and all beginners for programming in Korea
 
-### Markdown
+### Contents
+  1. basic theory 
+  2. lab - block coding (e.g. ```for```, ```if```, ```printf```) 
+  3. quiz 
+  4. rewards - medals by progress (🎖 🥇 🥈 🥉) & individuals and groups ranking 
+  
+### Key Features
++ Easy-to-learn contents
++ Easy-to-learn UI 
++ Competition with other groups 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Our goal
++ To be the first app for learning coding 
++ To be the pre-learning app for freshmen in **Software Dept. of Gachon Univ**.
 
-```markdown
-Syntax highlighted code block
+### Developers
++ Noh Sang-woo(*sw79899@gmail.com*) : Server
++ Lee Ye-Jun(*yejoon3117@naver.com*) : UI, UX, Design
 
-# Header 1
-## Header 2
-### Header 3
+### Development Tools
++ Android Studio
++ Genymotion
++ Node.js
++ Free hosting server
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+### Plan
+YY/MM/DD             |   To Do
+-------              | -----------
+17/03/23             | Proposal presentation
+~ 17/03/31           | Contents and UI concept
+~ 17/05/17           | Implementation of basic functions
+17/05/18             | Mid presentation
+~ final presentation | Implementation of contents & design 
+17/06/??             | Final presentation
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/garyGitgit/codingstarter/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Progress 
+YY/MM/DD          |   Done
+-------           | -----------
+17/03/21          | create GitHub repository and Github Wiki
