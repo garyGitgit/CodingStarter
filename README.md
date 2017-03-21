@@ -9,10 +9,10 @@ CodingStarter is an Android application project, which is made for Korean middle
 Middle school/high school students and all beginners for programming in Korea
 
 ### Contents
-  1. basic theory 
-  2. lab - block coding (e.g. ```for```, ```if```, ```printf```) 
-  3. quiz 
-  4. rewards - medals by progress (🎖 🥇 🥈 🥉) & individuals and groups ranking 
+1. basic theory 
+2. lab - block coding (e.g. ```for```, ```if```, ```printf```) 
+3. quiz 
+4. rewards - medals by progress (🎖 🥇 🥈 🥉) & individuals and groups ranking 
   
 ### Key Features
 + Easy-to-learn contents
@@ -32,21 +32,3 @@ Middle school/high school students and all beginners for programming in Korea
 + Genymotion
 + Node.js
 + Free hosting server
-
-
-
-
-### Plan
-YY/MM/DD             |   To Do
--------              | -----------
-17/03/23             | Proposal presentation
-~ 17/03/31           | Contents and UI concept
-~ 17/05/17           | Implementation of basic functions
-17/05/18             | Mid presentation
-~ final presentation | Implementation of contents & design 
-17/06/??             | Final presentation
-
-### Progress 
-YY/MM/DD          |   Done
--------           | -----------
-17/03/21          | create GitHub repository and Github Wiki
