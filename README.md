@@ -1,5 +1,5 @@
 ### Logo
-<img src="http://cfile28.uf.tistory.com/image/2247293458D11CA41A6175" width="100" height="100">
+<img src="http://cfile28.uf.tistory.com/image/2247293458D11CA41A6175" width="100" height="100"> <i>designed by Lee Ye-Jun</i>
 
 ### About CodingStarter 
 CodingStarter is an Android application project, which is made for Korean middle/high students and beginners in programming. CodingStarter has basic **C** and **Java** curriculum contents, and you can learn basic C and Java easily on your hands. You can upgrade your level while learning the courses and solving quiz from other users.<br>
