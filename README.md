@@ -32,3 +32,5 @@ Middle school/high school students and all beginners for programming in Korea
 + Genymotion
 + Node.js
 + Free hosting server
+<br><br>
+## *SEE DETAILS IN [OUR WIKI PAGE](https://github.com/garyGitgit/codingstarter/wiki)!*
