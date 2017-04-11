@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <!--&lt;!&ndash;-->
+     <!--액션바에 올라가 있는 메뉴들의 아이템을 정의한다-->
+    <!--ifRoom : 공간이 있으면-->
+    <!--withText : title 을 보여준다-->
+    <!--&ndash;&gt;-->
+    <!--<item android:id="@+id/action_searching"-->
+        <!--android:orderInCategory="1" app:showAsAction="ifRoom" android:checkable="false"-->
+        <!--android:title="Searched" />-->
+    <!--<item android:id="@+id/action_scan" android:title="Scan"-->
+        <!--android:orderInCategory="100" app:showAsAction="ifRoom|withText" />-->
+
+    <item android:id="@+id/action_delete_all_preference" android:title="delete_all_preference"
+        android:orderInCategory="101" app:showAsAction="never|withText" />
+
+</menu>

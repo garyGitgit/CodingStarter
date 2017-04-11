@@ -1,0 +1,133 @@
+apply plugin: 'com.android.library'
+
+/*
+ * I followed this:
+ * http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+ * tutorial to publish the library on jcenter and Maven Central repositories.
+ * Some changes needed to be done. See below for details.
+ *
+ * A newer then described version of maven plugin dependency is required (see project's gradle.build).
+ */
+
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    PUBLISH_GROUP_ID = 'no.nordicsemi.android.support.v18'
+    PUBLISH_ARTIFACT_ID = 'scanner'
+    PUBLISH_VERSION = '1.0.0'
+
+    bintrayRepo = 'android'
+    bintrayName = 'no.nordicsemi.android.support.v18:scanner'
+
+    publishedGroupId = PUBLISH_GROUP_ID
+    artifact = PUBLISH_ARTIFACT_ID
+    libraryVersion = PUBLISH_VERSION
+    libraryName = 'Scanner Compat v18'
+    libraryDescription = 'Android Bluetooth Le Scanner Compat library'
+
+    issuesUrl = 'https://github.com/NordicSemiconductor/Android-Scanner-Compat-Library/issues'
+    siteUrl = 'https://github.com/NordicSemiconductor/Android-Scanner-Compat-Library'
+    gitUrl = 'https://github.com/NordicSemiconductor/Android-Scanner-Compat-Library.git'
+
+    developerId = 'philips77'
+    developerName = 'Aleksander Nowakowski'
+    developerEmail = 'aleksander.nowakowski@nordicsemi.no'
+
+    licenseName = 'The BSD 3-Clause License'
+    licenseUrl = 'http://opensource.org/licenses/BSD-3-Clause'
+    allLicenses = ["BSD 3-Clause"]
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 4
+        versionName "1.0.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-annotations:25.0.0'
+
+    androidTestCompile "com.android.support.test:runner:0.5"
+    androidTestCompile "com.android.support.test:rules:0.5"
+    androidTestCompile "org.hamcrest:hamcrest-library:1.3"
+    androidTestCompile ("junit:junit:4.12") {
+      exclude module: 'hamcrest-core'
+    }
+
+    testCompile "org.hamcrest:hamcrest-library:1.3"
+    testCompile ("junit:junit:4.12") {
+      exclude module: 'hamcrest-core'
+    }
+    testCompile "org.mockito:mockito-core:1.10.19"
+    testCompile "org.powermock:powermock-module-junit4:1.6.2"
+    testCompile "org.powermock:powermock-api-mockito:1.6.2"
+}
+
+afterEvaluate { project ->
+    android.libraryVariants.all { variant ->
+        tasks.androidJavadocs.doFirst {
+            classpath += configurations.compile
+        }
+    }
+}
+
+// The following script creates a POM file required to publish on Maven Central
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+
+// This script creates sources and javadocs. Both are required to publish a library on jcenter and MC.
+apply from: 'https://raw.githubusercontent.com/ArthurHub/release-android-library/master/android-release-aar.gradle'
+
+// The following link publishes the library to jcenter. It does not handle the userOrg, so it has been copied and modified below.
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+// Copied from https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle
+version = libraryVersion
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        userOrg = properties.getProperty("bintray.userOrg")
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        issueTrackerUrl = issuesUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}

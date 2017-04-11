@@ -1,0 +1,19 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <!-- 17.2.6 : view pager 추가 -->
+    <!-- 17.2.8 : 딱 맞네 48 -> 66 dp-->
+    <dimen name="tab_height">56dp</dimen>
+    <dimen name="tab_height_large">72dp</dimen>
+
+    <!-- 17.2.8 : toolbar 높이 -->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar2_height">34dp</dimen>
+
+
+
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CodingStarter</string>
+
+    <!--Tab -->
+    <string name="demo_tab_no_title">No Title</string>
+    <string name="demo_title_custom_tab_icons1">Custom Tab Icons 1</string>
+
+</resources>
