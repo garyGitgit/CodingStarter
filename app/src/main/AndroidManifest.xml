@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gachon.app">
 
-    <!-- 17.1.10 : sdk 버전을 23으로 올려서 새로운 레이아웃을 쓰기 위함 -->
-    <!-- <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="23"/> -->
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
