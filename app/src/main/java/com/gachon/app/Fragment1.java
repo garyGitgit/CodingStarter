@@ -13,6 +13,9 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
 public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived{
 
+  /*
+  fragment 1 : 메인 페이지
+   */
   public static final String TAG = "gachon/Fragment1/";
 
   @Override
