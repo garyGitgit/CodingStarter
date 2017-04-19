@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
+/*
+fragment 3번 페이지
+ */
 public class Fragment3 extends Fragment implements MainActivity.onBluetoothMessageReceived {
 
 
