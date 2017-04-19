@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
+
+/*
+fragment2 : 2번째 페이지
+ */
 public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessageReceived {
 
     public static final String TAG = "bisecu/RidingActivity/";
