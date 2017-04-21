@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
     public static String TAG = "tag";
-    //17.2.8 : pager
     ViewPager viewPager;
     FragmentPagerItems pages;
     //17.4.3 : number of page items
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     onBluetoothMessageReceived mListener, mListener2, mListener3, mListener4;
 
-    //17.2.18 : 설정 탭 누르는 것 방지
     static long tabClickTime = 0;
     static final long tabClickWaitingTIme = 500;
 
@@ -47,10 +45,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_drawer); //서비스가 바인딩된 후 controlactivity 가 생성
 
-        //17.2.7 : 특정 탭 모양에 따른 enum value 가져오기
+        //특정 탭 모양에 따른 enum value 가져오기
         TabEnum tabEnum = getDemo();
 
-        //17.2.7 : 툴바 설정
+        //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(null);
 
@@ -71,16 +69,16 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
 
-        //17.2.7 : 하단 탭 설정
+        //하단 탭 설정
         ViewGroup tab = (ViewGroup) findViewById(R.id.tab);
         tab.addView(LayoutInflater.from(this).inflate(tabEnum.layoutResId, tab, false));
 
-        //17.2.7 : 뷰 페이저, 스마트 탭 설정
+        //뷰 페이저, 스마트 탭 설정
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         final SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         tabEnum.setup(viewPagerTab);
 
-        //17.2.7 : 뷰페이저 페이지 설정
+        //뷰페이저 페이지 설정
         pages = new FragmentPagerItems(this);
 
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[0]), Fragment1.class));
@@ -102,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         //어답터 설정
         viewPager.setAdapter(adapter);
-        //17.2.9 : 슬라이드 방지, 2.16 : 안 먹힘
         viewPagerTab.setViewPager(viewPager);
 
 
@@ -112,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             Fragment mFragment2 = adapter.getItem(1);
             Fragment mFragment3 = adapter.getItem(2);
             //Fragment mFragment4 = adapter.getItem(3);
-            //이게 null
 
             mListener = (onBluetoothMessageReceived) mFragment;
             mListener2 = (onBluetoothMessageReceived) mFragment2;
