@@ -1,7 +1,7 @@
 package com.gachon.app;
 
 /**
- * Created by garyNoh on 17. 1. 26..
+ * Created by garyNoh on 17. 4. 22..
  *
  * 초기화면
  */
@@ -10,19 +10,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 public class SplashActivity extends Activity {
-    //상수
-    public static final String TAG = "bisecu/Splash/" ; //디버깅용 태그 (최대23글자만 허용)
+    public static final String TAG = "CodingStarter" ;
     public static final int SPLASH_PERIOD = 2000;
 
-    //변수
     Handler mHandler;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        /* 17.1.16 : 혹시 모를 경우를 대비해서 초기화 */
-//        delete();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
