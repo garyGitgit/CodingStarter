@@ -13,7 +13,7 @@ import android.os.Handler;
 
 public class SplashActivity extends Activity {
     public static final String TAG = "CodingStarter" ;
-    public static final int SPLASH_PERIOD = 2000;
+    public static final int SPLASH_PERIOD = 3000;
 
     Handler mHandler;
     @Override
