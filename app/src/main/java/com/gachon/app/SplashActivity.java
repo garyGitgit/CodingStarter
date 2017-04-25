@@ -29,7 +29,6 @@ public class SplashActivity extends Activity {
 
     private class SplashHandler implements Runnable{
         public void run() {
-            //TODO : go to main Activity for test
             //scan activity 실행하고, 초기 activity 종료
             startActivity(new Intent(getApplication(), MainActivity.class));
             SplashActivity.this.finish();
