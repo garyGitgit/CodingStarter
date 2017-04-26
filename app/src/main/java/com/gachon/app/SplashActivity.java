@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+/*
+첫 화면
+ */
 public class SplashActivity extends Activity {
     public static final String TAG = "CodingStarter" ;
     public static final int SPLASH_PERIOD = 3000;
