@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
     public static String TAG = "tag";
-    ViewPager viewPager;
+    //커스텀화 시킨 뷰 페이저
+    MyViewPager viewPager;
     FragmentPagerItems pages;
     //17.4.3 : number of page items
     public final static int pageCount = 3;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         tab.addView(LayoutInflater.from(this).inflate(tabEnum.layoutResId, tab, false));
 
         //뷰 페이저, 스마트 탭 설정
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (MyViewPager)findViewById(R.id.viewpager);
         final SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         tabEnum.setup(viewPagerTab);
 
@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //어답터 설정
         viewPager.setAdapter(adapter);
         viewPagerTab.setViewPager(viewPager);
-
+        //슬라이드 방지
+        viewPager.setPagingEnabled(false);
 
         try {
             //17.4.3. : 0 ~ 3 은 위에서 만든 페이지 수와 같아야 함
@@ -169,12 +170,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

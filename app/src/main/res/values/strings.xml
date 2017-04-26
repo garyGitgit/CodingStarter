@@ -4,9 +4,10 @@
     <!--Tab -->
     <string name="demo_tab_no_title">No Title</string>
     <string name="demo_title_custom_tab_icons1">Custom Tab Icons 1</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+
+
 
 </resources>

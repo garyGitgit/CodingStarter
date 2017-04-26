@@ -2,12 +2,15 @@
 <resources>
     <color name="PrimaryColor">#2196F3</color>
     <color name="PrimaryDarkColor">#1976D2</color>
-
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-
     <color name="accent">#40C4FF</color>
+
+    <!-- 첫 개발 -->
+    <color name="codingstarter_main_color">#0076EA</color>
+    <color name="codingstarter_main_divider_color">#F2F2F2</color>
+
 
 
 </resources>

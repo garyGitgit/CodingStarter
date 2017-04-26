@@ -7,8 +7,14 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/tool_bar"
-        />
+        layout="@layout/tool_bar" />
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:max="100"
+        android:progress="80"/>
 
     <!--&lt;!&ndash;TODO : validated by gachon &ndash;&gt;-->
     <!--<View-->
@@ -18,7 +24,7 @@
         <!--/>-->
 
 
-    <android.support.v4.view.ViewPager
+    <com.gachon.app.MyViewPager
         android:id="@id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

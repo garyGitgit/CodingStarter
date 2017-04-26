@@ -11,8 +11,8 @@
     <application
         android:allowBackup="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:icon="@mipmap/icon_sbp_test"
-        android:label="SBP test"
+        android:icon="@mipmap/codingstarter_launcher"
+        android:label="@string/app_name"
         >
 
         <!-- SplashAcvitiy 는 시작화면 -->
