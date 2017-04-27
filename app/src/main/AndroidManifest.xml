@@ -2,36 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gachon.app">
 
-
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-
     <application
         android:allowBackup="true"
-        android:theme="@style/AppTheme.NoActionBar"
         android:icon="@mipmap/codingstarter_launcher"
         android:label="@string/app_name"
-        >
+        android:theme="@style/AppTheme.NoActionBar">
 
         <!-- SplashAcvitiy 는 시작화면 -->
         <activity
-            android:name="com.gachon.app.SplashActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.gachon.app.MainActivity"
+            android:name=".MainActivity"
             android:label="메인라벨"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
+        <activity android:name=".Course1Activity" />
+        <activity
+            android:name=".Course2Activity"
+            android:label="@string/title_activity_course2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gachon.app.Course1Activity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TableRow
+            android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"
+                android:src="@drawable/course_progress_check"
+                android:id="@+id/course_progress1"/>
+            <Space
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size" />
+            <ImageView
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"
+                android:src="@drawable/course_progress_check"
+                android:id="@+id/course_progress2"/>
+            <Space
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"/>
+            <ImageView
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"
+                android:src="@drawable/course_progress_check"
+                android:id="@+id/course_progress3"/>
+            <Space
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"/>
+            <ImageView
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"
+                android:src="@drawable/course_progress_check"
+                android:id="@+id/course_progress4"/>
+            <Space
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"/>
+            <ImageView
+                android:layout_width="@dimen/check_icon_size"
+                android:layout_height="@dimen/check_icon_size"
+                android:src="@drawable/course_progress_check"
+                android:id="@+id/course_progress5"/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

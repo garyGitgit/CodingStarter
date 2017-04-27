@@ -28,6 +28,23 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     return inflater.inflate(R.layout.fragment_fragment1, container, false);
   }
 
+  public void onImageClicked(View v){
+      int imageId = v.getId();
+
+      switch (imageId){
+          case R.id.mainBlock1_1:
+
+              break;
+          default:
+              // do nothing
+      }
+
+
+  }
+
+
+
+
   @Override
   public void onStop() {
     Log.e("bisecu", "onStop");
@@ -75,7 +92,6 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     Log.e("bisecu", "onStart");
     super.onStart();
   }
-
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
