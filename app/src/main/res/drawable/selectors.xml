@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--color selector-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 클릭 했을 경우 -->
+    <item android:state_pressed="true" android:drawable="@color/pressed"/>
+
+    <!-- 클릭하지 않은 경우 -->
+    <item android:state_pressed="false" android:drawable="@color/nonpressed"/>
+
+</selector>

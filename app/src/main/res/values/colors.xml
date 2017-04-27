@@ -11,6 +11,10 @@
     <color name="codingstarter_main_color">#0076EA</color>
     <color name="codingstarter_main_divider_color">#F2F2F2</color>
 
+    <!--버튼 selector 색깔 -->
+    <color name="pressed">#B3CA6F</color>
+    <color name="nonpressed">#4D5052</color>
+
 
 
 </resources>

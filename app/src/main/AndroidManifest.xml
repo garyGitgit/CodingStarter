@@ -30,8 +30,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Course1Activity" />
         <activity
-            android:name=".Course2Activity"
-            android:label="@string/title_activity_course2"
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

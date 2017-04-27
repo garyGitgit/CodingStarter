@@ -1,6 +1,7 @@
 package com.gachon.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
 public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived{
+  View rootView;
+
+  ImageView imageViewMainBlock1_1;
 
   /*
   fragment 1 : 메인 페이지
@@ -24,25 +29,17 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     int position = FragmentPagerItem.getPosition(getArguments());
     Log.e("bisecu", "onCreateView : " + Integer.toString(position));
     setRetainInstance(true);
-
-    return inflater.inflate(R.layout.fragment_fragment1, container, false);
-  }
-
-  public void onImageClicked(View v){
-      int imageId = v.getId();
-
-      switch (imageId){
-          case R.id.mainBlock1_1:
-
-              break;
-          default:
-              // do nothing
+    rootView = inflater.inflate(R.layout.fragment_fragment1, container, false);
+    imageViewMainBlock1_1 = (ImageView)rootView.findViewById(R.id.mainBlock1_1);
+    imageViewMainBlock1_1.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(rootView.getContext(), Main2Activity.class));
       }
+    });
 
-
+    return rootView;
   }
-
-
 
 
   @Override
