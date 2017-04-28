@@ -8,6 +8,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="step1" />
+        android:text="step1 : 비유로 이해" />
 
 </FrameLayout>
