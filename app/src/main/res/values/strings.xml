@@ -13,5 +13,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--course step page-->
+    <string name="goNext">다음 단계로 이동</string>
+
 
 </resources>
