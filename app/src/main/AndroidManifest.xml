@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar">
 
+
         <!-- SplashAcvitiy 는 시작화면 -->
         <activity
             android:name=".SplashActivity"
