@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="비유"/>
+            android:text="사물함 비유 : 변수는 사물함이다 블라블라"/>
 
     </android.support.v7.widget.CardView>
 
