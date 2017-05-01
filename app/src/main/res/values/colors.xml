@@ -15,6 +15,7 @@
     <color name="pressed">#B3CA6F</color>
     <color name="nonpressed">#4D5052</color>
 
-
+    <!--버튼 selector 색깔 -->
+    <color name="light_gray">#ECECEC</color>
 
 </resources>
