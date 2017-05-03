@@ -28,7 +28,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     //JUnit Test 용
-    
 
 
     compile 'com.android.support:appcompat-v7:25.3.1'

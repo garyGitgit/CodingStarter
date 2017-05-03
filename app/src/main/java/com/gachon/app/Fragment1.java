@@ -35,7 +35,7 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
         imageViewMainBlock1_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), Course1Activity.class));
+                startActivity(new Intent(rootView.getContext(), Course1ListActivity.class));
             }
         });
 

@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginLeft="@dimen/content_side_margin"
-    android:layout_marginRight="@dimen/content_side_margin"
     tools:context="com.gachon.app.Course1Step3Fragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,7 +18,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="9"
         android:background="@color/light_gray">
 
         <TableLayout
@@ -43,9 +41,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="추가하기"/>
+        android:layout_height="50dp"
+        android:text="+추가하기" />
     <Space
         android:layout_width="match_parent"
         android:layout_height="10dp" />
@@ -69,6 +66,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
             <ImageView
+                android:id="@+id/compile1_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/compile"/>
@@ -76,7 +74,12 @@
 
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/buttonGoNext1_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_go_next_height"
+        android:enabled="false"
+        android:text="@string/goNext" />
 
     <Space
         android:layout_width="match_parent"

@@ -47,10 +47,9 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonGoNext"
+            android:id="@+id/buttonGoNext1_1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="@dimen/button_go_next_height"
             android:text="@string/goNext" />
 
         <Space

@@ -28,4 +28,8 @@
     <!--card view margin-->
     <dimen name="content_side_margin">30dp</dimen>
 
+    <!--go next button height-->
+    <dimen name="button_go_next_height">50dp</dimen>
+
+
 </resources>
