@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/content_side_margin"
+    android:paddingRight="@dimen/content_side_margin"
     tools:context="com.gachon.app.Course1Activity">
 
     <include layout="@layout/content_course1" />

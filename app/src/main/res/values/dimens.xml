@@ -25,4 +25,7 @@
     <!--course progress check-->
     <dimen name="check_icon_size">30dp</dimen>
 
+    <!--card view margin-->
+    <dimen name="content_side_margin">30dp</dimen>
+
 </resources>
