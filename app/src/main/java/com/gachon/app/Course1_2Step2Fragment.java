@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class Course1Step2Fragment extends Fragment {
+public class Course1_2Step2Fragment extends Fragment {
 
     OnGoNextPageInterface goNextPage;
     Button buttonGoNext;
     View root;
 
-    public Course1Step2Fragment() {
+    public Course1_2Step2Fragment() {
         // Required empty public constructor
     }
 
@@ -28,7 +28,7 @@ public class Course1Step2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_course1_step2, container, false);
+        root = inflater.inflate(R.layout.fragment_course1_2_step2, container, false);
         buttonGoNext = (Button) root.findViewById(R.id.buttonGoNext1_2);
         buttonGoNext.setOnClickListener(new View.OnClickListener() {
             @Override

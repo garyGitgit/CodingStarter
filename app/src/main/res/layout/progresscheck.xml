@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp">
+    <TableRow android:gravity="center_horizontal">
+        <ImageView
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"
+            android:src="@drawable/course_progress_check"
+            android:id="@+id/course_progress1"
+            android:onClick="onProgressImageClickListener"/>
+        <Space
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size" />
+        <ImageView
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"
+            android:src="@drawable/course_progress_check"
+            android:id="@+id/course_progress2"
+            android:onClick="onProgressImageClickListener"/>
+        <Space
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"/>
+        <ImageView
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"
+            android:src="@drawable/course_progress_check"
+            android:id="@+id/course_progress3"
+            android:onClick="onProgressImageClickListener"/>
+        <Space
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"/>
+        <ImageView
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"
+            android:src="@drawable/course_progress_check"
+            android:id="@+id/course_progress4"
+            android:onClick="onProgressImageClickListener"/>
+        <Space
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"/>
+        <ImageView
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"
+            android:src="@drawable/course_progress_check"
+            android:id="@+id/course_progress5"
+            android:onClick="onProgressImageClickListener"/>
+    </TableRow>
+</TableLayout>

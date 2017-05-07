@@ -3,20 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.gachon.app.Course1Step2Fragment">
+    tools:context="com.gachon.app.Course1_2Step2Fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="step2 : 개념 설명" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

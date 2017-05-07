@@ -31,9 +31,11 @@ public class Course1ListActivity extends AppCompatActivity implements AdapterVie
         switch (position){
             case 0:
                 //do something
+                intent = new Intent(this, Course1_1Activity.class);
+                startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(this, Course1Activity.class);
+                intent = new Intent(this, Course1_2Activity.class);
                 startActivity(intent);
                 break;
             case 2:

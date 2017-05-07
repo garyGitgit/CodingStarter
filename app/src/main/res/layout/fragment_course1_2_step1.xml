@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="com.gachon.app.Course1Step1Fragment">
+    tools:context="com.gachon.app.Course1_2Step1Fragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,11 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="step1 : 비유로 이해" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardview"

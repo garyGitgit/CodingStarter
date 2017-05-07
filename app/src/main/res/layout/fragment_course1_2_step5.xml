@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gachon.app.Course1Step5Fragment"
+    tools:context="com.gachon.app.Course1_2Step5Fragment"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
@@ -99,15 +99,16 @@
 
     <!--</LinearLayout>-->
 
-    <!--<Button-->
-        <!--android:id="@+id/buttonGoNext1_3"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/button_go_next_height"-->
-        <!--android:text="@string/goNext" />-->
+    <Button
+        android:id="@+id/buttonGoNext1_5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_go_next_height"
+        android:layout_gravity="bottom"
+        android:text="확인(종료)" />
 
-    <!--<Space-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"/>-->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
