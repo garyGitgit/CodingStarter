@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,11 +26,13 @@ import android.widget.Toast;
 
 public class Course1_1Activity extends AppCompatActivity implements OnGoNextPageInterface{
     MyViewPager viewPager;
-    //static int courseStepNum = 5;
-    static int courseStepNum = 1;
+    static int courseStepNum = 4;
+
     ImageView[] progressImageViewList;
 
     ViewGroup container;
+
+    Button buttonGoNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,21 @@ public class Course1_1Activity extends AppCompatActivity implements OnGoNextPage
         viewPager.setPagingEnabled(false);
 
         //여기까지는 허용 가능
+
+        //다음 버튼 눌렀을 때 다음 페이지로 이동 (문제풀기 전에는 못 넘기게 비활성화도 해야함)
+        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
+        buttonGoNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+                if(thisPage < courseStepNum-1) {
+                    viewPager.setCurrentItem(thisPage + 1);
+                    Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "마지막 페이지입니다", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void onProgressImageClickListener (View v){
@@ -101,13 +119,11 @@ public class Course1_1Activity extends AppCompatActivity implements OnGoNextPage
                 case 0:
                     return new Course1_1Step1Fragment();
                 case 1:
-                    return new Course1_1Step1Fragment();
+                    return new Course1_1Step2Fragment();
                 case 2:
-                    return new Course1_1Step1Fragment();
+                    return new Course1_1Step3Fragment();
                 case 3:
-                    return new Course1_1Step1Fragment();
-                case 4:
-                    return new Course1_1Step1Fragment();
+                    return new Course1_1Step4Fragment();
                 default:
                     return null;
             }

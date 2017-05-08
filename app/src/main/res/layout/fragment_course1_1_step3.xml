@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gachon.app.Course1_1Step1Fragment"
-    android:id="@+id/fragment_course1_1_step1"
+    tools:context="com.gachon.app.Course1_1Step3Fragment"
+    android:id="@+id/fragment_course1_1_step3"
     android:orientation="vertical">
 
 </LinearLayout>

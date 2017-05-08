@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="horizontal">
 
 
@@ -30,26 +29,20 @@
                 android:background="@color/white"
                 >
                 <TableRow android:gravity="center_horizontal">
-                    <Space />
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock1_1"
-                            android:src="@drawable/main_block1"
-                            android:background="@drawable/selectors"/>
+                            android:src="@drawable/main_block1" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test1"/>
+                            android:text="변수"/>
                     </LinearLayout>
                     <Space />
-                </TableRow>
-
-
-                <TableRow android:gravity="center_horizontal">
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
@@ -61,8 +54,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test2"/>
+                            android:text="연산"/>
                     </LinearLayout>
+                </TableRow>
+                <TableRow android:gravity="center_horizontal">
                     <Space />
                     <LinearLayout
                         android:orientation="vertical">
@@ -70,13 +65,15 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock3_1"
-                            android:src="@drawable/main_block3" />
+                            android:src="@drawable/main_block3"
+                            android:background="@drawable/selectors"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test3"/>
+                            android:text="문제풀이"/>
                     </LinearLayout>
+                    <Space />
                 </TableRow>
             </TableLayout>
 
@@ -93,7 +90,6 @@
                 android:background="@color/white"
                 >
                 <TableRow android:gravity="center_horizontal">
-                    <Space />
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
@@ -105,12 +101,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test4"/>
+                            android:text="조건문"/>
                     </LinearLayout>
                     <Space />
-                </TableRow>
-
-                <TableRow android:gravity="center_horizontal">
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
@@ -122,8 +115,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test5"/>
+                            android:text="반복문"/>
                     </LinearLayout>
+                </TableRow>
+                <TableRow android:gravity="center_horizontal">
                     <Space />
                     <LinearLayout
                         android:orientation="vertical">
@@ -136,8 +131,70 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test6"/>
+                            android:text="배열"/>
                     </LinearLayout>
+                    <Space />
+                </TableRow>
+            </TableLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mainPage_divider_height"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/codingstarter_main_divider_color"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                >
+
+                <TableRow android:gravity="center_horizontal">
+                    <LinearLayout
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="@dimen/mainPage_block_size"
+                            android:layout_height="@dimen/mainPage_block_size"
+                            android:id="@+id/mainBlock1_3"
+                            android:src="@drawable/main_block1" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="함수1"/>
+                    </LinearLayout>
+                    <Space />
+                    <LinearLayout
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="@dimen/mainPage_block_size"
+                            android:layout_height="@dimen/mainPage_block_size"
+                            android:id="@+id/mainBlock2_3"
+                            android:src="@drawable/main_block2" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="함수2"/>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow android:gravity="center_horizontal">
+                    <Space />
+                    <LinearLayout
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="@dimen/mainPage_block_size"
+                            android:layout_height="@dimen/mainPage_block_size"
+                            android:id="@+id/mainBlock3_3"
+                            android:src="@drawable/main_block3" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="문제풀이"/>
+                    </LinearLayout>
+                    <Space />
                 </TableRow>
             </TableLayout>
 
@@ -154,51 +211,51 @@
                 android:background="@color/white"
                 >
                 <TableRow android:gravity="center_horizontal">
-                    <Space />
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock1_3"
+                            android:id="@+id/mainBlock1_4"
                             android:src="@drawable/main_block1" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test7"/>
+                            android:text="포인터1"/>
                     </LinearLayout>
                     <Space />
-                </TableRow>
-
-                <TableRow android:gravity="center_horizontal">
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock2_3"
+                            android:id="@+id/mainBlock2_4"
                             android:src="@drawable/main_block2" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test8"/>
+                            android:text="포인터2"/>
                     </LinearLayout>
+                </TableRow>
+                <TableRow android:gravity="center_horizontal">
                     <Space />
                     <LinearLayout
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock3_3"
-                            android:src="@drawable/main_block3" />
+                            android:id="@+id/mainBlock3_4"
+                            android:src="@drawable/main_block3"
+                            android:background="@drawable/selectors"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="test9"/>
+                            android:text="문제풀이"/>
                     </LinearLayout>
+                    <Space />
                 </TableRow>
             </TableLayout>
 
@@ -208,7 +265,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/codingstarter_main_divider_color"/>
-
         </LinearLayout>
 
         <Space
