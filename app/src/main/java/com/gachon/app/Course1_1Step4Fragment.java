@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * course 1-1 데이터 타입 / 변수 / 초기화
+ * step 4 : 문제 풀이
  */
 public class Course1_1Step4Fragment extends Fragment {
 

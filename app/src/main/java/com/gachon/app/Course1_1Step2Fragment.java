@@ -12,17 +12,16 @@ import android.widget.LinearLayout;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * course 1-1 데이터 타입 / 변수 / 초기화
+ * step 2 : 각각에 대한 설명
  */
 public class Course1_1Step2Fragment extends Fragment {
     //항상 추가
-    View root;
+    View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
 
-    public Course1_1Step2Fragment() {
-        // Required empty public constructor
-    }
-
+    // Required empty public constructor
+    public Course1_1Step2Fragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,29 +34,30 @@ public class Course1_1Step2Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewFactory = new ViewFactoryCS();
+
 
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_step2);
+        viewFactory = new ViewFactoryCS(layout);
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
-        LinearLayout card1 = viewFactory.createCardView(1.0f, layout, this, Color.GREEN, true);
-        LinearLayout card2 = viewFactory.createCardView(1.0f, layout, this, Color.WHITE, true);
-        LinearLayout card3 = viewFactory.createCardView(1.0f, layout, this, Color.RED, true);
+        LinearLayout card1 = viewFactory.createCard(1.0f, Color.GREEN, true);
+        LinearLayout card2 = viewFactory.createCard(1.0f, Color.WHITE, true);
+        LinearLayout card3 = viewFactory.createCard(1.0f, Color.RED, true);
 
-        viewFactory.addText("데이터 타입\n", 20, card1);
-        viewFactory.addText("- int : 정수형 (예. 1, 100, 478)", 15, card1);
-        viewFactory.addText("- float : 실수형 (예. 1.0, 100.1, 478.23)", 15, card1);
-        viewFactory.addText("- char : 문자형 (예. '1', 'a', 'K', '-')", 15, card1);
+        viewFactory.addSimpleText("데이터 타입\n", 20, card1);
+        viewFactory.addSimpleText("- int : 정수형 (예. 1, 100, 478)", 15, card1);
+        viewFactory.addSimpleText("- float : 실수형 (예. 1.0, 100.1, 478.23)", 15, card1);
+        viewFactory.addSimpleText("- char : 문자형 (예. '1', 'a', 'K', '-')", 15, card1);
 
-        viewFactory.addText("변수\n", 20, card2);
-        viewFactory.addText("- 변수를 사용하기 위해서는 '선언' 을 해야한다.", 15, card2);
-        viewFactory.addText("더 알아보기", 15, card2);
+        viewFactory.addSimpleText("변수\n", 20, card2);
+        viewFactory.addSimpleText("- 변수를 사용하기 위해서는 '선언' 을 해야한다.", 15, card2);
+        viewFactory.addSimpleText("더 알아보기", 15, card2);
 
-        viewFactory.addText("초기화\n", 20, card3);
-        viewFactory.addText("- 변수를 선언할 때 처음 값을 지정해주는 것을 초기화라고 한다.", 15, card3);
-        viewFactory.addText("- 초기화는 '변수 = 값' 으로 한다", 15, card3);
-        viewFactory.addText("- 예)int num = 4; ", 15, card3);
-        viewFactory.addText("주의", 15, card3);
+        viewFactory.addSimpleText("초기화\n", 20, card3);
+        viewFactory.addSimpleText("- 변수를 선언할 때 처음 값을 지정해주는 것을 초기화라고 한다.", 15, card3);
+        viewFactory.addSimpleText("- 초기화는 '변수 = 값' 으로 한다", 15, card3);
+        viewFactory.addSimpleText("- 예)int num = 4; ", 15, card3);
+        viewFactory.addSimpleText("주의", 15, card3);
 
     }
 }
