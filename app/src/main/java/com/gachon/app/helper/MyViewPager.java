@@ -1,12 +1,10 @@
-package com.gachon.app;
+package com.gachon.app.helper;
 
 /**
  * Created by garyNoh on 2017. 4. 27..
+ * 페이지가 슬라이드로 넘어가는 것을 방지하기 위해서 사용자 정의 클래스를 만듦
  */
 
-/*
-페이지가 슬라이드로 넘어가는 것을 방지하기 위해서 사용자 정의 클래스를 만듦
- */
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewPager;

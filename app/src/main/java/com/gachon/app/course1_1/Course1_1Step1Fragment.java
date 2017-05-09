@@ -1,4 +1,4 @@
-package com.gachon.app;
+package com.gachon.app.course1_1;
 
 
 import android.graphics.Color;
@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.gachon.app.R;
+import com.gachon.app.helper.ViewFactoryCS;
 
 
 /**
@@ -41,8 +44,10 @@ public class Course1_1Step1Fragment extends Fragment {
         viewFactory = new ViewFactoryCS(layout);
 
         //이미지 카드 생성
-        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.GREEN, false);
-        LinearLayout imageCard2 = viewFactory.createCard(0.7f, Color.WHITE, false);
+        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
+        LinearLayout imageCard2 = viewFactory.createCard(0.7f, Color.WHITE, false, new int[]{0,0,0,20});
+
+        //TableLayout imageTable = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
 
         //이미지 추가
         viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
@@ -53,9 +58,25 @@ public class Course1_1Step1Fragment extends Fragment {
         viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
         viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
 
+//        LinearLayout imageLinearLayout = new LinearLayout(getContext());
+//
+//
+//        ImageView[] imageShoeboxs = new ImageView[3];
+//        ImageView[] imageShoes = new ImageView[3];
+//        for(int i = 0 ; i < 3; i++){
+//            imageShoeboxs[i] = new ImageView(getContext());
+//            imageShoeboxs[i].setImageDrawable(getResources().getDrawable(R.drawable.shoebox));
+//
+//            imageShoes[i] = new ImageView(getContext());
+//            imageShoes[i].setImageDrawable(getResources().getDrawable(R.drawable.shoe));
+//        }
+//
+//        viewFactory.addRow(imageShoeboxs, imageTable);
+//        viewFactory.addRow(imageShoes, imageTable);
+
 
         //설명 카드 생성
-        LinearLayout descriptionCard= viewFactory.createCard(3.0f, Color.RED, true);
+        LinearLayout descriptionCard= viewFactory.createCard(3.0f, Color.WHITE, true, new int[]{0,0,0,0});
 
         viewFactory.addSimpleText("새 학기가 시작되자 A는 신발장을 배정받습니다." +
                 "신발장은 신발만 넣을 수 있는 용도이고, A는 신발장에 신발을 넣습니다." +
@@ -63,8 +84,8 @@ public class Course1_1Step1Fragment extends Fragment {
                 "신발장에는 신발만 넣을 수 있기 때문에 이것을 데이터 타입이라고 부릅니다." +
                 "그리고 신발을 신발장에 넣는 행동을 초기화라고 합니다.", 15 ,descriptionCard);
 
-        viewFactory.addSimpleText("*변수 = 공간\n*", 20 ,descriptionCard);
-        viewFactory.addSimpleText("*데이터 타입 = 공간의 용도(신발장)\n*", 20 ,descriptionCard);
-        viewFactory.addSimpleText("*초기화 = 공간에 값을 설정해주는 행위(신발장에 신발을 넣는 행위)\n*", 20 ,descriptionCard);
+        viewFactory.addSimpleText("**변수 = 공간\n**", 20 ,descriptionCard);
+        viewFactory.addSimpleText("**데이터 타입 = 공간의 용도(신발장)\n**", 20 ,descriptionCard);
+        viewFactory.addSimpleText("**초기화 = 공간에 값을 설정해주는 행위(신발장에 신발을 넣는 행위)\n**", 20 ,descriptionCard);
     }
 }

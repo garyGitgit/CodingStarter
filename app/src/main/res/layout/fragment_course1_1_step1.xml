@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gachon.app.Course1_1Step1Fragment"
+    tools:context="com.gachon.app.course1_1.Course1_1Step1Fragment"
     android:id="@+id/fragment_course1_1_step1"
     android:orientation="vertical">
 

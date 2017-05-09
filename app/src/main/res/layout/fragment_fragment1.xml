@@ -48,7 +48,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock2_1"
+                            android:id="@+id/mainBlock1_2"
                             android:src="@drawable/main_block2" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock3_1"
+                            android:id="@+id/mainBlock1_3"
                             android:src="@drawable/main_block3"
                             android:background="@drawable/selectors"/>
                         <TextView
@@ -95,7 +95,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock1_2"
+                            android:id="@+id/mainBlock2_1"
                             android:src="@drawable/main_block1" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock3_2"
+                            android:id="@+id/mainBlock2_3"
                             android:src="@drawable/main_block3" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock1_3"
+                            android:id="@+id/mainBlock3_1"
                             android:src="@drawable/main_block1" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -170,7 +170,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock2_3"
+                            android:id="@+id/mainBlock3_2"
                             android:src="@drawable/main_block2" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock1_4"
+                            android:id="@+id/mainBlock4_1"
                             android:src="@drawable/main_block1" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock2_4"
+                            android:id="@+id/mainBlock4_2"
                             android:src="@drawable/main_block2" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -246,7 +246,7 @@
                         <ImageView
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
-                            android:id="@+id/mainBlock3_4"
+                            android:id="@+id/mainBlock4_3"
                             android:src="@drawable/main_block3"
                             android:background="@drawable/selectors"/>
                         <TextView

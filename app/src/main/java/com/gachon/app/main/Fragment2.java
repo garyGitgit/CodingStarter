@@ -1,4 +1,4 @@
-package com.gachon.app;
+package com.gachon.app.main;
 
 
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.gachon.app.R;
 
 /**
  * A simple {@link Fragment} subclass.

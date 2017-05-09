@@ -1,4 +1,4 @@
-package com.gachon.app;
+package com.gachon.app.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.gachon.app.R;
+import com.gachon.app.TabEnum;
+import com.gachon.app.helper.MyViewPager;
+import com.gachon.app.helper.WidgetSet;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -120,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         catch (ClassCastException e) {
           throw new ClassCastException("must implement onBluetoothMessageReceived Listener");
         }
+
+
+        //dp 설정
+        WidgetSet.setScale(getResources().getDisplayMetrics().density);
     }
 
     private TabEnum getDemo() {

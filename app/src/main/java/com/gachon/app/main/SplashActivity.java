@@ -1,4 +1,4 @@
-package com.gachon.app;
+package com.gachon.app.main;
 
 /**
  * Created by garyNoh on 17. 4. 22..
@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.gachon.app.R;
 
 /*
 첫 화면

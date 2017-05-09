@@ -1,4 +1,4 @@
-package com.gachon.app;
+package com.gachon.app.course1_1;
 
 
 import android.graphics.Color;
@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.gachon.app.R;
+import com.gachon.app.helper.ViewFactoryCS;
 
 
 /**
@@ -40,9 +43,9 @@ public class Course1_1Step2Fragment extends Fragment {
         viewFactory = new ViewFactoryCS(layout);
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
-        LinearLayout card1 = viewFactory.createCard(1.0f, Color.GREEN, true);
-        LinearLayout card2 = viewFactory.createCard(1.0f, Color.WHITE, true);
-        LinearLayout card3 = viewFactory.createCard(1.0f, Color.RED, true);
+        LinearLayout card1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0,20});
+        LinearLayout card2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0,20});
+        LinearLayout card3 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0,20});
 
         viewFactory.addSimpleText("데이터 타입\n", 20, card1);
         viewFactory.addSimpleText("- int : 정수형 (예. 1, 100, 478)", 15, card1);

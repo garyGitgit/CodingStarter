@@ -1,4 +1,4 @@
-package com.gachon.app;
+package com.gachon.app.helper;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -33,6 +34,9 @@ public class ViewFactoryCS {
 
     LinearLayout root; //root 는 한 페이지의 가장 최상위 root linear layout 임
     Context rootContext;
+    WidgetSet widgetSet;
+
+    LinearLayout answerLayout;
 
     /**
      * root 와 rootContext 를 설정
@@ -42,6 +46,7 @@ public class ViewFactoryCS {
     public ViewFactoryCS(LinearLayout linearLayout){
         root = linearLayout;
         rootContext = root.getContext();
+        widgetSet = new WidgetSet();
     }
 
 
@@ -54,20 +59,31 @@ public class ViewFactoryCS {
      * @param isVertical : card 내부가 orientation(horizontal/vertical)
      * @return card 내부를 linearlayout 으로 만들고 그 linearlayout 을 반환
      */
-    public LinearLayout createCard(float weight, int color, boolean isVertical){
+    public LinearLayout createCard(float weight, int color, boolean isVertical, int[] margins){
 
         //카드 생성
         CardView cardView = new CardView(rootContext);
 
+        TableLayout.LayoutParams params;
+
         //weight 설정
-        TableLayout.LayoutParams params1 = new TableLayout.LayoutParams(0, 0, weight);
-        cardView.setLayoutParams(params1);
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
-        //카드 배경 색깔 설정
-
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+        cardView.setLayoutParams(params);
 
         //카드 안에 넣을 linear layout 생성 후 width, height 설정
         LinearLayout linearLayout = new LinearLayout(rootContext);
+
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT));
@@ -78,6 +94,9 @@ public class ViewFactoryCS {
 
         //카드 배경 색깔 설정
         linearLayout.setBackgroundColor(color);
+
+        //카드 테두리 설정
+        //linearLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
 
         //카드에 linear layout 설정
         cardView.addView(linearLayout);
@@ -95,28 +114,41 @@ public class ViewFactoryCS {
      * @param color : card 배경색
      * @return
      */
-    public TableLayout createTableCard(float weight, int color){
+    public TableLayout createTableCard(float weight, int color, int[] margins){
         //카드 생성
         CardView cardView = new CardView(rootContext);
 
         //weight 설정
-        TableLayout.LayoutParams params1 = new TableLayout.LayoutParams(0, 0, weight);
-        cardView.setLayoutParams(params1);
+        TableLayout.LayoutParams params;
 
-        //카드 배경 색깔 설정
-        cardView.setCardBackgroundColor(color);
+        if(weight > 0)
+                params = new TableLayout.LayoutParams(0, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+        cardView.setLayoutParams(params);
 
         //table layout 생성
         TableLayout tableLayout = new TableLayout(rootContext);
 
         //weight 가 있을 때는 weight 를 맞추고 0일 때는 wrap content 로 parameter 설정
-        TableLayout.LayoutParams params;
-        if(weight > 0) params = new TableLayout.LayoutParams(0, 0, weight);
-        else  params = new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tableLayout.setLayoutParams(params);
+        tableLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+        ));
 
         //카드 배경색 설정
         tableLayout.setBackgroundColor(color);
+
+        //카드 테두리 설정
+        //tableLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
 
         //카드에 table layout 추가
         cardView.addView(tableLayout);
@@ -146,8 +178,6 @@ public class ViewFactoryCS {
 
         //table layout 에 table row 에 추가
         parent.addView(tableRow);
-
-        Log.e("gary", "addRow");
     }
 
 
@@ -168,13 +198,29 @@ public class ViewFactoryCS {
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         textView.setLayoutParams(params);
 
-        //text parser : *...* 나타나기 효과 : 고정값
-        if(str.startsWith("*") && str.endsWith("*")){
+        //text parser : **...** 나타나기 효과 : 고정값
+        if(str.startsWith("**") && str.endsWith("**")){
             YoYo.with(Techniques.FadeIn)
                     .duration(2000)
                     .playOn(textView);
-            str = str.substring(1, str.length()-1);
+            str = str.substring(2, str.length()-2);
         }
+
+        //text parser : [[...]] 는 질문 빈칸으로 간주
+        if(str.contains("[[") && str.contains("]]")){
+            String answer = str.substring(str.indexOf("[[")+2, str.indexOf("]]"));
+            int s = answer.length();
+            String guessWhat = "";
+            Log.e("garynoh", Integer.toString(s));
+            for(int i = 0; i < s; i++){
+                guessWhat += "_";
+            }
+            //Log.e("garynoh", Integer.toString(str.indexOf("[[")) + Integer.toString(str.indexOf("]]")));
+            str = str.replace(str.substring(str.indexOf("[["), str.indexOf("]]")+2), guessWhat);
+
+        }
+
+
         //text 와 text 크기 설정
         textView.setText(str);
         textView.setTextSize(size);
@@ -195,8 +241,7 @@ public class ViewFactoryCS {
         ImageView imageView = new ImageView(rootContext);
 
         //weight 지정
-        TableLayout.LayoutParams params = new TableLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
         imageView.setLayoutParams(params);
 
         //이미지 가져옴
@@ -236,8 +281,7 @@ public class ViewFactoryCS {
      * @param str : view 을 구성할 때 사용할 string array (text, spinner item 등)
      * @return
      */
-    public View getWidget(String viewType, String[] str){
-        Log.e("gary", "getwidget");
+    public View createWidget(String viewType, String[] str){
 
         //button 생성
         if(viewType.equalsIgnoreCase("Button")){
@@ -257,6 +301,10 @@ public class ViewFactoryCS {
         //spinner 생성, str 은 spinner 를 구성할 string item
         else if(viewType.equalsIgnoreCase("Spinner")){
             Spinner spinner = new Spinner(rootContext);
+
+            //widget set 에 저장
+            widgetSet.setSpinner(spinner);
+
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootContext, android.R.layout.simple_spinner_item, str);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
@@ -265,6 +313,10 @@ public class ViewFactoryCS {
         //edit text 생성
         else if(viewType.equalsIgnoreCase("EditText")){
             EditText editText = new EditText(rootContext);
+
+            //widget set 에 저장
+            widgetSet.setEditText(editText);
+
             editText.setHint(str[0]); // hint 설정
             return editText;
         }
@@ -276,4 +328,56 @@ public class ViewFactoryCS {
         }
         else return null;
     }
+
+    public WidgetSet getWidgetSet(){
+        return widgetSet;
+    }
+
+    /**
+     * 보기가 되는 block들을 생성
+     *
+     * @param blockTexts : block 으로 만들 버튼 텍스트
+     * @param table : block들이 배치될 레이아웃
+     * @param answerLayout : block들을 탭했을 때 탭버튼이 반영될 레이아웃
+     */
+    public void createBlocks(String[] blockTexts, TableLayout table, LinearLayout answerLayout){
+        //정답 구성 레이아웃 설정
+        this.answerLayout = answerLayout;
+
+        int size = blockTexts.length; //block 갯수
+        Button[] blocks = new Button[size];
+
+        //버튼 생성
+        for(int i = 0 ; i < size; i ++){
+            blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
+            blocks[i].setOnClickListener(blockClickListener);
+        }
+        //레이아웃에 버튼을 추가
+        addRow(blocks, table);
+    }
+
+    //answer block 클릭 리스너
+    private Button.OnClickListener blockClickListener =  new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            Button button = (Button)v;
+            Toast.makeText(rootContext, button.getText(), Toast.LENGTH_SHORT).show();
+
+            //block 이 생성되었을 때 answerLayout 은 null 이 아님 (밀접한 관계)
+            if(answerLayout != null){
+                //사용자가 입력한 블록 생성
+                Button userInput = (Button)createWidget("Button", new String[]{button.getText().toString()});
+                userInput.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //블록을 제거
+                        answerLayout.removeView(v);
+                    }
+                });
+                answerLayout.addView(userInput);
+            }
+        }
+    };
+
+
 }
