@@ -219,8 +219,6 @@ public class ViewFactoryCS {
             str = str.replace(str.substring(str.indexOf("[["), str.indexOf("]]")+2), guessWhat);
 
         }
-
-
         //text 와 text 크기 설정
         textView.setText(str);
         textView.setTextSize(size);

@@ -62,6 +62,7 @@ public class Course1_2Step2Fragment extends Fragment {
         viewFactory.addSimpleText("4. 22 [[/]] 2 = 11", 20, userInputCard);
         viewFactory.addSimpleText("5. 6 [[==]] 6 = True", 20, userInputCard);
 
+
         //보기 블록 카드 생성
         TableLayout blockCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0, PageHelper.defaultMargin});
         viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, blockCard, userInputCard);
