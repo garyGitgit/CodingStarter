@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+
+import java.util.LinkedList;
 
 /**
  *
@@ -37,6 +41,15 @@ public class ViewFactoryCS {
     WidgetSet widgetSet;
 
     LinearLayout answerLayout;
+    //문제풀이에서의 answer list
+
+    //blank 리스트
+    LinkedList<String> userInputList;
+    LinkedList<TextView > remainList;
+    int type = 0;
+
+    //question 수
+    int questionCnt = 0;
 
     /**
      * root 와 rootContext 를 설정
@@ -47,7 +60,11 @@ public class ViewFactoryCS {
         root = linearLayout;
         rootContext = root.getContext();
         widgetSet = new WidgetSet();
+
+        userInputList = new LinkedList<>();
+        remainList = new LinkedList<>();
     }
+
 
 
 
@@ -179,6 +196,23 @@ public class ViewFactoryCS {
         //table layout 에 table row 에 추가
         parent.addView(tableRow);
     }
+//
+//    public void addRow(View[] views, TableLayout tableLayout, ScrollView scrollView){
+//        //table row 생성
+//        TableRow tableRow = new TableRow(rootContext);
+//
+//        //table row 의 width & height 설정
+//        TableRow.LayoutParams params = new TableRow.LayoutParams(
+//                TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+//        tableRow.setLayoutParams(params);
+//
+//        //row 에 뷰 리스트 추가
+//        for(View v : views) tableRow.addView(v);
+//
+//        //table layout 에 table row 에 추가
+//        ta
+//        scrollView.addView(tableRow);
+//    }
 
 
     /**
@@ -206,25 +240,56 @@ public class ViewFactoryCS {
             str = str.substring(2, str.length()-2);
         }
 
-        //text parser : [[...]] 는 질문 빈칸으로 간주
-        if(str.contains("[[") && str.contains("]]")){
-            String answer = str.substring(str.indexOf("[[")+2, str.indexOf("]]"));
-            int s = answer.length();
-            String guessWhat = "";
-            Log.e("garynoh", Integer.toString(s));
-            for(int i = 0; i < s; i++){
-                guessWhat += "_";
-            }
-            //Log.e("garynoh", Integer.toString(str.indexOf("[[")) + Integer.toString(str.indexOf("]]")));
-            str = str.replace(str.substring(str.indexOf("[["), str.indexOf("]]")+2), guessWhat);
-
-        }
         //text 와 text 크기 설정
         textView.setText(str);
         textView.setTextSize(size);
 
         //부모 레이아웃에 추가
         parent.addView(textView);
+    }
+
+    public void addQuestion(String str, int size, TableLayout parent){
+        //text parser : [[...]] 는 질문 빈칸으로 간주
+        if(str.contains("[[") && str.contains("]]")){
+
+            TextView front = (TextView) createWidget("TextView", new String[]{str.substring(0, str.indexOf("[["))});
+
+
+            String answer = str.substring(str.indexOf("[[")+2, str.indexOf("]]"));
+            final TextView blank = (TextView) createWidget("TextView", new String[]{"____"});
+            //blank answer 추가, 아이디 태그 붙여서
+            blank.setTag(questionCnt++);
+            remainList.add(blank);
+            TextView next = (TextView) createWidget("TextView", new String[]{str.substring(str.indexOf("]]") +2)});
+
+
+            front.setTextSize(size);
+            blank.setTextSize(size);
+            blank.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
+            blank.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blank.setText("____");
+                    //소팅해서 추가
+                    Log.e("garynoh", (blank.getTag()).toString());
+                    sortByTag(blank);
+                }
+            });
+            next.setTextSize(size);
+
+            addRow(new View[]{front, blank, next}, parent);
+        }
+    }
+
+    void sortByTag(TextView blank){
+        int blankId = (Integer)blank.getTag();
+        int i = 0;
+        for(TextView textView : remainList){
+            int tagId = (Integer)textView.getTag();
+            if(blankId < tagId) break;
+            i++;
+        }
+        remainList.add(i, blank);
     }
 
     /**
@@ -342,16 +407,99 @@ public class ViewFactoryCS {
         //정답 구성 레이아웃 설정
         this.answerLayout = answerLayout;
 
+
         int size = blockTexts.length; //block 갯수
         Button[] blocks = new Button[size];
 
+        ScrollView scrollView = new ScrollView(rootContext);
+        LinearLayout linearLayout = new LinearLayout(rootContext);
         //버튼 생성
         for(int i = 0 ; i < size; i ++){
             blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
             blocks[i].setOnClickListener(blockClickListener);
+            linearLayout.addView(blocks[i]);
         }
+        scrollView.addView(linearLayout);
+        addRow(new View[]{scrollView},table);
         //레이아웃에 버튼을 추가
-        addRow(blocks, table);
+        //addRow(blocks, table);
+    }
+
+    public void createBlocks(String[] blockTexts, HorizontalScrollView scrollView, LinearLayout answerLayout, int type){
+        //정답 구성 레이아웃 설정
+        this.answerLayout = answerLayout;
+        //문제 타입 설정
+        this.type = type;
+
+        int size = blockTexts.length; //block 갯수
+        Button[] blocks = new Button[size];
+        LinearLayout linearLayout = new LinearLayout(rootContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //버튼 생성
+        for(int i = 0 ; i < size; i ++){
+            blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
+            blocks[i].setLayoutParams(params);
+            blocks[i].setOnClickListener(blockClickListener);
+            linearLayout.addView(blocks[i]);
+        }
+        scrollView.addView(linearLayout);
+        //addRow(new View[]{scrollView},table);
+        //레이아웃에 버튼을 추가
+        //addRow(blocks, table);
+    }
+
+    public HorizontalScrollView createScrollViewCard(float weight, int color, int[] margins){
+        //카드 생성
+        CardView cardView = new CardView(rootContext);
+
+        //weight 설정
+        TableLayout.LayoutParams params;
+
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(0, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+        cardView.setLayoutParams(params);
+
+        //scrollview 생성
+        HorizontalScrollView  scrollView = new HorizontalScrollView(rootContext);
+        scrollView.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        //카드 배경색 설정
+        scrollView .setBackgroundColor(color);
+
+        //카드 테두리 설정
+        //tableLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
+
+        //카드에 table layout 추가
+        cardView.addView(scrollView);
+
+        //루트에 카드 추가
+        root.addView(cardView);
+        return scrollView ;
+    }
+
+
+    public void addView(View v, LinearLayout parent){
+
+        //weight 지정
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        v.setLayoutParams(params);
+
+        //부모 레이아웃에 추가
+        parent.addView(v);
     }
 
     //answer block 클릭 리스너
@@ -361,21 +509,38 @@ public class ViewFactoryCS {
             Button button = (Button)v;
             Toast.makeText(rootContext, button.getText(), Toast.LENGTH_SHORT).show();
 
-            //block 이 생성되었을 때 answerLayout 은 null 이 아님 (밀접한 관계)
-            if(answerLayout != null){
-                //사용자가 입력한 블록 생성
-                Button userInput = (Button)createWidget("Button", new String[]{button.getText().toString()});
-                userInput.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //블록을 제거
-                        answerLayout.removeView(v);
+
+            switch (type){
+                case 1:
+                    //block 이 생성되었을 때 answerLayout 은 null 이 아님 (밀접한 관계)
+                    if(answerLayout != null){
+                        //사용자가 입력한 블록 생성
+                        Button userInput = (Button)createWidget("Button", new String[]{button.getText().toString()});
+                        userInput.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //블록을 제거
+                                answerLayout.removeView(v);
+                            }
+                        });
+                        answerLayout.addView(userInput);
                     }
-                });
-                answerLayout.addView(userInput);
+                    break;
+                case 2:
+                    String userInput = button.getText().toString();
+                    //입력한 답은 답안지에 추가가 된다
+                    userInputList.add(userInput);
+                    //가장 앞에 있는 빈칸이 채워진다
+                    if(!remainList.isEmpty())
+                        remainList.removeFirst().setText(userInput);
+                    break;
             }
+
         }
     };
+
+
+
 
 
 }

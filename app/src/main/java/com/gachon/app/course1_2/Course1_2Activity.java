@@ -53,7 +53,6 @@ public class Course1_2Activity extends AppCompatActivity implements OnGoNextPage
         });
     }
 
-
     private class PagerAdapter extends FragmentStatePagerAdapter {
         public PagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);

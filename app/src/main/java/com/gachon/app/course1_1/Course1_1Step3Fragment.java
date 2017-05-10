@@ -5,16 +5,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.TabCodingInterface;
 import com.gachon.app.helper.ViewFactoryCS;
 import com.gachon.app.helper.WidgetSet;
 
@@ -25,7 +29,7 @@ import java.util.ArrayList;
  * course 1-1 데이터 타입 / 변수 / 초기화
  * step 3 : 직접 선언 체험
  */
-public class Course1_1Step3Fragment extends Fragment {
+public class Course1_1Step3Fragment extends Fragment implements TabCodingInterface {
     //항상 추가
     View root;
     ViewFactoryCS viewFactory;
@@ -75,7 +79,7 @@ public class Course1_1Step3Fragment extends Fragment {
         viewFactory.addRow(rowViews, tableCard1);
 
         //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0,20});
+        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,20});
 
         //사용자 입력 블록 카드
         TableLayout tableCard2 = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
@@ -115,6 +119,9 @@ public class Course1_1Step3Fragment extends Fragment {
         String str = "";
         boolean toggle = false;
 
+        //결과 string 을 가져온다
+        String[] userInputs = new String[editTextList.size()];
+        int i = 0;
         //editText 에서 사용자가 입력한 값들 가져옴
         for (EditText editText : editTextList) {
             str += editText.getText().toString();
@@ -123,7 +130,8 @@ public class Course1_1Step3Fragment extends Fragment {
             //TODO 텍스트말고 다른 방법으로 보여줄 방법?
             if(toggle) {
                 //TODO 변수의 이름을 필터해야함 (변수 룰을 지켜야함)
-                viewFactory.addSimpleText(str, 20, resultCard);
+                //viewFactory.addSimpleText(str, 20, resultCard);
+                userInputs[i++] = str;
                 toggle = false;
                 str = ""; //초기화
             }
@@ -132,12 +140,19 @@ public class Course1_1Step3Fragment extends Fragment {
                 toggle = true;
             }
         }
-//        Spinner[] spinnerList = (Spinner[])widgetSet.getSpinner().toArray();
-//        int size = editTestList.length;
-//        for(int i = 0 ; i < size; i++){
-//            String str = spinnerList[i].getSelectedItem() + " ";
-//            str += editTestList[i].getText().toString();
-//            viewFactory.addSimpleText(str, 15, resultCard);
-//        }
+
+        i = 0;
+        ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
+        for(Spinner spinner : spinnersList){
+            String result = (String)spinner.getSelectedItem() + " "+ userInputs[i++];
+            //load image
+            Log.e("garynoh", "create image");
+            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
+            textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
+            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            //textView.setBackgroundColor(Color.BLUE);
+            //viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), resultCard);
+            viewFactory.addView(textView, resultCard);
+        }
     }
 }

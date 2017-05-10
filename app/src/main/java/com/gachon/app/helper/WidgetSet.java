@@ -2,6 +2,7 @@ package com.gachon.app.helper;
 
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class WidgetSet {
 
     ArrayList<Spinner> spinnerList;
     ArrayList<EditText> editTextList;
+    ArrayList<TextView> textViewList;
     static float scale;
 
     public WidgetSet(){
@@ -52,6 +54,14 @@ public class WidgetSet {
 
     public void setEditText(EditText editText) {
         this.editTextList.add(editText);
+    }
+
+    public void setTextView(TextView textView) {
+        this.textViewList.add(textView);
+    }
+
+    public ArrayList<TextView> getTextView(){
+        return textViewList;
     }
 
 

@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CalendarLibrary/CalendarLibrary.iml" filepath="$PROJECT_DIR$/CalendarLibrary/CalendarLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CalendarLibrary/CalendarLibrary.iml" filepath="$PROJECT_DIR$/CalendarLibrary/CalendarLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RippleLibrary/RippleLibrary.iml" filepath="$PROJECT_DIR$/RippleLibrary/RippleLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/RippleLibrary/RippleLibrary.iml" filepath="$PROJECT_DIR$/RippleLibrary/RippleLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/codingstarter_android.iml" filepath="$PROJECT_DIR$/codingstarter_android.iml" />

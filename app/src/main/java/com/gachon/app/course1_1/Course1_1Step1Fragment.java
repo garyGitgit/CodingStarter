@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
 
@@ -44,19 +45,19 @@ public class Course1_1Step1Fragment extends Fragment {
         viewFactory = new ViewFactoryCS(layout);
 
         //이미지 카드 생성
-        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
-        LinearLayout imageCard2 = viewFactory.createCard(0.7f, Color.WHITE, false, new int[]{0,0,0,20});
+        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        //LinearLayout imageCard2 = viewFactory.createCard(0.7f, Color.WHITE, false, new int[]{0,0,0,20});
 
-        //TableLayout imageTable = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
+//        TableLayout imageTable = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
 
         //이미지 추가
         viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
-        viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
-        viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
+        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard);
+//        viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
         //이미지 추가 2
-        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
-        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
-        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
+//        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
+//        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
+//        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard2);
 
 //        LinearLayout imageLinearLayout = new LinearLayout(getContext());
 //

@@ -38,7 +38,6 @@ public class Course1_1Step2Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_step2);
         viewFactory = new ViewFactoryCS(layout);
 

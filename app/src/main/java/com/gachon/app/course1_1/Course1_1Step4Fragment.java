@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
@@ -53,10 +54,12 @@ public class Course1_1Step4Fragment extends Fragment {
         LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,20});
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
-        TableLayout blockCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
+
+        //TableLayout blockCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
+        HorizontalScrollView scrollView = viewFactory.createScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
         //block 생성
         viewFactory.createBlocks(
-                new String[]{"int", "45", "float", "num", "char", ";"}, blockCard, answerCard
+                new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
 
         //새로고침과 제출버튼 카드
