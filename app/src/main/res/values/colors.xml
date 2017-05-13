@@ -18,4 +18,7 @@
     <!--버튼 selector 색깔 -->
     <color name="light_gray">#ECECEC</color>
 
+    <color name="codingstarter_background">#1776D0</color>
+
+
 </resources>

@@ -7,7 +7,16 @@
         <ImageView
             android:layout_width="@dimen/check_icon_size"
             android:layout_height="@dimen/check_icon_size"
-            android:src="@drawable/course_progress_check"
+            android:src="@drawable/course_progress_check_gray"
+            android:id="@+id/course_progress0"
+            android:onClick="onProgressImageClickListener"/>
+        <Space
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size" />
+        <ImageView
+            android:layout_width="@dimen/check_icon_size"
+            android:layout_height="@dimen/check_icon_size"
+            android:src="@drawable/course_progress_check_gray"
             android:id="@+id/course_progress1"
             android:onClick="onProgressImageClickListener"/>
         <Space
@@ -16,7 +25,7 @@
         <ImageView
             android:layout_width="@dimen/check_icon_size"
             android:layout_height="@dimen/check_icon_size"
-            android:src="@drawable/course_progress_check"
+            android:src="@drawable/course_progress_check_gray"
             android:id="@+id/course_progress2"
             android:onClick="onProgressImageClickListener"/>
         <Space
@@ -25,7 +34,7 @@
         <ImageView
             android:layout_width="@dimen/check_icon_size"
             android:layout_height="@dimen/check_icon_size"
-            android:src="@drawable/course_progress_check"
+            android:src="@drawable/course_progress_check_gray"
             android:id="@+id/course_progress3"
             android:onClick="onProgressImageClickListener"/>
         <Space
@@ -34,7 +43,7 @@
         <ImageView
             android:layout_width="@dimen/check_icon_size"
             android:layout_height="@dimen/check_icon_size"
-            android:src="@drawable/course_progress_check"
+            android:src="@drawable/course_progress_check_gray"
             android:id="@+id/course_progress4"
             android:onClick="onProgressImageClickListener"/>
 

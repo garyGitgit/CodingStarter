@@ -14,12 +14,12 @@ import com.gachon.app.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Course1_2Step3Fragment extends Fragment {
+public class Course1_2Step3 extends Fragment {
 
 
     View root;
 
-    public Course1_2Step3Fragment() {
+    public Course1_2Step3() {
         // Required empty public constructor
     }
 

@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        tools:context="com.gachon.app.course1_2.Course1_1Step1Fragment"
-        android:id="@+id/fragment_course1_2_step1"
+        tools:context="com.gachon.app.course1_2.Course1_1Step0Fragment"
+        android:id="@+id/fragment_course1_2_step0"
         android:orientation="vertical">
     </LinearLayout>
 </RelativeLayout>

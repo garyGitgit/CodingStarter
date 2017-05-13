@@ -1,6 +1,5 @@
 package com.gachon.app.course1_1;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +30,6 @@ import com.gachon.app.main.OnGoNextPageInterface;
 
 public class Course1_1Activity extends AppCompatActivity implements OnGoNextPageInterface {
     MyViewPager viewPager;
-    final int courseStepNum = 4;
 
     ImageView[] progressImageViewList;
 
@@ -47,13 +45,14 @@ public class Course1_1Activity extends AppCompatActivity implements OnGoNextPage
 
         //progress 상태 표시
         progressImageViewList = new ImageView[5];
-        progressImageViewList[0] = (ImageView)findViewById(R.id.course_progress1);
-        progressImageViewList[1] = (ImageView)findViewById(R.id.course_progress2);
-        progressImageViewList[2] = (ImageView)findViewById(R.id.course_progress3);
-        progressImageViewList[3] = (ImageView)findViewById(R.id.course_progress4);
+        progressImageViewList[0] = (ImageView)findViewById(R.id.course_progress0);
+        progressImageViewList[1] = (ImageView)findViewById(R.id.course_progress1);
+        progressImageViewList[2] = (ImageView)findViewById(R.id.course_progress2);
+        progressImageViewList[3] = (ImageView)findViewById(R.id.course_progress3);
+        progressImageViewList[4] = (ImageView)findViewById(R.id.course_progress4);
 
         //초기 시작은 첫번째 progress 이미지 초기화
-        progressImageViewList[0].setBackgroundColor(Color.GREEN);
+        progressImageViewList[0].setImageDrawable(getResources().getDrawable(R.drawable.course_progress_check_blue));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,13 +89,15 @@ public class Course1_1Activity extends AppCompatActivity implements OnGoNextPage
             switch (position) {
                 //이 부분이 dynamic 하게 fragment 를 생성을 해야함
                 case 0:
-                    return new Course1_1Step1Fragment();
+                    return new Course1_1Step0();
                 case 1:
-                    return new Course1_1Step2Fragment();
+                    return new Course1_1Step1();
                 case 2:
-                    return new Course1_1Step3Fragment();
+                    return new Course1_1Step2();
                 case 3:
-                    return new Course1_1Step4Fragment();
+                    return new Course1_1Step3();
+                case 4:
+                    return new Course1_1Step4();
                 default:
                     return null;
             }
@@ -104,7 +105,7 @@ public class Course1_1Activity extends AppCompatActivity implements OnGoNextPage
 
         @Override
         public int getCount() {
-            return courseStepNum;
+            return PageHelper.courseStepNum;
         }
     }
 
@@ -120,34 +121,38 @@ public class Course1_1Activity extends AppCompatActivity implements OnGoNextPage
             viewPager.setCurrentItem(++thisPage);
 
             //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
-            PageHelper.setProgressColor(progressImageViewList, thisPage);
+            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
         }
         else
             Toast.makeText(Course1_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
-        PageHelper.setProgressColor(progressImageViewList, thisPage);
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
     }
 
     public void onProgressImageClickListener (View v) {
         int id = v.getId();
         int index = 0;
         switch (id) {
-            case R.id.course_progress1:
+            case R.id.course_progress0:
                 viewPager.setCurrentItem(0);
                 index = 0;
                 break;
-            case R.id.course_progress2:
+            case R.id.course_progress1:
                 viewPager.setCurrentItem(1);
                 index = 1;
                 break;
-            case R.id.course_progress3:
+            case R.id.course_progress2:
                 viewPager.setCurrentItem(2);
                 index = 2;
                 break;
-            case R.id.course_progress4:
+            case R.id.course_progress3:
                 viewPager.setCurrentItem(3);
                 index = 3;
                 break;
+            case R.id.course_progress4:
+                viewPager.setCurrentItem(4);
+                index = 4;
+                break;
         }
-        PageHelper.setProgressColor(progressImageViewList, index);
+        PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
     }
 }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.TabCodingInterface;
 import com.gachon.app.helper.ViewFactoryCS;
 import com.gachon.app.helper.WidgetSet;
@@ -29,13 +30,13 @@ import java.util.ArrayList;
  * course 1-1 데이터 타입 / 변수 / 초기화
  * step 3 : 직접 선언 체험
  */
-public class Course1_1Step3Fragment extends Fragment implements TabCodingInterface {
+public class Course1_1Step3 extends Fragment implements TabCodingInterface {
     //항상 추가
     View root;
     ViewFactoryCS viewFactory;
 
     // Required empty public constructor
-    public Course1_1Step3Fragment() {}
+    public Course1_1Step3() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,8 +52,11 @@ public class Course1_1Step3Fragment extends Fragment implements TabCodingInterfa
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_step3);
         viewFactory = new ViewFactoryCS(layout);
 
+        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
+        viewFactory.addSimpleText("변수를 선언하고 초기화 해보자", 20, headerCard);
+
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
-        TableLayout tableCard1 = viewFactory.createTableCard(2.0f, Color.WHITE, new int[]{0,0,0,20});
+        TableLayout tableCard1 = viewFactory.createTableCard(2.0f, Color.WHITE, new int[]{0,0,0,0});
 
         View[] rowViews = {
                 viewFactory.createWidget("Spinner", new String[]{"int", "float", "char"}),
@@ -78,20 +82,25 @@ public class Course1_1Step3Fragment extends Fragment implements TabCodingInterfa
                 viewFactory.createWidget("TextView", new String[]{";"})};
         viewFactory.addRow(rowViews, tableCard1);
 
-        //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,20});
-
         //사용자 입력 블록 카드
-        TableLayout tableCard2 = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
+        TableLayout tableCard2 = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
 
         //테이블카드를 꽉 채우도록 함
         tableCard2.setStretchAllColumns(true);
 
         //새로고침, 제출하기 버튼 추가
-        Button buttonRefresh = (Button) viewFactory.createWidget("Button", new String[]{"새로고침"});
-        Button buttonSubmit = (Button) viewFactory.createWidget("Button", new String[]{"제출하기"});
-        rowViews = new View[]{ buttonRefresh, buttonSubmit };
+        Button buttonRefresh = (Button) viewFactory.createWidget("Button", new String[]{""});
+        buttonRefresh.setBackground(getResources().getDrawable(android.R.drawable.ic_menu_delete));
+        Button buttonAdd = (Button) viewFactory.createWidget("Button", new String[]{""});
+        buttonAdd.setBackground(getResources().getDrawable(android.R.drawable.ic_menu_add));
+        Button buttonSubmit = (Button) viewFactory.createWidget("Button", new String[]{""});
+        buttonSubmit.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
+        rowViews = new View[]{ buttonRefresh, buttonAdd, buttonSubmit };
         viewFactory.addRow(rowViews, tableCard2);
+
+        //결과 블록 카드
+        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+
 
         //제출하기를 누르면 editText 에 있는 값들이 resultCard 에 보여짐
         buttonSubmit.setOnClickListener(new View.OnClickListener() {

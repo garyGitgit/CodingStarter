@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.gachon.app.R;
 
 import java.util.LinkedList;
 
@@ -81,7 +83,8 @@ public class ViewFactoryCS {
         //카드 생성
         CardView cardView = new CardView(rootContext);
 
-        TableLayout.LayoutParams params;
+        //TableLayout.LayoutParams params;
+        LinearLayout.LayoutParams params;
 
         //weight 설정
         if(weight > 0)
@@ -90,12 +93,21 @@ public class ViewFactoryCS {
             params = new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
+
         //margin 설정
         params.setMargins(
                 WidgetSet.getPxFromDp(margins[0]),
                 WidgetSet.getPxFromDp(margins[1]),
                 WidgetSet.getPxFromDp(margins[2]),
                 WidgetSet.getPxFromDp(margins[3]));
+
+        //padding 설정
+        cardView.setPadding(
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10)
+                );
         cardView.setLayoutParams(params);
 
         //카드 안에 넣을 linear layout 생성 후 width, height 설정
@@ -265,7 +277,7 @@ public class ViewFactoryCS {
 
             front.setTextSize(size);
             blank.setTextSize(size);
-            blank.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
+            blank.setGravity(Gravity.CENTER);
             blank.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -280,6 +292,7 @@ public class ViewFactoryCS {
             addRow(new View[]{front, blank, next}, parent);
         }
     }
+
 
     void sortByTag(TextView blank){
         int blankId = (Integer)blank.getTag();
@@ -432,15 +445,26 @@ public class ViewFactoryCS {
         this.type = type;
 
         int size = blockTexts.length; //block 갯수
-        Button[] blocks = new Button[size];
+        //Button[] blocks = new Button[size];
+        TextView[] blocks = new TextView[size];
         LinearLayout linearLayout = new LinearLayout(rootContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(WidgetSet.getPxFromDp(5), WidgetSet.getPxFromDp(5), WidgetSet.getPxFromDp(5), WidgetSet.getPxFromDp(5));
         //버튼 생성
         for(int i = 0 ; i < size; i ++){
-            blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
+            //blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
+            blocks[i] = (TextView) createWidget("TextView", new String[]{blockTexts[i]});
+            //padding 설정
+            blocks[i].setPadding(50, 10, 50, 10);
+            //크기 설정
+            blocks[i].setTextSize(20);
+            //border 배경 설정
+
+            blocks[i].setBackground(rootContext.getResources().getDrawable(R.drawable.cardborder));
             blocks[i].setLayoutParams(params);
             blocks[i].setOnClickListener(blockClickListener);
+
             linearLayout.addView(blocks[i]);
         }
         scrollView.addView(linearLayout);
@@ -506,8 +530,9 @@ public class ViewFactoryCS {
     private Button.OnClickListener blockClickListener =  new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Button button = (Button)v;
-            Toast.makeText(rootContext, button.getText(), Toast.LENGTH_SHORT).show();
+            //Button button = (Button)v;
+            TextView block = (TextView) v;
+            Toast.makeText(rootContext, block.getText(), Toast.LENGTH_SHORT).show();
 
 
             switch (type){
@@ -515,7 +540,15 @@ public class ViewFactoryCS {
                     //block 이 생성되었을 때 answerLayout 은 null 이 아님 (밀접한 관계)
                     if(answerLayout != null){
                         //사용자가 입력한 블록 생성
-                        Button userInput = (Button)createWidget("Button", new String[]{button.getText().toString()});
+                        //Button userInput = (Button)createWidget("Button", new String[]{block.getText().toString()});
+                        TextView userInput = (TextView)createWidget("TextView", new String[]{block.getText().toString()});
+                        userInput.setBackground(rootContext.getResources().getDrawable(R.drawable.cardborder));
+                        LinearLayout.LayoutParams params =
+                                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.setMargins(WidgetSet.getPxFromDp(5),WidgetSet.getPxFromDp(5),WidgetSet.getPxFromDp(5),WidgetSet.getPxFromDp(5));
+                        userInput.setLayoutParams(params);
+                        userInput.setPadding(50, 10, 50, 10);
+                        userInput.setTextSize(20);
                         userInput.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -527,7 +560,7 @@ public class ViewFactoryCS {
                     }
                     break;
                 case 2:
-                    String userInput = button.getText().toString();
+                    String userInput = block.getText().toString();
                     //입력한 답은 답안지에 추가가 된다
                     userInputList.add(userInput);
                     //가장 앞에 있는 빈칸이 채워진다

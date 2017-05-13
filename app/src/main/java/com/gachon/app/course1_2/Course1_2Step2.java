@@ -23,12 +23,12 @@ import com.gachon.app.helper.WidgetSet;
  * step 2 : 연산자 종류 문제 풀이
  */
 
-public class Course1_2Step2Fragment extends Fragment implements TabCodingInterface{
+public class Course1_2Step2 extends Fragment implements TabCodingInterface{
 
     View root;
     ViewFactoryCS viewFactory;
 
-    public Course1_2Step2Fragment() {
+    public Course1_2Step2() {
         // Required empty public constructor
     }
 
@@ -65,11 +65,11 @@ public class Course1_2Step2Fragment extends Fragment implements TabCodingInterfa
 //        viewFactory.addSimpleText("3. 72 [[-]] 44 = 28", 20, userInputCard);
 //        viewFactory.addSimpleText("4. 22 [[/]] 2 = 11", 20, userInputCard);
 //        viewFactory.addSimpleText("5. 6 [[==]] 6 = True", 20, userInputCard);
-        viewFactory.addQuestion("1. 4 [[+]] 5 = 9", 10, userInputCard);
-        viewFactory.addQuestion("2. 6 [[*]] 2 = 12", 10, userInputCard);
-        viewFactory.addQuestion("3. 72 [[-]] 44 = 28", 10, userInputCard);
-        viewFactory.addQuestion("4. 22 [[/]] 2 = 11", 10, userInputCard);
-        viewFactory.addQuestion("5. 6 [[==]] 6 = True", 10, userInputCard);
+        viewFactory.addQuestion("1. 4 [[+]] 5 = 9", 20, userInputCard);
+        viewFactory.addQuestion("2. 6 [[*]] 2 = 12", 20, userInputCard);
+        viewFactory.addQuestion("3. 72 [[-]] 44 = 28", 20, userInputCard);
+        viewFactory.addQuestion("4. 22 [[/]] 2 = 11", 20, userInputCard);
+        viewFactory.addQuestion("5. 6 [[==]] 6 = True", 20, userInputCard);
 
 
         //보기 블록 카드 생성
