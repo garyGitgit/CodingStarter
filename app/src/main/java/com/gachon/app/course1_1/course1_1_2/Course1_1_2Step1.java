@@ -1,4 +1,4 @@
-package com.gachon.app.course1_1;
+package com.gachon.app.course1_1.course1_1_2;
 
 
 import android.graphics.Color;
@@ -19,20 +19,20 @@ import com.gachon.app.helper.ViewFactoryCS;
  * course 1-1 데이터 타입 / 변수 / 초기화
  * step 1 : 신발장을 통한 비유
  */
-public class Course1_1Step1 extends Fragment {
+public class Course1_1_2Step1 extends Fragment {
     //항상 추가
     View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
 
     // Required empty public constructor
-    public Course1_1Step1() {}
+    public Course1_1_2Step1() {}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //항상 추가
-        root = inflater.inflate(R.layout.fragment_course1_1_step1, container, false);
+        root = inflater.inflate(R.layout.fragment_course1_1_2step1, container, false);
         return root;
     }
 
@@ -41,7 +41,7 @@ public class Course1_1Step1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //최상단 루트 레이아웃
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_step1);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_2step1);
         viewFactory = new ViewFactoryCS(layout);
 
         LinearLayout textCard1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});

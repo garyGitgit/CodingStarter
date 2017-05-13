@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        tools:context="com.gachon.app.course1_2.Course1_1Step4Fragment"
-        android:id="@+id/fragment_course1_2_step4"
+        tools:context="com.gachon.app.course1_1.course1_1_1.Course1_1_1Step1"
+        android:id="@+id/fragment_course1_1_1step1"
         android:orientation="vertical">
     </LinearLayout>
 </RelativeLayout>

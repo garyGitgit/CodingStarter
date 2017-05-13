@@ -26,7 +26,7 @@ public class Course1_2Step4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_course1_2_step4, container, false);
+        root = inflater.inflate(R.layout.fragment_course1_1_2step4, container, false);
         return root;
     }
 }

@@ -1,4 +1,4 @@
-package com.gachon.app.course1_1;
+package com.gachon.app.course1_1.course1_1_1;
 
 
 import android.graphics.Color;
@@ -30,18 +30,18 @@ import java.util.ArrayList;
  * course 1-1 데이터 타입 / 변수 / 초기화
  * step 3 : 직접 선언 체험
  */
-public class Course1_1Step3 extends Fragment implements TabCodingInterface {
+public class Course1_1_1Step3 extends Fragment implements TabCodingInterface {
     //항상 추가
     View root;
     ViewFactoryCS viewFactory;
 
     // Required empty public constructor
-    public Course1_1Step3() {}
+    public Course1_1_1Step3() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_course1_1_step3, container, false);
+        root = inflater.inflate(R.layout.fragment_course1_1_1step3, container, false);
         return root;
     }
 
@@ -49,7 +49,7 @@ public class Course1_1Step3 extends Fragment implements TabCodingInterface {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_step3);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_1step3);
         viewFactory = new ViewFactoryCS(layout);
 
         LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});

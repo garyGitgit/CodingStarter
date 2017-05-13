@@ -101,13 +101,7 @@ public class ViewFactoryCS {
                 WidgetSet.getPxFromDp(margins[2]),
                 WidgetSet.getPxFromDp(margins[3]));
 
-        //padding 설정
-        cardView.setPadding(
-                WidgetSet.getPxFromDp(10),
-                WidgetSet.getPxFromDp(10),
-                WidgetSet.getPxFromDp(10),
-                WidgetSet.getPxFromDp(10)
-                );
+
         cardView.setLayoutParams(params);
 
         //카드 안에 넣을 linear layout 생성 후 width, height 설정
@@ -116,6 +110,13 @@ public class ViewFactoryCS {
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT));
+        //padding 설정
+        linearLayout.setPadding(
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10)
+        );
 
         //linear layout orientation 설정
         if(isVertical) linearLayout.setOrientation(LinearLayout.VERTICAL);

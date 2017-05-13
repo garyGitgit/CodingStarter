@@ -35,6 +35,7 @@
             android:name=".course1_2.Course1_2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".course1_1.course1_1_1.Course1_1_1Activity" />
         <activity android:name=".course1_1.Course1_1Activity"></activity>
     </application>
 

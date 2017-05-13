@@ -31,5 +31,8 @@
     <!--go next button height-->
     <dimen name="button_go_next_height">50dp</dimen>
 
+    <!--page inner padding-->
+    <dimen name="activity_padding">20dp</dimen>
+
 
 </resources>
