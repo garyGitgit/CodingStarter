@@ -9,9 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
@@ -49,19 +50,23 @@ public class Course1_1_1Step4 extends Fragment {
 
         //문제를 제시하는 카드 : 카드에 들어갈 위젯 또는 텍스트를 배치
         LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,PageHelper.defaultMargin});
-        viewFactory.addSimpleText("정수형 변수를 선언하고, 45로 초기화시키시오.", 20 ,problemCard);
+        viewFactory.addSimpleText("다음 중 변수가 될 수 없는 이름은?", 20 ,problemCard);
 
         //입력한 답이 보여지는 카드 : 사용자 입력 block 이 배치되는 카드
-        LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
+
+        RadioGroup radioGroup = (RadioGroup)viewFactory.createWidget("RadioButton", new String[]{"num", "1num", "num1", "_num1"});
+        answerCard.addView(radioGroup);
+
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
 
         //TableLayout blockCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
-        HorizontalScrollView scrollView = viewFactory.createScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
-        //block 생성
-        viewFactory.createBlocks(
-                new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
-        );
+//        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
+//        //block 생성
+//        viewFactory.createBlocks(
+//                new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
+//        );
 
         //새로고침과 제출버튼 카드
         TableLayout tableCard2 = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0, PageHelper.defaultMargin});
@@ -73,6 +78,32 @@ public class Course1_1_1Step4 extends Fragment {
         buttonSubmit.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
         View[] rowViews = new View[]{ buttonRefresh, buttonSubmit };
 
+        //새로고침 버튼을 누르면 블록들이 모두 없어진다
+        //TODO : 사실 이게 별로 안 컸으면 좋겠음
+        buttonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //answerCard.removeAllViews();
+            }
+        });
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //제출하기 버튼을 누르면 답과 비교해서 정답 체크를 한다
+//        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+//            //이게 콜되지않는데...
+//            @Override
+//            public void onClick(View v) {
+//                if(isCorrect()){
+//
+//                }
+//            }
+//        });
+
         tableCard2.setStretchAllColumns(true);
         viewFactory.addRow(rowViews, tableCard2);
 
@@ -83,5 +114,9 @@ public class Course1_1_1Step4 extends Fragment {
 
             }
         });
+    }
+
+    public boolean isCorrect(){
+        return true;
     }
 }

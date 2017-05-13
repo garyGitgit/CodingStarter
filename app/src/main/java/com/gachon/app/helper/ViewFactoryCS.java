@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -318,7 +320,7 @@ public class ViewFactoryCS {
         ImageView imageView = new ImageView(rootContext);
 
         //weight 지정
-        TableLayout.LayoutParams params = new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(params);
 
         //이미지 가져옴
@@ -340,7 +342,7 @@ public class ViewFactoryCS {
         ImageView imageView = new ImageView(rootContext);
 
         //weight 지정
-        TableLayout.LayoutParams params = new TableLayout.LayoutParams(width, height, 1.0f);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(WidgetSet.getPxFromDp(width), WidgetSet.getPxFromDp(height), 1.0f);
         imageView.setLayoutParams(params);
 
         //이미지 가져옴
@@ -403,6 +405,21 @@ public class ViewFactoryCS {
             textView.setText(str[0]); // text 설정
             return textView;
         }
+        //radio button 생성
+        else if(viewType.equalsIgnoreCase("RadioButton")){
+            RadioGroup radioGroup = new RadioGroup(rootContext);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            radioGroup.setOrientation(RadioGroup.VERTICAL);
+            int size = str.length;
+            for(int i = 0 ; i < size; i++){
+                RadioButton radioButton = new RadioButton(rootContext);
+                radioButton.setText(str[i]);
+                radioGroup.addView(radioButton);
+            }
+            return radioGroup;
+        }
         else return null;
     }
 
@@ -410,34 +427,34 @@ public class ViewFactoryCS {
         return widgetSet;
     }
 
-    /**
-     * 보기가 되는 block들을 생성
-     *
-     * @param blockTexts : block 으로 만들 버튼 텍스트
-     * @param table : block들이 배치될 레이아웃
-     * @param answerLayout : block들을 탭했을 때 탭버튼이 반영될 레이아웃
-     */
-    public void createBlocks(String[] blockTexts, TableLayout table, LinearLayout answerLayout){
-        //정답 구성 레이아웃 설정
-        this.answerLayout = answerLayout;
-
-
-        int size = blockTexts.length; //block 갯수
-        Button[] blocks = new Button[size];
-
-        ScrollView scrollView = new ScrollView(rootContext);
-        LinearLayout linearLayout = new LinearLayout(rootContext);
-        //버튼 생성
-        for(int i = 0 ; i < size; i ++){
-            blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
-            blocks[i].setOnClickListener(blockClickListener);
-            linearLayout.addView(blocks[i]);
-        }
-        scrollView.addView(linearLayout);
-        addRow(new View[]{scrollView},table);
-        //레이아웃에 버튼을 추가
-        //addRow(blocks, table);
-    }
+//    /**
+//     * 보기가 되는 block들을 생성
+//     *
+//     * @param blockTexts : block 으로 만들 버튼 텍스트
+//     * @param table : block들이 배치될 레이아웃
+//     * @param answerLayout : block들을 탭했을 때 탭버튼이 반영될 레이아웃
+//     */
+//    public void createBlocks(String[] blockTexts, TableLayout table, LinearLayout answerLayout){
+//        //정답 구성 레이아웃 설정
+//        this.answerLayout = answerLayout;
+//
+//
+//        int size = blockTexts.length; //block 갯수
+//        Button[] blocks = new Button[size];
+//
+//        ScrollView scrollView = new ScrollView(rootContext);
+//        LinearLayout linearLayout = new LinearLayout(rootContext);
+//        //버튼 생성
+//        for(int i = 0 ; i < size; i ++){
+//            blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
+//            blocks[i].setOnClickListener(blockClickListener);
+//            linearLayout.addView(blocks[i]);
+//        }
+//        scrollView.addView(linearLayout);
+//        addRow(new View[]{scrollView},table);
+//        //레이아웃에 버튼을 추가
+//        //addRow(blocks, table);
+//    }
 
     public void createBlocks(String[] blockTexts, HorizontalScrollView scrollView, LinearLayout answerLayout, int type){
         //정답 구성 레이아웃 설정
@@ -474,7 +491,9 @@ public class ViewFactoryCS {
         //addRow(blocks, table);
     }
 
-    public HorizontalScrollView createScrollViewCard(float weight, int color, int[] margins){
+
+
+    public HorizontalScrollView createHorizontalScrollViewCard(float weight, int color, int[] margins){
         //카드 생성
         CardView cardView = new CardView(rootContext);
 
@@ -514,6 +533,48 @@ public class ViewFactoryCS {
         //루트에 카드 추가
         root.addView(cardView);
         return scrollView ;
+    }
+
+
+    public ScrollView createVerticalScrollViewCard(float weight, int color, int[] margins){
+
+        CardView cardView = new CardView(rootContext);
+        TableLayout.LayoutParams params;
+
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(0, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+        cardView.setLayoutParams(params);
+
+        //scrollview 생성
+        ScrollView  scrollView = new ScrollView(rootContext);
+        scrollView.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        //카드 배경색 설정
+        scrollView .setBackgroundColor(color);
+
+        //카드 테두리 설정
+        //tableLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
+
+        //카드에 table layout 추가
+        cardView.addView(scrollView);
+
+        //루트에 카드 추가
+        root.addView(cardView);
+        return scrollView;
+
     }
 
 

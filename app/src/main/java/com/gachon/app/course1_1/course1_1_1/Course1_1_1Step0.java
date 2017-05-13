@@ -45,11 +45,10 @@ public class Course1_1_1Step0 extends Fragment {
 
         //변수의 필요성에 대한 카드 생성
         LinearLayout textCard1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
-        viewFactory.addSimpleText("문제제시", 20, textCard1);
-        viewFactory.addSimpleText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.\n", 18, textCard1);
+        viewFactory.addSimpleText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", 18, textCard1);
 
         LinearLayout textCard2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
-        viewFactory.addSimpleText("이런 의문이 들었다. 1 + 2 를 한 결과를 어디에다가 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", 18, textCard2);
+        viewFactory.addSimpleText("이런 의문이 들었다. 1 + 2 를 한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", 18, textCard2);
 
         LinearLayout textCard3 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         viewFactory.addSimpleText("그래서 이런 공간을 마련한 것이 '변수'다!", 18, textCard3);

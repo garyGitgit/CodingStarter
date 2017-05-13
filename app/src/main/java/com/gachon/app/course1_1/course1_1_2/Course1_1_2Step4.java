@@ -57,7 +57,7 @@ public class Course1_1_2Step4 extends Fragment {
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
 
         //TableLayout blockCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
-        HorizontalScrollView scrollView = viewFactory.createScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
+        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         //block 생성
         viewFactory.createBlocks(
                 new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
