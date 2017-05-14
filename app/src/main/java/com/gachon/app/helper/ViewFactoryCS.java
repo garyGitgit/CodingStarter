@@ -241,6 +241,7 @@ public class ViewFactoryCS {
 
         //textview 생성
         TextView textView = new TextView(rootContext);
+        AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
 
         //textView width & height 설정
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -255,12 +256,15 @@ public class ViewFactoryCS {
             str = str.substring(2, str.length()-2);
         }
 
+        //TODO : 잘리지 않게 텍스트 크기 조정
         //text 와 text 크기 설정
-        textView.setText(str);
-        textView.setTextSize(size);
+//        textView.setText(str);
+//        textView.setTextSize(size);
+        autoResizeTextView.setText(str);
+        autoResizeTextView.setTextSize(size);
 
         //부모 레이아웃에 추가
-        parent.addView(textView);
+        parent.addView(autoResizeTextView);
     }
 
     public void addQuestion(String str, int size, TableLayout parent){

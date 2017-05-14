@@ -40,7 +40,8 @@ public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course1_1_1);
+        //setContentView(R.layout.activity_course1_1_2);
+        setContentView(R.layout.activity_course_g_page_container);
 
 
         //progress 상태 표시
@@ -57,7 +58,8 @@ public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewPager = (MyViewPager) findViewById(R.id.course1_1_ViewPager);
+        //viewPager = (MyViewPager) findViewById(R.id.course1_1_2ViewPager);
+        viewPager = (MyViewPager) findViewById(R.id.page_container);
         //동적으로 생성된 fragment 들의 container 는 viewpager 임
         container = viewPager;
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
@@ -67,7 +69,8 @@ public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPa
         //여기까지는 허용 가능
 
         //다음 버튼 눌렀을 때 다음 페이지로 이동 (문제풀기 전에는 못 넘기게 비활성화도 해야함)
-        buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1);
+        //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);
+        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
         buttonGoNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

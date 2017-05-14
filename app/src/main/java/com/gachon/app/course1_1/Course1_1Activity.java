@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import com.gachon.app.R;
 import com.gachon.app.course1_1.course1_1_1.Course1_1_1Activity;
+import com.gachon.app.course1_1.course1_1_2.Course1_1_2Activity;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -47,6 +48,15 @@ public class Course1_1Activity extends AppCompatActivity {
         //변수의 활용 카드
         LinearLayout card2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         viewFactory.addSimpleText("변수의 활용", 30, card2);
+
+        card2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Course1_1Activity.this, Course1_1_2Activity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

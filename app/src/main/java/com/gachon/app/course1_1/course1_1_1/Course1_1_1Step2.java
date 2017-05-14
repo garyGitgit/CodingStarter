@@ -32,7 +32,7 @@ public class Course1_1_1Step2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //항상 추가
-        root = inflater.inflate(R.layout.fragment_course1_1_1step2, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step2, container, false);
         return root;
     }
 
@@ -41,7 +41,7 @@ public class Course1_1_1Step2 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //최상단 루트 레이아웃
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_1step2);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step2);
         viewFactory = new ViewFactoryCS(layout);
 
         LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,PageHelper.defaultMargin});

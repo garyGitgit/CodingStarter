@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.GrammarChecker;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 import com.gachon.app.helper.WidgetSet;
@@ -40,7 +41,7 @@ public class Course1_1_1Step3 extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_course1_1_1step3, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step3, container, false);
         return root;
     }
 
@@ -48,7 +49,7 @@ public class Course1_1_1Step3 extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_1step3);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step3);
         viewFactory = new ViewFactoryCS(layout);
 
         LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
@@ -148,7 +149,7 @@ public class Course1_1_1Step3 extends Fragment{
                 for(EditText editText : editTextList){
                     //사용자가 입력한 변수를 가져온다
                     userInputs[i] = editText.getText().toString();
-                    if(!checkVariableValidity(userInputs[i])){
+                    if(!GrammarChecker.checkVariableValidity(userInputs[i])){
                         isSuccess = false;
                         Toast.makeText(getContext(), "변수 이름 설정 에러", Toast.LENGTH_SHORT).show();
                         break;
@@ -163,39 +164,7 @@ public class Course1_1_1Step3 extends Fragment{
         });
     }
 
-    /**
-     * TODO : 변수가 문자 또는 _ 로 시작을 하고 문자,_와 숫자로만 구성되어있는지 확인하는 자바 모듈 (yj)
-     *
-     * @param str : 판단할 문자열
-     * @return : true : 변수로 사용될 수 있으면/ false : 변수로 사용될 수 없으면
-     */
-    boolean checkVariableValidity(String str) {
-        if(str.equals("")) return false;
 
-        int size = str.length();
-        char v;
-        //첫 문자 확인 (숫자 허용안됨)
-        v = str.charAt(0);
-        if( !( (('A'<=v) && (v>='Z')) || (('a'<=v) && (v>='z')) || (v=='_')))
-            return false;
-        //문자가 하나면 true 리턴
-        if(size <= 1) return true;
-
-        //두 번째 문자 확인
-        int i=1;
-        while(true) {
-            v = str.charAt(i);
-            System.out.println(v);
-
-            if( (('A'<=v) && (v<='Z')) || (('a'<=v) && (v<='z')) || ('0'<=v)&&(v<='9') || (v=='_') )
-                i++;
-            else
-                return false;
-            if (i==str.length())
-                break;
-        }
-        return true;
-    }
 
     /**
      *

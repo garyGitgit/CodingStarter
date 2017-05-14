@@ -37,14 +37,14 @@ public class Course1_1_2Step4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_course1_1_2step4, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step4, container, false);
         return root;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_2step4);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step4);
         viewFactory = new ViewFactoryCS(layout);
 
         //문제를 제시하는 카드 : 카드에 들어갈 위젯 또는 텍스트를 배치

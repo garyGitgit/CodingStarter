@@ -32,7 +32,7 @@ public class Course1_1_2Step1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //항상 추가
-        root = inflater.inflate(R.layout.fragment_course1_1_2step1, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step1, container, false);
         return root;
     }
 
@@ -41,35 +41,31 @@ public class Course1_1_2Step1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //최상단 루트 레이아웃
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_2step1);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
+
+
+        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
 
         LinearLayout textCard1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         LinearLayout textCard2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         LinearLayout textCard3 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
-        LinearLayout textCard4 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
 
-        viewFactory.addSimpleText(
-                "변수란\n"+
-                        "반복적으로 사용하는 값을 저장하는 공간\n"+
-                        "예) 철수네 = 성남시 수정구 성남대로 1342"
-                , 18, textCard1);
+        //이미지 자료 추가
+        //viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
+        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard);
 
-        viewFactory.addSimpleText(
-                "변수의 선언\n"+
-                        "공간을 마련하는 것을 '선언' 이라고 부른다.\n또는 변수를 위한 공간을 '할당'한다고 한다\n"+
-                        "예) 철수가 사는 곳을 '철수네' 라고 표현하겠다."
-                , 18, textCard2);
-        viewFactory.addSimpleText(
-                "변수의 타입\n"+
-                        "공간에 들어갈 수 있는 값의 종류\n"+
-                        "예) '철수네'라고 할 수 있는 주소는 동사무소에서 발급한 주소만 인정한다."
-                , 18, textCard3);
-        viewFactory.addSimpleText(
-                "변수의 초기화\n"+
-                        "공간에 어떤 값을 대입을 하는데, 이 때 변수의 타입에 맞는 값을 넣어야 한다.\n"+
-                        "예) 앞으로 성남시 수정구 성남대로 1342를 '철수네' 라고 부르겠다."
-                , 18, textCard4);
+        viewFactory.addSimpleText("할당이란\n" +
+                "'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다. 예를 들어, '변수 num 에 10을 할당한다' 와 같이 표현한다.", 18, textCard1);
+
+        viewFactory.addSimpleText("할당 연산자 '='\n" +
+                "변수 = 값", 18, textCard2);
+
+        viewFactory.addSimpleText("변수와 할당\n" +
+                "상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", 18, textCard3);
+
+
+
 
     }
 }

@@ -1,4 +1,4 @@
-package com.gachon.app.course1_2;
+package com.gachon.app.course1_2.course1_2_1;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,12 +23,12 @@ import com.gachon.app.helper.WidgetSet;
  * step 2 : 연산자 종류 문제 풀이
  */
 
-public class Course1_2Step2 extends Fragment implements TabCodingInterface{
+public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
 
     View root;
     ViewFactoryCS viewFactory;
 
-    public Course1_2Step2() {
+    public Course1_2_1Step2() {
         // Required empty public constructor
     }
 
@@ -42,7 +42,7 @@ public class Course1_2Step2 extends Fragment implements TabCodingInterface{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_course1_1_2step2, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step2, container, false);
         return root;
     }
 
@@ -50,7 +50,7 @@ public class Course1_2Step2 extends Fragment implements TabCodingInterface{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //최상단 루트 레이아웃
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_2step2);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step2);
         viewFactory = new ViewFactoryCS(layout);
 
         //문제 카드 생성

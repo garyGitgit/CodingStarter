@@ -1,11 +1,10 @@
-package com.gachon.app.course1_1.course1_1_1;
+package com.gachon.app.course1_2.course1_2_1;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,34 +14,15 @@ import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.main.OnGoNextPageInterface;
 
-/**
- * 일정한 포맷을 만들고 포맷에 따라 간편하게 문제를 만들 수 있는 ViewFactoryCS 클래스를 만들 예정
- *
- * step1 비유) 이미지 or 애니메이션 + 글씨 설명(scrollview + linearlayout)
- * step2 개념) 이미지 or 애니메이션 + 글씨 설명(scrollview + linearlayout)
- * step3 체험) 원하는 뷰를 ViewFactoryCS 를 통해서 생성하여 차곡차곡 벽돌쌓기 하듯이 쌓는다.
- * 이에 따른 결과값도 한 페이지 안에서 보여준다. 공간이 모자라면 스크롤뷰로 내린다
- * step4 문제) 문제 섹션(이미지 or 애니메이션) + 문제 출제(이건 보통 코드 빈칸 문제가 나오는데 \n 이나 _____
- * 와 같은 delimiter 를 이용한다
- *
-
- **/
-
-public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPageInterface {
-    MyViewPager viewPager;
-
+public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPageInterface {
+    MyViewPager course1ViewPager;
     ImageView[] progressImageViewList;
-
-    ViewGroup container;
-
     Button buttonGoNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_course1_1_1);
         setContentView(R.layout.activity_course_g_page_container);
-
 
         //progress 상태 표시
         progressImageViewList = new ImageView[5];
@@ -58,18 +38,13 @@ public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //viewPager = (MyViewPager) findViewById(R.id.course1_1_1ViewPager);
-        viewPager = (MyViewPager) findViewById(R.id.page_container);
-        //동적으로 생성된 fragment 들의 container 는 viewpager 임
-        container = viewPager;
-        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-        viewPager.setCurrentItem(0);
-        viewPager.setPagingEnabled(false);
+        course1ViewPager = (MyViewPager) findViewById(R.id.page_container);
+        course1ViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+        course1ViewPager.setCurrentItem(0);
+        course1ViewPager.setPagingEnabled(false);
 
-        //여기까지는 허용 가능
-
-        //다음 버튼 눌렀을 때 다음 페이지로 이동 (문제풀기 전에는 못 넘기게 비활성화도 해야함)
-        //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_1);
+        //gonext 버튼
+        //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);
         buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
         buttonGoNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +52,7 @@ public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPa
                 onPressGoNext();
             }
         });
-
-
     }
-
 
     private class PagerAdapter extends FragmentStatePagerAdapter {
         public PagerAdapter(android.support.v4.app.FragmentManager fm) {
@@ -90,17 +62,16 @@ public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPa
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
             switch (position) {
-                //이 부분이 dynamic 하게 fragment 를 생성을 해야함
                 case 0:
-                    return new Course1_1_1Step0();
+                    return new Course1_2_1Step0();
                 case 1:
-                    return new Course1_1_1Step1();
+                    return new Course1_2_1Step1();
                 case 2:
-                    return new Course1_1_1Step2();
+                    return new Course1_2_1Step2();
                 case 3:
-                    return new Course1_1_1Step3();
+                    return new Course1_2_1Step3();
                 case 4:
-                    return new Course1_1_1Step4();
+                    return new Course1_2_1Step4();
                 default:
                     return null;
             }
@@ -112,50 +83,48 @@ public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPa
         }
     }
 
-    //implementation
-
     //프래그먼트에서 발생한 다음으로 가기 버튼 이벤트 처리
     @Override
     public void onPressGoNext() {
-        int thisPage = viewPager.getCurrentItem();
+        int thisPage = course1ViewPager.getCurrentItem();
 
         if (thisPage < PageHelper.courseStepNum-1) {
-            Toast.makeText(Course1_1_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
-            viewPager.setCurrentItem(++thisPage);
-
+            Toast.makeText(Course1_2_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
+            course1ViewPager.setCurrentItem(++thisPage);
             //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
             PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
         }
         else
-            Toast.makeText(Course1_1_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
-        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+            Toast.makeText(Course1_2_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
+
     }
 
-    public void onProgressImageClickListener (View v) {
+    public void onProgressImageClickListener (View v){
         int id = v.getId();
         int index = 0;
-        switch (id) {
+        switch (id){
             case R.id.course_progress0:
-                viewPager.setCurrentItem(0);
+                course1ViewPager.setCurrentItem(0);
                 index = 0;
                 break;
             case R.id.course_progress1:
-                viewPager.setCurrentItem(1);
+                course1ViewPager.setCurrentItem(1);
                 index = 1;
                 break;
             case R.id.course_progress2:
-                viewPager.setCurrentItem(2);
+                course1ViewPager.setCurrentItem(2);
                 index = 2;
                 break;
             case R.id.course_progress3:
-                viewPager.setCurrentItem(3);
+                course1ViewPager.setCurrentItem(3);
                 index = 3;
                 break;
             case R.id.course_progress4:
-                viewPager.setCurrentItem(4);
+                course1ViewPager.setCurrentItem(4);
                 index = 4;
                 break;
         }
         PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
     }
+
 }

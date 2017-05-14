@@ -32,7 +32,7 @@ public class Course1_1_1Step1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //항상 추가
-        root = inflater.inflate(R.layout.fragment_course1_1_1step1, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step1, container, false);
         return root;
     }
 
@@ -41,7 +41,7 @@ public class Course1_1_1Step1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //최상단 루트 레이아웃
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_1step1);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
         //이해를 돕는 이미지 카드 생성
@@ -54,7 +54,7 @@ public class Course1_1_1Step1 extends Fragment {
 
         LinearLayout textCard2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         viewFactory.addSimpleText("변수의 데이터 타입", 20, textCard2);
-        viewFactory.addSimpleText("변수를 사용하기 위한 목적이다. 데이터 타입은 공간의 목적에 따라 다르다. (신발장의 목적 : 신발을 담기 위함)\n", 15, textCard2);
+        viewFactory.addSimpleText("변수를 사용하기 위한 목적이다. 데이터 타입은 공간의 목적에 따라 다르다. (신발장의 목적 : 신발을 담기 위함)", 15, textCard2);
 
         LinearLayout textCard3 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, 10});
         viewFactory.addSimpleText("변수의 선언", 20, textCard3);

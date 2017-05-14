@@ -1,4 +1,4 @@
-package com.gachon.app.course1_2;
+package com.gachon.app.course1_2.course1_2_1;
 
 
 import android.graphics.Color;
@@ -20,12 +20,12 @@ import com.gachon.app.helper.ViewFactoryCS;
  * step 1 : 연산자 종류 설명
  */
 
-public class Course1_2Step1 extends Fragment {
+public class Course1_2_1Step1 extends Fragment {
 
     View root;
     ViewFactoryCS viewFactory;
 
-    public Course1_2Step1() {
+    public Course1_2_1Step1() {
         // Required empty public constructor
     }
 
@@ -34,7 +34,7 @@ public class Course1_2Step1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_course1_1_2step1, container, false);
+        root = inflater.inflate(R.layout.fragment_g_step1, container, false);
         return root;
     }
 
@@ -43,7 +43,7 @@ public class Course1_2Step1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //최상단 루트 레이아웃
-        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_course1_1_2step1);
+        LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
         //연산자에 대해서 설명하는 카드 생성
