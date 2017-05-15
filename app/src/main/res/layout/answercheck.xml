@@ -10,8 +10,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:src="@android:drawable/ic_menu_add"
-            android:id="@+id/button_add"/>
+            android:src="@android:drawable/ic_menu_delete"
+            android:id="@+id/button_delete"/>
         <ImageButton
             android:layout_width="0dp"
             android:layout_weight="1"

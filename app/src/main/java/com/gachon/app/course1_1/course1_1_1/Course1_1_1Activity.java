@@ -126,8 +126,11 @@ public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPa
             //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
             PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
         }
-        else
-            Toast.makeText(Course1_1_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
+        //액티비티 종료
+        else {
+            Toast.makeText(Course1_1_1Activity.this, "축하합니다!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
     }
 
@@ -157,5 +160,20 @@ public class Course1_1_1Activity extends AppCompatActivity implements OnGoNextPa
                 break;
         }
         PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        int thisPage = viewPager.getCurrentItem();
+
+
+        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
+        if (thisPage == 0) {
+            super.onBackPressed();
+        }
+        else
+            viewPager.setCurrentItem(--thisPage);
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
     }
 }

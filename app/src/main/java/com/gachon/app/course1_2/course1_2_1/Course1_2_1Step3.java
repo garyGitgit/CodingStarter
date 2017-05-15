@@ -1,6 +1,7 @@
 package com.gachon.app.course1_2.course1_2_1;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -87,23 +88,16 @@ public class Course1_2_1Step3 extends Fragment {
         };
         viewFactory.addRow(rowViews , answerCard);
 
-        //사용자 입력 블록 카드
-        TableLayout tableCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        viewFactory.addView(linearLayout, answerCheckLayout);
+        //answercheckwithadd 동적으로 인플레이트
+        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.answercheckwithadd, linearLayout);
 
-        //테이블카드를 꽉 채우도록 함
-        tableCard.setStretchAllColumns(true);
-
-        //새로고침, 제출하기 버튼 추가
-        ImageButton buttonRefresh = (ImageButton) viewFactory.createWidget("ImageButton", new String[]{""});
-        buttonRefresh.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_delete));
-        buttonRefresh.setBackgroundColor(Color.TRANSPARENT);
-
-        ImageButton buttonSubmit = (ImageButton) viewFactory.createWidget("ImageButton", new String[]{""});
-        buttonSubmit.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_media_play));
-        buttonSubmit.setBackgroundColor(Color.TRANSPARENT);
-
-        View[] buttons = new View[]{ buttonRefresh, buttonSubmit };
-        viewFactory.addRow(buttons, tableCard);
+        //ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
+        ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
+        ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 
         //새로고침 버튼 누르면 editText 모두 제거
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +108,7 @@ public class Course1_2_1Step3 extends Fragment {
         });
 
         //제출하기를 누르면 editText 에 있는 값들이 resultCard 에 보여짐
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        buttonCompile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }

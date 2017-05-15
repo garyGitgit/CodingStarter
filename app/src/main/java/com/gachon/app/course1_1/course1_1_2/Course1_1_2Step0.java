@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
@@ -22,6 +24,8 @@ public class Course1_1_2Step0 extends Fragment {
     //항상 추가
     View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
+
+
     public Course1_1_2Step0() {
         // Required empty public constructor
     }

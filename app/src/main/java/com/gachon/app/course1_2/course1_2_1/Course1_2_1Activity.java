@@ -15,7 +15,7 @@ import com.gachon.app.helper.PageHelper;
 import com.gachon.app.main.OnGoNextPageInterface;
 
 public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPageInterface {
-    MyViewPager course1ViewPager;
+    MyViewPager viewPager;
     ImageView[] progressImageViewList;
     Button buttonGoNext;
 
@@ -38,10 +38,10 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        course1ViewPager = (MyViewPager) findViewById(R.id.page_container);
-        course1ViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-        course1ViewPager.setCurrentItem(0);
-        course1ViewPager.setPagingEnabled(false);
+        viewPager = (MyViewPager) findViewById(R.id.page_container);
+        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(0);
+        viewPager.setPagingEnabled(false);
 
         //gonext 버튼
         //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);
@@ -86,11 +86,11 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
     //프래그먼트에서 발생한 다음으로 가기 버튼 이벤트 처리
     @Override
     public void onPressGoNext() {
-        int thisPage = course1ViewPager.getCurrentItem();
+        int thisPage = viewPager.getCurrentItem();
 
         if (thisPage < PageHelper.courseStepNum-1) {
             Toast.makeText(Course1_2_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
-            course1ViewPager.setCurrentItem(++thisPage);
+            viewPager.setCurrentItem(++thisPage);
             //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
             PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
         }
@@ -104,27 +104,44 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
         int index = 0;
         switch (id){
             case R.id.course_progress0:
-                course1ViewPager.setCurrentItem(0);
+                viewPager.setCurrentItem(0);
                 index = 0;
                 break;
             case R.id.course_progress1:
-                course1ViewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(1);
                 index = 1;
                 break;
             case R.id.course_progress2:
-                course1ViewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(2);
                 index = 2;
                 break;
             case R.id.course_progress3:
-                course1ViewPager.setCurrentItem(3);
+                viewPager.setCurrentItem(3);
                 index = 3;
                 break;
             case R.id.course_progress4:
-                course1ViewPager.setCurrentItem(4);
+                viewPager.setCurrentItem(4);
                 index = 4;
                 break;
         }
         PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
     }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        int thisPage = viewPager.getCurrentItem();
+
+
+        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
+        if (thisPage == 0) {
+            super.onBackPressed();
+        }
+        else
+            viewPager.setCurrentItem(--thisPage);
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+    }
+
 
 }

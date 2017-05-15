@@ -40,6 +40,7 @@ public class Course1_1_2Step3 extends Fragment{
     // Required empty public constructor
 
     TableLayout answerCard;
+    ScrollView questionCard;
     public Course1_1_2Step3() {}
 
     @Override
@@ -61,7 +62,7 @@ public class Course1_1_2Step3 extends Fragment{
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
 
-        ScrollView questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
+        questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
 
         answerCard = new TableLayout(getContext());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
@@ -118,6 +119,9 @@ public class Course1_1_2Step3 extends Fragment{
                         viewFactory.createWidget("EditText", new String[]{"5"}),
                         viewFactory.createWidget("TextView", new String[]{";"})};
                 viewFactory.addRow(newViews, answerCard);
+                //추가 눌렀을 때 스크롤 아래로 이동
+                questionCard.fullScroll(View.FOCUS_DOWN);
+
             }
         });
         //새로고침 버튼을 누르면 블록들이 모두 없어진다
@@ -125,14 +129,14 @@ public class Course1_1_2Step3 extends Fragment{
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WidgetSet widgetSet = viewFactory.getWidgetSet();
+                ArrayList<EditText> editTextList = widgetSet.getEditText();
+                for (EditText editText : editTextList){
+                    editText.setText("");
+                }
             }
         });
-        buttonCompile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         //결과 블록 카드
         final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
@@ -185,44 +189,36 @@ public class Course1_1_2Step3 extends Fragment{
         //resultCard 에 기존에 있던 위젯들을 제거
         resultCard.removeAllViews();
 
-
-//        String str = "";
-//        boolean toggle = false;
-
-        //결과 string 을 가져온다
-
-//        int i = 0;
-//        //editText 에서 사용자가 입력한 값들 가져옴
-//        for (EditText editText : editTextList) {
-//            str += editText.getText().toString();
-//            if(str.equals("")) Toast.makeText(root.getContext(), "빈칸이 있습니다!", Toast.LENGTH_SHORT).show();
-//
-//            //TODO 텍스트말고 다른 방법으로 보여줄 방법?
-//            if(toggle) {
-//                //TODO 변수의 이름을 필터해야함 (변수 룰을 지켜야함)
-//                //viewFactory.addSimpleText(str, 20, resultCard);
-//                userInputs[i++] = str;
-//                toggle = false;
-//                str = ""; //초기화
-//            }
-//            else {
-//                str += " = ";
-//                toggle = true;
-//            }
-//        }
-
         int i = 0;
 
 
         //TODO 2개씩 건너서 안나옴
         ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
         for(Spinner spinner : spinnersList){
-            String result = spinner.getSelectedItem() + "  "+ userInputs[i] + "  " + userValues[i++];
+            String result = spinner.getSelectedItem() + "  "+ userInputs[i] + " = " + userValues[i++];
             //load image
             TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
             textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
             textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
             viewFactory.addView(textView, resultCard);
         }
+    }
+
+
+
+    @Override
+    public void onPause() {
+        Log.e("garynoh", "onpause");
+        super.onPause();
+        //시야에서 사라질 때
+        //빈칸 만들기
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        ArrayList<EditText> editTextList = widgetSet.getEditText();
+        for (EditText editText : editTextList){
+            editText.setText("");
+        }
+
+        //이미지 제거
+        answerCard.removeAllViews();
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -131,13 +133,72 @@ public class ViewFactoryCS {
         //linearLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
 
         //카드에 linear layout 설정
-        cardView.addView(linearLayout);
+
+        FrameLayout frameLayout = new FrameLayout(rootContext);
+        frameLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        frameLayout.addView(linearLayout);
+        cardView.addView(frameLayout);
+        //cardView.addView(linearLayout);
 
         //루트에 카드 추가
         root.addView(cardView);
 
         return linearLayout;
     }
+
+    public FrameLayout createCard(float weight, int[] margins){
+
+        //카드 생성
+        CardView cardView = new CardView(rootContext);
+
+        //TableLayout.LayoutParams params;
+        LinearLayout.LayoutParams params;
+
+        //weight 설정
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+
+        cardView.setLayoutParams(params);
+
+        //카드 안에 넣을 linear layout 생성 후 width, height 설정
+        LinearLayout linearLayout = new LinearLayout(rootContext);
+
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+
+        //프레임 레이아웃 추가
+        FrameLayout frameLayout = new FrameLayout(rootContext);
+        frameLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        //패팅 추가 : 카드도 사이즈가 작아진다 
+//        frameLayout.setPadding(
+//                WidgetSet.getPxFromDp(10),
+//                WidgetSet.getPxFromDp(10),
+//                WidgetSet.getPxFromDp(10),
+//                WidgetSet.getPxFromDp(10)
+//        );
+        frameLayout.addView(linearLayout);
+        cardView.addView(frameLayout);
+        //cardView.addView(linearLayout);
+
+        //루트에 카드 추가
+        root.addView(cardView);
+
+        return frameLayout;
+    }
+
 
     /**
      * table layout 을 생성
@@ -238,6 +299,13 @@ public class ViewFactoryCS {
 //        scrollView.addView(tableRow);
 //    }
 
+    public void addSpace(float weight){
+        Space space = new Space(rootContext);
+        space.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight));
+
+        root.addView(space);
+
+    }
 
     /**
      * 큰 텍스트를 추가 / 애니메이션 추가 가능
@@ -246,10 +314,14 @@ public class ViewFactoryCS {
      * @param size : text 크기
      * @param parent : text 가 추가될 부모 뷰
      */
-    public void addSimpleText(String str, int size, LinearLayout parent){
+    public void addSimpleText(String str, int size, ViewGroup parent){
 
         //textview 생성
         TextView textView = new TextView(rootContext);
+
+        //card
+
+
         AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
 
         //textView width & height 설정

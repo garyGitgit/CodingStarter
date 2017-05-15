@@ -36,6 +36,8 @@ public class Course1_1_1Step3 extends Fragment{
     View root;
     ViewFactoryCS viewFactory;
 
+    ScrollView questionCard;
+
     // Required empty public constructor
     public Course1_1_1Step3() {}
 
@@ -57,7 +59,7 @@ public class Course1_1_1Step3 extends Fragment{
         viewFactory.addSimpleText("변수를 선언해보자 ", 20, headerCard);
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
-        ScrollView questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
+        questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
         final TableLayout tableCard1 = new TableLayout(getContext());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
@@ -126,6 +128,8 @@ public class Course1_1_1Step3 extends Fragment{
                         viewFactory.createWidget("EditText", new String[]{"num"}),
                         viewFactory.createWidget("TextView", new String[]{";"})};
                 viewFactory.addRow(rowViews, tableCard1);
+                //가장 아래로 이동
+                questionCard.fullScroll(View.FOCUS_DOWN);
             }
         });
 

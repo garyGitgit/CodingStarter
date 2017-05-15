@@ -59,7 +59,8 @@ public class Course1_1_2Step4 extends Fragment {
         viewFactory.addView(linearLayout, answerCheckLayout);
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.answercheckwithadd, linearLayout);
+        inflater.inflate(R.layout.answercheck, linearLayout);
+
 
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
@@ -71,12 +72,8 @@ public class Course1_1_2Step4 extends Fragment {
                 new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
 
-
-
-        ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
-
 
         //초기화
         buttonRefresh.setOnClickListener(new View.OnClickListener() {

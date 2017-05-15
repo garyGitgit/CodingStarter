@@ -1,6 +1,7 @@
 package com.gachon.app.course1_1.course1_1_2;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
@@ -24,8 +29,14 @@ public class Course1_1_2Step1 extends Fragment {
     View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
 
+    //layout
+    int size = 3;
+    FrameLayout[] textCard = new FrameLayout[size];
+    RelativeLayout[] cardCover = new RelativeLayout[size];
+
     // Required empty public constructor
-    public Course1_1_2Step1() {}
+    public Course1_1_2Step1() {
+    }
 
 
     @Override
@@ -44,28 +55,59 @@ public class Course1_1_2Step1 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
-
-        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
-
-        LinearLayout textCard1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
-        LinearLayout textCard2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
-        LinearLayout textCard3 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
-
-        //이미지 자료 추가
-        //viewFactory.addImage(getResources().getDrawable(R.drawable.shoebox), imageCard);
+        //이미지 추가
+        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0, 0, 0, PageHelper.defaultMargin});
         viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard);
 
+        //카드 생성
+        for(int i = 0; i < size; i ++){
+            textCard[i] = viewFactory.createCard(1.0f, new int[]{0, 0, 0, PageHelper.defaultMargin});
+        }
+
+        //텍스트 설정
         viewFactory.addSimpleText("할당이란\n" +
-                "'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다. 예를 들어, '변수 num 에 10을 할당한다' 와 같이 표현한다.", 18, textCard1);
+                "'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다. 예를 들어, '변수 num 에 10을 할당한다' 와 같이 표현한다.", 18, textCard[0]);
 
         viewFactory.addSimpleText("할당 연산자 '='\n" +
-                "변수 = 값", 18, textCard2);
+                "변수 = 값", 18, textCard[1]);
 
         viewFactory.addSimpleText("변수와 할당\n" +
-                "상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", 18, textCard3);
+                "상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", 18, textCard[2]);
+        //inflate
+        LayoutInflater inflater = (LayoutInflater) root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
+        //카드 추가, 카드로 덮기
+        for (int i = 0; i < size; i++) {
+            //card 커버 로드
+            cardCover[i] = new RelativeLayout(getContext());
+            inflater.inflate(R.layout.cardcover, cardCover[i]);
+            //카드 눌렀을 때 카드 사라지기
+            textCard[i].setTag(i);
+            textCard[i].setOnClickListener(new onCardClicked());
+            //card 로 덮기
+            textCard[i].addView(cardCover[i]);
+        }
+    }
 
-
+    class onCardClicked implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            int tag = ((Integer)v.getTag());
+            switch (tag){
+                case 0:
+                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[0]);
+                    break;
+                case 1:
+                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[1]);
+                    break;
+                case 2:
+                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[2]);
+                    break;
+                case 3:
+                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[3]);
+                    break;
+            }
+        }
     }
 }
