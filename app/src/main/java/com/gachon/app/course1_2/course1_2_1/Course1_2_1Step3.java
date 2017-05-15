@@ -53,7 +53,7 @@ public class Course1_2_1Step3 extends Fragment {
         viewFactory.addSimpleText("Q. 다음 연산의 예상되는 결과 값은?", 20, questionCard);
 
         //문제 입력 카드
-        TableLayout answerCard = viewFactory.createTableCard(1.0f, Color.WHITE, new int[]{0,0,0,10});
+        TableLayout answerCard = viewFactory.createTableCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
 
         //문제 추가
         View[] rowViews;
@@ -88,14 +88,23 @@ public class Course1_2_1Step3 extends Fragment {
         };
         viewFactory.addRow(rowViews , answerCard);
 
+//        rowViews  = new View[]{
+//                viewFactory.createWidget("TextView", new String[]{"<더 알아보기> 정수/정수 는 정수값으로 소수점은 버린다"}),
+//        };
+//        viewFactory.addRow(rowViews , answerCard);
+//
+//        rowViews  = new View[]{
+//                viewFactory.createWidget("TextView", new String[]{"<더 알아보기> num = 1 이 true 라는 것 설명 "}),
+//        };
+//        viewFactory.addRow(rowViews , answerCard);
+
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.answercheckwithadd, linearLayout);
+        inflater.inflate(R.layout.answercheck, linearLayout);
 
-        //ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 

@@ -182,7 +182,7 @@ public class ViewFactoryCS {
         //프레임 레이아웃 추가
         FrameLayout frameLayout = new FrameLayout(rootContext);
         frameLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        //패팅 추가 : 카드도 사이즈가 작아진다 
+        //패팅 추가 : 카드도 사이즈가 작아진다
 //        frameLayout.setPadding(
 //                WidgetSet.getPxFromDp(10),
 //                WidgetSet.getPxFromDp(10),
@@ -195,7 +195,6 @@ public class ViewFactoryCS {
 
         //루트에 카드 추가
         root.addView(cardView);
-
         return frameLayout;
     }
 
@@ -358,8 +357,13 @@ public class ViewFactoryCS {
             //답 체크할 때 비교!
             String answer = str.substring(str.indexOf("[[")+2, str.indexOf("]]"));
             final TextView blank = (TextView) createWidget("TextView", new String[]{"          "});
+
+            //widgetset 에 추가
+            widgetSet.setTextView(blank);
+
             //테두리 추가
-            blank.setBackground(rootContext.getResources().getDrawable(R.drawable.cardborder));
+            //blank.setBackground(rootContext.getResources().getDrawable(R.drawable.cardborder));
+            blank.setBackground(rootContext.getResources().getDrawable(android.R.drawable.editbox_background_normal));
             //blank answer 추가, 아이디 태그 붙여서
             blank.setTag(questionCnt++);
             remainList.add(blank);
@@ -385,7 +389,8 @@ public class ViewFactoryCS {
     }
 
 
-    void sortByTag(TextView blank){
+    //TODO 버그 있음
+    public void sortByTag(TextView blank){
         int blankId = (Integer)blank.getTag();
         int i = 0;
         for(TextView textView : remainList){
@@ -495,6 +500,7 @@ public class ViewFactoryCS {
         //edit text 생성
         else if(viewType.equalsIgnoreCase("EditText")){
             EditText editText = new EditText(rootContext);
+            editText.setBackground(rootContext.getResources().getDrawable(android.R.drawable.editbox_background));
 
             //widget set 에 저장
             widgetSet.setEditText(editText);

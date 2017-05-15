@@ -64,7 +64,7 @@ public class Course1_1_1Step4 extends Fragment {
         viewFactory.addView(linearLayout, answerCheckLayout);
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.answercheckwithadd, linearLayout);
+        inflater.inflate(R.layout.answercheck, linearLayout);
 
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);

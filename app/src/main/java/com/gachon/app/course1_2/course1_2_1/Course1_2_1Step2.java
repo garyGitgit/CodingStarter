@@ -1,5 +1,6 @@
 package com.gachon.app.course1_2.course1_2_1;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,12 +12,16 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.TabCodingInterface;
 import com.gachon.app.helper.ViewFactoryCS;
 import com.gachon.app.helper.WidgetSet;
+
+import java.util.ArrayList;
 
 /**
  * course 1-2 연산자
@@ -65,36 +70,38 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         viewFactory.addQuestion("4. 22 [[/]] 2 = 11", 20, userInputCard);
         viewFactory.addQuestion("5. 6 [[==]] 6 = True", 20, userInputCard);
 
-        //사용자 입력 블록 카드
-        TableLayout tableCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
+        final LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        viewFactory.addView(linearLayout, answerCheckLayout);
 
-        //테이블카드를 꽉 채우도록 함
-        tableCard.setStretchAllColumns(true);
+        //answercheckwithadd 동적으로 인플레이트
+        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.answercheck, linearLayout);
 
-        //새로고침, 제출하기 버튼 추가
-        ImageButton buttonRefresh = (ImageButton) viewFactory.createWidget("ImageButton", new String[]{""});
-        buttonRefresh.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_delete));
-        buttonRefresh.setBackgroundColor(Color.TRANSPARENT);
-
-        ImageButton buttonSubmit = (ImageButton) viewFactory.createWidget("ImageButton", new String[]{""});
-        buttonSubmit.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_media_play));
-        buttonSubmit.setBackgroundColor(Color.TRANSPARENT);
-
-        View[] rowViews = new View[]{ buttonRefresh, buttonSubmit };
-        viewFactory.addRow(rowViews, tableCard);
+        ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
+        ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 
         //새로고침 버튼 누르면 editText 모두 제거
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WidgetSet widgetSet = viewFactory.getWidgetSet();
+                ArrayList<TextView> textViews = widgetSet.getTextView();
+                for(TextView textView : textViews){
+                    //초기화시킨다
+                    textView.setText("          ");
+                    //remainlist 에 추가한다
+                    viewFactory.sortByTag(textView);
+                }
 
             }
         });
 
         //제출하기를 누르면 editText 에 있는 값들이 resultCard 에 보여짐
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        buttonCompile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "성공입니다!", Toast.LENGTH_SHORT).show();
             }
         });
 

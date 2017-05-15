@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.course1_1.Course1_1Activity;
 import com.gachon.app.course1_2.Course1_2Activity;
@@ -20,7 +22,9 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived {
     View rootView;
 
-    ImageView imageViewMainBlock1_1, imageViewMainBlock1_2, imageViewMainBlock2_1;
+    //ImageView imageViewMainBlock1_1, imageViewMainBlock1_2, imageViewMainBlock1_3, imageViewMainBlock2_1;
+    ImageView[][] mainBlocks = new ImageView[4][3];
+
 
 
     /*
@@ -35,34 +39,72 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
         Log.e("bisecu", "onCreateView : " + Integer.toString(position));
         setRetainInstance(true);
         rootView = inflater.inflate(R.layout.fragment_fragment1, container, false);
-        imageViewMainBlock1_1 = (ImageView) rootView.findViewById(R.id.mainBlock1_1);
-        imageViewMainBlock1_2 = (ImageView) rootView.findViewById(R.id.mainBlock1_2);
-        imageViewMainBlock2_1 = (ImageView) rootView.findViewById(R.id.mainBlock2_1);
+        mainBlocks[0][0] = (ImageView) rootView.findViewById(R.id.mainBlock1_1);
+        mainBlocks[0][1]= (ImageView) rootView.findViewById(R.id.mainBlock1_2);
+        mainBlocks[0][2] = (ImageView) rootView.findViewById(R.id.mainBlock1_3);
+        mainBlocks[1][0] = (ImageView) rootView.findViewById(R.id.mainBlock2_1);
+        mainBlocks[1][1] = (ImageView) rootView.findViewById(R.id.mainBlock2_2);
+        mainBlocks[1][2]= (ImageView) rootView.findViewById(R.id.mainBlock2_3);
+        mainBlocks[2][0] = (ImageView) rootView.findViewById(R.id.mainBlock3_1);
+        mainBlocks[2][1] = (ImageView) rootView.findViewById(R.id.mainBlock3_2);
+        mainBlocks[2][2] = (ImageView) rootView.findViewById(R.id.mainBlock3_3);
+        mainBlocks[3][0]= (ImageView) rootView.findViewById(R.id.mainBlock4_1);
+        mainBlocks[3][1] = (ImageView) rootView.findViewById(R.id.mainBlock4_2);
+        mainBlocks[3][2] = (ImageView) rootView.findViewById(R.id.mainBlock4_3);
 
-        imageViewMainBlock1_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), Course1_1Activity.class));
+        for(int i = 0 ; i < 4; i++){
+            for(int j = 0 ; j< 3; j++){
+                mainBlocks[i][j].setOnClickListener(new onMainBlockClickListener());
             }
-        });
-
-        imageViewMainBlock1_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), Course1_2Activity.class));
-            }
-        });
-
-        imageViewMainBlock2_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), Course2_1Activity.class));
-            }
-        });
-
+        }
 
 
         return rootView;
+    }
+
+    class onMainBlockClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            switch (id){
+                case R.id.mainBlock1_1:
+                    startActivity(new Intent(rootView.getContext(), Course1_1Activity.class));
+                    break;
+                case R.id.mainBlock1_2:
+                    startActivity(new Intent(rootView.getContext(), Course1_2Activity.class));
+                    break;
+                case R.id.mainBlock1_3:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock2_1:
+                    startActivity(new Intent(rootView.getContext(), Course2_1Activity.class));
+                    break;
+                case R.id.mainBlock2_2:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock2_3:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock3_1:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock3_2:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock3_3:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock4_1:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock4_2:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+                case R.id.mainBlock4_3:
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    break;
+            }
+        }
     }
 
 

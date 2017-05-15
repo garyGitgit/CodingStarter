@@ -20,6 +20,7 @@ public class WidgetSet {
     public WidgetSet(){
         spinnerList = new ArrayList<>();
         editTextList = new ArrayList<>();
+        textViewList = new ArrayList<>();
     }
 
     /**

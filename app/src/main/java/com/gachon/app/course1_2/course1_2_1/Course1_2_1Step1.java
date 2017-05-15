@@ -54,7 +54,7 @@ public class Course1_2_1Step1 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
-        viewFactory.addSpace(1.0f);
+        viewFactory.addSpace(0.5f);
 
         //연산자에 대해서 설명하는 카드 생성
         //카드 생성
@@ -97,6 +97,9 @@ public class Course1_2_1Step1 extends Fragment {
             //card 로 덮기
             textCard[i].addView(cardCover[i]);
         }
+
+        //공간 추가
+        viewFactory.addSpace(0.5f);
     }
 
     class onCardClicked implements View.OnClickListener{

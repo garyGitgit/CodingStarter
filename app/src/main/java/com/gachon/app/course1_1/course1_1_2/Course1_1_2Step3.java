@@ -100,6 +100,7 @@ public class Course1_1_2Step3 extends Fragment{
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
+
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.answercheckwithadd, linearLayout);
