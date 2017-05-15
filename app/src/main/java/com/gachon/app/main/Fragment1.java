@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import com.gachon.app.R;
 import com.gachon.app.course1_1.Course1_1Activity;
 import com.gachon.app.course1_2.Course1_2Activity;
+import com.gachon.app.course2_1.Course2_1Activity;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
 public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived {
     View rootView;
 
-    ImageView imageViewMainBlock1_1, imageViewMainBlock1_2;
+    ImageView imageViewMainBlock1_1, imageViewMainBlock1_2, imageViewMainBlock2_1;
 
 
     /*
@@ -36,6 +37,7 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
         rootView = inflater.inflate(R.layout.fragment_fragment1, container, false);
         imageViewMainBlock1_1 = (ImageView) rootView.findViewById(R.id.mainBlock1_1);
         imageViewMainBlock1_2 = (ImageView) rootView.findViewById(R.id.mainBlock1_2);
+        imageViewMainBlock2_1 = (ImageView) rootView.findViewById(R.id.mainBlock2_1);
 
         imageViewMainBlock1_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,13 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(rootView.getContext(), Course1_2Activity.class));
+            }
+        });
+
+        imageViewMainBlock2_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), Course2_1Activity.class));
             }
         });
 

@@ -1,6 +1,7 @@
 package com.gachon.app.course1_1.course1_1_1;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -56,7 +57,6 @@ public class Course1_1_1Step3 extends Fragment{
         viewFactory.addSimpleText("변수를 선언해보자 ", 20, headerCard);
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
-        //final TableLayout tableCard1 = viewFactory.createTableCard(2.0f, Color.WHITE, new int[]{0,0,0,0});
         ScrollView questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
         final TableLayout tableCard1 = new TableLayout(getContext());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
@@ -86,20 +86,16 @@ public class Course1_1_1Step3 extends Fragment{
         questionCard.addView(tableCard1);
 
         //사용자 입력 블록 카드
-        TableLayout tableCard2 = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        viewFactory.addView(linearLayout, answerCheckLayout);
 
-        //테이블카드를 꽉 채우도록 함
-        tableCard2.setStretchAllColumns(true);
+        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.answercheckwithadd, linearLayout);
 
-        //새로고침, 제출하기 버튼 추가
-        Button buttonRefresh = (Button) viewFactory.createWidget("Button", new String[]{""});
-        buttonRefresh.setBackground(getResources().getDrawable(android.R.drawable.ic_menu_delete));
-        Button buttonAdd = (Button) viewFactory.createWidget("Button", new String[]{""});
-        buttonAdd.setBackground(getResources().getDrawable(android.R.drawable.ic_menu_add));
-        Button buttonSubmit = (Button) viewFactory.createWidget("Button", new String[]{""});
-        buttonSubmit.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
-        rowViews = new View[]{ buttonRefresh, buttonAdd, buttonSubmit };
-        viewFactory.addRow(rowViews, tableCard2);
+        ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
+        ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
+        ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 
         //결과 블록 카드
         final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
@@ -134,7 +130,7 @@ public class Course1_1_1Step3 extends Fragment{
         });
 
        //제출하기를 누르면 editText 에 있는 값들이 resultCard 에 보여짐
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        buttonCompile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //답이 맞는지 판단 : 변수가 반드시 대소문자 또는 _ 로 시작하고 변수는 문자 + 숫자로만 구성이 된다

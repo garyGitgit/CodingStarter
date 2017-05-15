@@ -1,6 +1,7 @@
 package com.gachon.app.course1_1.course1_1_2;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
@@ -52,7 +52,15 @@ public class Course1_1_2Step4 extends Fragment {
         viewFactory.addSimpleText("정수형 변수를 선언하고, 45로 초기화시키시오.", 20 ,problemCard);
 
         //입력한 답이 보여지는 카드 : 사용자 입력 block 이 배치되는 카드
-        LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
+
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        viewFactory.addView(linearLayout, answerCheckLayout);
+        //answercheckwithadd 동적으로 인플레이트
+        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.answercheckwithadd, linearLayout);
+
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
 
@@ -63,21 +71,23 @@ public class Course1_1_2Step4 extends Fragment {
                 new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
 
-        //새로고침과 제출버튼 카드
-        TableLayout tableCard2 = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0, PageHelper.defaultMargin});
 
-        //새로고침, 제출하기 버튼 추가
-        Button buttonRefresh = (Button) viewFactory.createWidget("Button", new String[]{""});
-        buttonRefresh.setBackground(getResources().getDrawable(android.R.drawable.ic_menu_delete));
-        Button buttonSubmit = (Button) viewFactory.createWidget("Button", new String[]{""});
-        buttonSubmit.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
-        View[] rowViews = new View[]{ buttonRefresh, buttonSubmit };
 
-        tableCard2.setStretchAllColumns(true);
-        viewFactory.addRow(rowViews, tableCard2);
+        ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
+        ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
+        ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
+
+
+        //초기화
+        buttonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                answerCard.removeAllViews();
+            }
+        });
 
         //정답 비교
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        buttonCompile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

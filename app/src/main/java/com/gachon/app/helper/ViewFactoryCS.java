@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -20,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -176,8 +176,17 @@ public class ViewFactoryCS {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
+        //padding 설정
+        tableLayout.setPadding(
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10)
+        );
+
         //카드 배경색 설정
         tableLayout.setBackgroundColor(color);
+
 
         //카드 테두리 설정
         //tableLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
@@ -274,8 +283,11 @@ public class ViewFactoryCS {
             TextView front = (TextView) createWidget("TextView", new String[]{str.substring(0, str.indexOf("[["))});
 
 
+            //답 체크할 때 비교!
             String answer = str.substring(str.indexOf("[[")+2, str.indexOf("]]"));
-            final TextView blank = (TextView) createWidget("TextView", new String[]{"____"});
+            final TextView blank = (TextView) createWidget("TextView", new String[]{"          "});
+            //테두리 추가
+            blank.setBackground(rootContext.getResources().getDrawable(R.drawable.cardborder));
             //blank answer 추가, 아이디 태그 붙여서
             blank.setTag(questionCnt++);
             remainList.add(blank);
@@ -288,7 +300,7 @@ public class ViewFactoryCS {
             blank.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    blank.setText("____");
+                    blank.setText("          ");
                     //소팅해서 추가
                     Log.e("garynoh", (blank.getTag()).toString());
                     sortByTag(blank);
@@ -366,8 +378,23 @@ public class ViewFactoryCS {
      */
     public View createWidget(String viewType, String[] str){
 
+
+        if(viewType.equalsIgnoreCase("ImageButton")){
+            ImageButton button = new ImageButton(rootContext); // 생성
+
+            //button.setText(str[0]); //text 설정
+
+            //이벤트 리스너
+//            button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+            return button;
+        }
         //button 생성
-        if(viewType.equalsIgnoreCase("Button")){
+        else if(viewType.equalsIgnoreCase("Button")){
             Button button = new Button(rootContext); // 생성
 
             button.setText(str[0]); //text 설정
@@ -598,7 +625,7 @@ public class ViewFactoryCS {
         public void onClick(View v) {
             //Button button = (Button)v;
             TextView block = (TextView) v;
-            Toast.makeText(rootContext, block.getText(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(rootContext, block.getText(), Toast.LENGTH_SHORT).show();
 
 
             switch (type){

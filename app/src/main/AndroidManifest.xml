@@ -13,7 +13,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/codingstarter_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        >
 
         <!-- SplashAcvitiy 는 시작화면 -->
         <activity
@@ -31,17 +32,20 @@
             android:label="메인라벨"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".course1_2.course1_2_1.Course1_2_1Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".course1_1.course1_1_1.Course1_1_1Activity" />
-        <activity android:name=".course1_1.Course1_1Activity"/>
-        <activity android:name=".course1_1.course1_1_2.Course1_1_2Activity" />
 
+        <activity android:name=".course1_1.course1_1_1.Course1_1_1Activity" android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".course1_1.Course1_1Activity"/>
+        <activity android:name=".course1_1.course1_1_2.Course1_1_2Activity" android:windowSoftInputMode="adjustNothing"/>
 
         <activity android:name=".course1_2.Course1_2Activity"/>
+        <activity
+            android:name=".course1_2.course1_2_1.Course1_2_1Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".course2_1.Course2_1Activity"/>
+        <activity android:name=".course2_1.course2_1_1.Course2_1_1Activity" android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".course2_1.course2_1_2.Course2_1_2Activity" android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".course2_1.course2_1_3.Course2_1_3Activity" android:windowSoftInputMode="adjustNothing"/>
 
     </application>
 

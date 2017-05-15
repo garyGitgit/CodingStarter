@@ -1,4 +1,4 @@
-package com.gachon.app.course1_2.course1_2_1;
+package com.gachon.app.course2_1.course2_1_3;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
@@ -23,12 +23,12 @@ import com.gachon.app.helper.WidgetSet;
  * step 2 : 연산자 종류 문제 풀이
  */
 
-public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
+public class Course2_1_3Step2 extends Fragment implements TabCodingInterface{
 
     View root;
     ViewFactoryCS viewFactory;
 
-    public Course1_2_1Step2() {
+    public Course2_1_3Step2() {
         // Required empty public constructor
     }
 
@@ -72,14 +72,10 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         tableCard.setStretchAllColumns(true);
 
         //새로고침, 제출하기 버튼 추가
-        ImageButton buttonRefresh = (ImageButton) viewFactory.createWidget("ImageButton", new String[]{""});
-        buttonRefresh.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_delete));
-        buttonRefresh.setBackgroundColor(Color.TRANSPARENT);
-
-        ImageButton buttonSubmit = (ImageButton) viewFactory.createWidget("ImageButton", new String[]{""});
-        buttonSubmit.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_media_play));
-        buttonSubmit.setBackgroundColor(Color.TRANSPARENT);
-
+        Button buttonRefresh = (Button) viewFactory.createWidget("Button", new String[]{""});
+        buttonRefresh.setBackground(getResources().getDrawable(android.R.drawable.ic_menu_delete));
+        Button buttonSubmit = (Button) viewFactory.createWidget("Button", new String[]{""});
+        buttonRefresh.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
         View[] rowViews = new View[]{ buttonRefresh, buttonSubmit };
         viewFactory.addRow(rowViews, tableCard);
 

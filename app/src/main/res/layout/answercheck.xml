@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/answerCheck"
+    >
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@android:drawable/ic_menu_add"
+            android:id="@+id/button_add"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_compile"
+            android:background="@color/transparent"
+            android:src="@android:drawable/ic_media_play"/>
+</LinearLayout>
