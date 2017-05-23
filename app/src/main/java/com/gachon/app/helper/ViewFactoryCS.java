@@ -1,7 +1,9 @@
 package com.gachon.app.helper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
@@ -56,6 +58,8 @@ public class ViewFactoryCS {
 
     //question 수
     int questionCnt = 0;
+
+    Handler mHandler = new Handler();
 
     /**
      * root 와 rootContext 를 설정
@@ -514,6 +518,10 @@ public class ViewFactoryCS {
             textView.setText(str[0]); // text 설정
             return textView;
         }
+        else if(viewType.equalsIgnoreCase("AutoResizeTextView")){
+            AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
+            autoResizeTextView.setText(str[0]);
+        }
         //radio button 생성
         else if(viewType.equalsIgnoreCase("RadioButton")){
             RadioGroup radioGroup = new RadioGroup(rootContext);
@@ -529,7 +537,7 @@ public class ViewFactoryCS {
             }
             return radioGroup;
         }
-        else return null;
+        return null;
     }
 
     public WidgetSet getWidgetSet(){
@@ -598,6 +606,26 @@ public class ViewFactoryCS {
         //addRow(new View[]{scrollView},table);
         //레이아웃에 버튼을 추가
         //addRow(blocks, table);
+    }
+
+    public void addText(String str, final FrameLayout card){
+        final AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
+        autoResizeTextView.setTextSize(20);
+        autoResizeTextView.setText(str);
+        autoResizeTextView.setBackgroundColor(Color.YELLOW);
+        card.addView(autoResizeTextView);
+        autoResizeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YoYo.with(Techniques.FadeOutRight).duration(1000).playOn(autoResizeTextView);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        autoResizeTextView.setVisibility(View.GONE);
+                    }
+                }, 1000);
+            }
+        });
     }
 
 

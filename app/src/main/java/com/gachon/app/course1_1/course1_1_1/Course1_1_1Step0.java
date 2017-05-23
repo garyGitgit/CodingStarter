@@ -1,10 +1,11 @@
 package com.gachon.app.course1_1.course1_1_1;
 
 
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,11 +28,13 @@ public class Course1_1_1Step0 extends Fragment {
     View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
 
+    ArrayList<Fragment> cards = new ArrayList<>();
     //layouts
     FrameLayout[] textCard = new FrameLayout[3];
     RelativeLayout[] cardCover = new RelativeLayout[3];
     int cardBackgroundColor;
 
+    Handler mHandler = new Handler();
 
 
     public Course1_1_1Step0() {
@@ -56,49 +59,104 @@ public class Course1_1_1Step0 extends Fragment {
         viewFactory = new ViewFactoryCS(layout);
 
         //space 추가
-        viewFactory.addSpace(1.0f);
+        viewFactory.addSpace(0.5f);
+
+
+
+        //animation card 생성
+        FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+
+        //viewpager card 생성
+        FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+
+        //final AutoResizeTextView autoResizeTextView = (AutoResizeTextView)viewFactory.createWidget("TextView", new String[] {"1"});
+
+        //거꾸로 입력
+        viewFactory.addText("그래서 이런 공간을 마련한 것이 '변수'다!", slideCard);
+        viewFactory.addText("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", slideCard);
+        viewFactory.addText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", slideCard);
+
+
+
+
+//        ViewPager viewPager = new ViewPager(root.getContext());
+//        viewPager.setAdapter(new PageAdapter(getActivity().getSupportFragmentManager()));
+//        slideCard.addView(viewPager);
+
+        //ViewPager viewPagerCard
+
+
 
         //cardcover 로딩
-        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for(int i = 0 ; i < 3; i++){
-            //카드 생성
-            textCard[i] = viewFactory.createCard(1.0f, new int[]{0,0,0, PageHelper.defaultMargin});
-        }
-        //텍스트 추가
-        viewFactory.addSimpleText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", 18, textCard[0]);
-        viewFactory.addSimpleText("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", 18, textCard[1]);
-        viewFactory.addSimpleText("그래서 이런 공간을 마련한 것이 '변수'다!", 18, textCard[2]);
-
-        //카드로 덮기
-        for(int i = 0 ; i < 3; i++){
-            //card 커버 로드
-            cardCover[i] = new RelativeLayout(getContext());
-            inflater.inflate(R.layout.cardcover, cardCover[i]);
-            //카드 눌렀을 때 카드 사라지기
-            textCard[i].setTag(i);
-            textCard[i].setOnClickListener(new onCardClicked());
-            //card 로 덮기
-            textCard[i].addView(cardCover[i]);
-        }
+//        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        for(int i = 0 ; i < 3; i++){
+//            //카드 생성
+//            textCard[i] = viewFactory.createCard(1.0f, new int[]{0,0,0, PageHelper.defaultMargin});
+//        }
+//        //텍스트 추가
+//        viewFactory.addSimpleText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", 18, textCard[0]);
+//        viewFactory.addSimpleText("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", 18, textCard[1]);
+//        viewFactory.addSimpleText("그래서 이런 공간을 마련한 것이 '변수'다!", 18, textCard[2]);
+//
+//        //카드로 덮기
+//        for(int i = 0 ; i < 3; i++){
+//            //card 커버 로드
+//            cardCover[i] = new RelativeLayout(getContext());
+//            inflater.inflate(R.layout.cardcover, cardCover[i]);
+//            //카드 눌렀을 때 카드 사라지기
+//            textCard[i].setTag(i);
+//            textCard[i].setOnClickListener(new onCardClicked());
+//            //card 로 덮기
+//            textCard[i].addView(cardCover[i]);
+//        }
 
         //space 추가
-        viewFactory.addSpace(1.0f);
+        viewFactory.addSpace(0.5f);
     }
-    class onCardClicked implements View.OnClickListener{
+
+    private class PageAdapter extends FragmentStatePagerAdapter{
+        public PageAdapter(android.support.v4.app.FragmentManager fm)
+        {
+            super(fm);
+        }
         @Override
-        public void onClick(View v) {
-            int tag = ((Integer)v.getTag());
-            switch (tag){
+        public android.support.v4.app.Fragment getItem(int position)
+        {
+            switch(position)
+            {
                 case 0:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[0]);
-                    break;
+                    //return new FirstFragment();
                 case 1:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[1]);
-                    break;
+                    //return new SecondFragment();
                 case 2:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[2]);
-                    break;
+                    //return new ThirdFragment();
+                default:
+                    return null;
             }
         }
+        @Override
+        public int getCount()
+        {
+            return 3;
+        }
     }
+
+
+//    class onCardClicked implements View.OnClickListener{
+//        @Override
+//        public void onClick(View v) {
+//            int tag = ((Integer)v.getTag());
+//            switch (tag){
+//                case 0:
+//                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[0]);
+//                    break;
+//                case 1:
+//                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[1]);
+//                    break;
+//                case 2:
+//                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[2]);
+//                    break;
+//            }
+//        }
+//    }
 }
