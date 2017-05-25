@@ -35,6 +35,3 @@ Middle school/high school students and all beginners for programming in Korea
 + Parse
 <br><br>
 ## *SEE DETAILS IN [OUR WIKI PAGE](https://github.com/garyGitgit/codingstarter/wiki/CodingStarter-Wiki)!*
-
-
-update
