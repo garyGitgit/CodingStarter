@@ -18,10 +18,10 @@
         android:id="@+id/course1_1_1ViewPager">
     </com.gachon.app.helper.MyViewPager>
 
-    <Button
-        android:id="@+id/buttonGoNext1_1_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="다음" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonGoNext1_1_1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:text="다음" />-->
 </LinearLayout>

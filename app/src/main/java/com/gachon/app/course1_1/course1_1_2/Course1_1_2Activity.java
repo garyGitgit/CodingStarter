@@ -70,13 +70,13 @@ public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPa
 
         //다음 버튼 눌렀을 때 다음 페이지로 이동 (문제풀기 전에는 못 넘기게 비활성화도 해야함)
         //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);
-        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
-        buttonGoNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPressGoNext();
-            }
-        });
+//        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
+//        buttonGoNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onPressGoNext();
+//            }
+//        });
 
 
     }

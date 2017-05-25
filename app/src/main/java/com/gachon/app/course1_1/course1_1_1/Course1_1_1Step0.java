@@ -1,11 +1,11 @@
 package com.gachon.app.course1_1.course1_1_1;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.MainPagerAdapter;
+import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -30,11 +32,13 @@ public class Course1_1_1Step0 extends Fragment {
 
     ArrayList<Fragment> cards = new ArrayList<>();
     //layouts
-    FrameLayout[] textCard = new FrameLayout[3];
+
     RelativeLayout[] cardCover = new RelativeLayout[3];
     int cardBackgroundColor;
 
     Handler mHandler = new Handler();
+
+    ArrayList<Integer> slideCardNum = new ArrayList<>();
 
 
     public Course1_1_1Step0() {
@@ -59,24 +63,40 @@ public class Course1_1_1Step0 extends Fragment {
         viewFactory = new ViewFactoryCS(layout);
 
         //space 추가
-        viewFactory.addSpace(0.5f);
-
-
+//        viewFactory.addSpace(0.5f);
 
         //animation card 생성
         FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
 
         //viewpager card 생성
-        FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        //FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+
+        //slide card 생성
+//        LinearLayout slideCard_linear = (LinearLayout)getActivity().getLayoutInflater().inflate(R.layout.slidecard, null);
+//        MyViewPager viewPager = (MyViewPager) slideCard_linear.findViewById(R.id.slideCard_viewPager);
+
+//        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
+        MyViewPager viewPager = new MyViewPager(getContext());
+        viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
+        slideCardNum.add(0);
+
+        Activity parentActivity = getActivity();
+        viewFactory.addCardOnSlideCard("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("그래서 이런 공간을 마련한 것이 '변수'다!", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
 
         //final AutoResizeTextView autoResizeTextView = (AutoResizeTextView)viewFactory.createWidget("TextView", new String[] {"1"});
 
         //거꾸로 입력
-        viewFactory.addText("그래서 이런 공간을 마련한 것이 '변수'다!", slideCard);
-        viewFactory.addText("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", slideCard);
-        viewFactory.addText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", slideCard);
+//        viewFactory.addNextCard(slideCard, getActivity()); //다음페이지로 넘어가는 카드 추가
+//        viewFactory.addText("그래서 이런 공간을 마련한 것이 '변수'다!", slideCard);
+//        viewFactory.addText("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", slideCard);
+//        viewFactory.addText("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", slideCard);
 
-
+        //space 추가
+        viewFactory.addSpace(0.5f);
 
 
 //        ViewPager viewPager = new ViewPager(root.getContext());
@@ -110,36 +130,38 @@ public class Course1_1_1Step0 extends Fragment {
 //            textCard[i].addView(cardCover[i]);
 //        }
 
-        //space 추가
-        viewFactory.addSpace(0.5f);
     }
 
-    private class PageAdapter extends FragmentStatePagerAdapter{
-        public PageAdapter(android.support.v4.app.FragmentManager fm)
-        {
-            super(fm);
-        }
-        @Override
-        public android.support.v4.app.Fragment getItem(int position)
-        {
-            switch(position)
-            {
-                case 0:
-                    //return new FirstFragment();
-                case 1:
-                    //return new SecondFragment();
-                case 2:
-                    //return new ThirdFragment();
-                default:
-                    return null;
-            }
-        }
-        @Override
-        public int getCount()
-        {
-            return 3;
-        }
+    public interface onPressGoNext{
+        public void onPressed();
     }
+
+//    private class PageAdapter extends FragmentStatePagerAdapter{
+//        public PageAdapter(android.support.v4.app.FragmentManager fm)
+//        {
+//            super(fm);
+//        }
+//        @Override
+//        public android.support.v4.app.Fragment getItem(int position)
+//        {
+//            switch(position)
+//            {
+//                case 0:
+//                    //return new FirstFragment();
+//                case 1:
+//                    //return new SecondFragment();
+//                case 2:
+//                    //return new ThirdFragment();
+//                default:
+//                    return null;
+//            }
+//        }
+//        @Override
+//        public int getCount()
+//        {
+//            return 3;
+//        }
+//    }
 
 
 //    class onCardClicked implements View.OnClickListener{

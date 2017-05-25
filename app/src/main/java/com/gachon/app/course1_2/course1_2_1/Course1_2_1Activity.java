@@ -45,13 +45,13 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
 
         //gonext 버튼
         //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);
-        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
-        buttonGoNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPressGoNext();
-            }
-        });
+//        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
+//        buttonGoNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onPressGoNext();
+//            }
+//        });
     }
 
     private class PagerAdapter extends FragmentStatePagerAdapter {

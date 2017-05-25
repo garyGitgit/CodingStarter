@@ -12,9 +12,9 @@ import android.widget.Toast;
 import com.gachon.app.R;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
-import com.gachon.app.main.OnGoNextPageInterface;
+import com.gachon.app.helper.ViewFactoryCS;
 
-public class Course2_1_1Activity extends AppCompatActivity implements OnGoNextPageInterface {
+public class Course2_1_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext {
     MyViewPager viewPager;
     ImageView[] progressImageViewList;
     Button buttonGoNext;
@@ -44,13 +44,13 @@ public class Course2_1_1Activity extends AppCompatActivity implements OnGoNextPa
         viewPager.setPagingEnabled(false);
 
         //gonext 버튼
-        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
-        buttonGoNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPressGoNext();
-            }
-        });
+//        buttonGoNext = (Button)findViewById(R.id.buttonGoNext);
+//        buttonGoNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onPressGoNext();
+//            }
+//        });
     }
 
     private class PagerAdapter extends FragmentStatePagerAdapter {
@@ -83,8 +83,25 @@ public class Course2_1_1Activity extends AppCompatActivity implements OnGoNextPa
     }
 
     //프래그먼트에서 발생한 다음으로 가기 버튼 이벤트 처리
+//    @Override
+//    public void onPressGoNext() {
+//        int thisPage = viewPager.getCurrentItem();
+//
+//        if (thisPage < PageHelper.courseStepNum-1) {
+//            Toast.makeText(Course2_1_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
+//            viewPager.setCurrentItem(++thisPage);
+//            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+//            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+//        }
+//        else
+//            Toast.makeText(Course2_1_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
+//
+//    }
+
+
+    //view factory 에 있는 것 실행
     @Override
-    public void onPressGoNext() {
+    public void onPress() {
         int thisPage = viewPager.getCurrentItem();
 
         if (thisPage < PageHelper.courseStepNum-1) {

@@ -1,5 +1,6 @@
 package com.gachon.app.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -7,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -42,7 +44,7 @@ import java.util.LinkedList;
  *
  */
 
-public class ViewFactoryCS {
+public class ViewFactoryCS{
 
     LinearLayout root; //root 는 한 페이지의 가장 최상위 root linear layout 임
     Context rootContext;
@@ -60,6 +62,7 @@ public class ViewFactoryCS {
     int questionCnt = 0;
 
     Handler mHandler = new Handler();
+
 
     /**
      * root 와 rootContext 를 설정
@@ -149,6 +152,123 @@ public class ViewFactoryCS {
 
         return linearLayout;
     }
+
+    public void addCardOnSlideCard(String str, MainPagerAdapter pagerAdapter, final Activity parent){
+        FrameLayout frameLayout = new FrameLayout(rootContext);
+        frameLayout.setBackgroundColor(Color.YELLOW);
+
+        //왜 안먹힐까
+        frameLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Log.e("touch man : x - ", Float.toString(event.getX()) + "y - " + Float.toString(event.getY()));
+                    if((int)event.getX() <= v.getWidth()/2){
+                        //go left page
+                    }
+                    else{
+                        //go right page
+                        //TODO goNext 가 지금은 다음페이지로 넘어가도록 설정이 되어있는데 각 페이지가 넘어가도록 설정한다
+//                        onGoNext goNext = (onGoNext)parent;
+//                        goNext.onPress();
+                    }
+
+                }
+
+
+                return true;
+            }
+        });
+        AutoResizeTextView textView = new AutoResizeTextView(rootContext);
+        textView.setTextSize(20);
+        textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10));
+        textView.setText(str);
+
+        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        frameLayout.addView(textView);
+
+        pagerAdapter.addView(frameLayout);
+        pagerAdapter.notifyDataSetChanged();
+    }
+
+//    public MainPagerAdapter createSlideCard(float weight, int margins[], MyViewPager viewPager, LinearLayout parent){
+//
+//        MainPagerAdapter pagerAdapter = new MainPagerAdapter();
+//        viewPager.setAdapter(pagerAdapter);
+//
+//        //create card view
+//        CardView cardView = new CardView(rootContext);
+//
+//        //TableLayout.LayoutParams params;
+//        LinearLayout.LayoutParams params;
+//
+//        //weight 설정
+//        if(weight > 0)
+//            params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+//        else
+//            params = new TableLayout.LayoutParams(
+//                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+//
+//
+//        //margin 설정
+//        params.setMargins(
+//                WidgetSet.getPxFromDp(margins[0]),
+//                WidgetSet.getPxFromDp(margins[1]),
+//                WidgetSet.getPxFromDp(margins[2]),
+//                WidgetSet.getPxFromDp(margins[3]));
+//
+//        cardView.setLayoutParams(params);
+//        cardView.addView(parent);
+//        root.addView(cardView);
+//
+//        return pagerAdapter;
+//
+////        Fragment fragment = new Fragment();
+////        FragmentTransaction ft = fm.beginTransaction();
+////        ft.add(containerId, fragment, "fragment");
+////        ft.commit();
+//    }
+public MainPagerAdapter createSlideCard(float weight, int margins[], MyViewPager viewPager){
+
+    MainPagerAdapter pagerAdapter = new MainPagerAdapter();
+    viewPager.setAdapter(pagerAdapter);
+
+    //create card view
+    CardView cardView = new CardView(rootContext);
+
+    //TableLayout.LayoutParams params;
+    LinearLayout.LayoutParams params;
+
+    //weight 설정
+    if(weight > 0)
+        params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+    else
+        params = new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+    //margin 설정
+    params.setMargins(
+            WidgetSet.getPxFromDp(margins[0]),
+            WidgetSet.getPxFromDp(margins[1]),
+            WidgetSet.getPxFromDp(margins[2]),
+            WidgetSet.getPxFromDp(margins[3]));
+
+    cardView.setLayoutParams(params);
+    cardView.addView(viewPager);
+    //cardView.addView(parent);
+    root.addView(cardView);
+
+    return pagerAdapter;
+
+//        Fragment fragment = new Fragment();
+//        FragmentTransaction ft = fm.beginTransaction();
+//        ft.add(containerId, fragment, "fragment");
+//        ft.commit();
+}
+
 
     public FrameLayout createCard(float weight, int[] margins){
 
@@ -608,12 +728,18 @@ public class ViewFactoryCS {
         //addRow(blocks, table);
     }
 
+
+
     public void addText(String str, final FrameLayout card){
+
         final AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
         autoResizeTextView.setTextSize(20);
         autoResizeTextView.setText(str);
         autoResizeTextView.setBackgroundColor(Color.YELLOW);
+        autoResizeTextView.setPadding(WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10));
+
         card.addView(autoResizeTextView);
+        //card.setPadding(WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10));
         autoResizeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -628,6 +754,35 @@ public class ViewFactoryCS {
         });
     }
 
+    //다음페이지로 넘어가는 카드 구현
+    public void addNextCard(FrameLayout card, final Activity parent){
+        AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
+
+        //center 에 위치할 relativelayout
+
+        //autotext 설정
+        autoResizeTextView.setText("다음");
+        autoResizeTextView.setTextSize(30);
+        autoResizeTextView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        autoResizeTextView.setGravity(Gravity.CENTER);
+        autoResizeTextView.setBackgroundColor(Color.BLUE);
+        autoResizeTextView.setPadding(WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10));
+        autoResizeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //go next
+                onGoNext goNext = (onGoNext)parent;
+                goNext.onPress();
+            }
+        });
+
+        //add views
+        card.addView(autoResizeTextView);
+    }
+
+    public interface onGoNext{
+        void onPress();
+    }
 
 
     public HorizontalScrollView createHorizontalScrollViewCard(float weight, int color, int[] margins){
