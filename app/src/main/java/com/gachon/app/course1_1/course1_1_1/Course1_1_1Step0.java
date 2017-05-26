@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.MainPagerAdapter;
-import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -76,14 +78,15 @@ public class Course1_1_1Step0 extends Fragment {
 //        MyViewPager viewPager = (MyViewPager) slideCard_linear.findViewById(R.id.slideCard_viewPager);
 
 //        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
-        MyViewPager viewPager = new MyViewPager(getContext());
+        //MyViewPager viewPager = new MyViewPager(getContext());
+        final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
         slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", pagerAdapter, parentActivity);
+        //viewFactory.addCardOnSlideCard("이런 의문이 들었다. 1 + 2 를 계산한 결과를 저장하고 싶은데, 컴퓨터에 어떻게 저장하지?", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("그래서 이런 공간을 마련한 것이 '변수'다!", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
 
@@ -97,6 +100,40 @@ public class Course1_1_1Step0 extends Fragment {
 
         //space 추가
         viewFactory.addSpace(0.5f);
+
+
+
+        //image button
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+                int pageNum = 3;
+
+                if (thisPage < pageNum-1) {
+                    viewPager.setCurrentItem(++thisPage);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
+                    onGoNext.onPress();
+                }
+            }
+        });
+
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+
+                if (thisPage > 0) {
+                    viewPager.setCurrentItem(--thisPage);
+                }
+
+            }
+        });
 
 
 //        ViewPager viewPager = new ViewPager(root.getContext());

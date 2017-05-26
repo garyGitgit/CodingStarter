@@ -5,10 +5,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -149,7 +149,6 @@ public class ViewFactoryCS{
 
         //루트에 카드 추가
         root.addView(cardView);
-
         return linearLayout;
     }
 
@@ -157,34 +156,49 @@ public class ViewFactoryCS{
         FrameLayout frameLayout = new FrameLayout(rootContext);
         frameLayout.setBackgroundColor(Color.YELLOW);
 
-        //왜 안먹힐까
-        frameLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    Log.e("touch man : x - ", Float.toString(event.getX()) + "y - " + Float.toString(event.getY()));
-                    if((int)event.getX() <= v.getWidth()/2){
-                        //go left page
-                    }
-                    else{
-                        //go right page
-                        //TODO goNext 가 지금은 다음페이지로 넘어가도록 설정이 되어있는데 각 페이지가 넘어가도록 설정한다
-//                        onGoNext goNext = (onGoNext)parent;
-//                        goNext.onPress();
-                    }
+//        //TODO 터치해서 넘기는 것은 나중에
+//        frameLayout.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                    //
+//                    if((int)event.getX() <= v.getWidth()/2){
+//                        //go left page
+//
+//                    }
+//                    else{
+//                        //go right page
+//                        //TODO goNext 가 지금은 다음페이지로 넘어가도록 설정이 되어있는데 각 페이지가 넘어가도록 설정한다
+//                        //TODO 다음 페이지
+////                        onGoNext goNext = (onGoNext)parent;
+////                        goNext.onPress();
+//
+//
+//                    }
+//
+//                }
+//
+//
+//                return true;
+//            }
+//        });
 
-                }
 
-
-                return true;
-            }
-        });
-        AutoResizeTextView textView = new AutoResizeTextView(rootContext);
+        final AutoResizeTextView textView = new AutoResizeTextView(rootContext);
         textView.setTextSize(20);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         textView.setGravity(Gravity.CENTER);
         textView.setPadding(WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10));
         textView.setText(str);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(textView.getText().equals("다음")){
+                    onGoNext goNext = (onGoNext)parent;
+                    goNext.onPress();
+                }
+            }
+        });
 
         frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         frameLayout.addView(textView);
@@ -230,7 +244,7 @@ public class ViewFactoryCS{
 ////        ft.add(containerId, fragment, "fragment");
 ////        ft.commit();
 //    }
-public MainPagerAdapter createSlideCard(float weight, int margins[], MyViewPager viewPager){
+public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager viewPager){
 
     MainPagerAdapter pagerAdapter = new MainPagerAdapter();
     viewPager.setAdapter(pagerAdapter);
@@ -268,6 +282,8 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], MyViewPager
 //        ft.add(containerId, fragment, "fragment");
 //        ft.commit();
 }
+
+
 
 
     public FrameLayout createCard(float weight, int[] margins){
