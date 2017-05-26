@@ -14,7 +14,7 @@ import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
-public class Course2_1_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext {
+public class Course2_1_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext{
     MyViewPager viewPager;
     ImageView[] progressImageViewList;
     Button buttonGoNext;
@@ -101,7 +101,7 @@ public class Course2_1_1Activity extends AppCompatActivity implements ViewFactor
 
     //view factory 에 있는 것 실행
     @Override
-    public void onPress() {
+    public void onPressNext() {
         int thisPage = viewPager.getCurrentItem();
 
         if (thisPage < PageHelper.courseStepNum-1) {

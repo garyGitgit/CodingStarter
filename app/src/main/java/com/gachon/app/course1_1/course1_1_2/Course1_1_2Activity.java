@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.gachon.app.R;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
-import com.gachon.app.main.OnGoNextPageInterface;
+import com.gachon.app.helper.ViewFactoryCS;
 
 /**
  * 일정한 포맷을 만들고 포맷에 따라 간편하게 문제를 만들 수 있는 ViewFactoryCS 클래스를 만들 예정
@@ -28,7 +28,7 @@ import com.gachon.app.main.OnGoNextPageInterface;
 
  **/
 
-public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPageInterface {
+public class Course1_1_2Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext, ViewFactoryCS.onGoPrevious {
     MyViewPager viewPager;
 
     ImageView[] progressImageViewList;
@@ -114,24 +114,24 @@ public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPa
 
     //implementation
 
-    //프래그먼트에서 발생한 다음으로 가기 버튼 이벤트 처리
-    @Override
-    public void onPressGoNext() {
-        int thisPage = viewPager.getCurrentItem();
-
-        if (thisPage < PageHelper.courseStepNum-1) {
-            Toast.makeText(Course1_1_2Activity.this, "성공!", Toast.LENGTH_SHORT).show();
-            viewPager.setCurrentItem(++thisPage);
-
-            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
-            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
-        }
-        else {
-            Toast.makeText(Course1_1_2Activity.this, "축하합니다", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
-    }
+//    //프래그먼트에서 발생한 다음으로 가기 버튼 이벤트 처리
+//    @Override
+//    public void onPressGoNext() {
+//        int thisPage = viewPager.getCurrentItem();
+//
+//        if (thisPage < PageHelper.courseStepNum-1) {
+//            Toast.makeText(Course1_1_2Activity.this, "성공!", Toast.LENGTH_SHORT).show();
+//            viewPager.setCurrentItem(++thisPage);
+//
+//            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+//            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+//        }
+//        else {
+//            Toast.makeText(Course1_1_2Activity.this, "축하합니다", Toast.LENGTH_SHORT).show();
+//            finish();
+//        }
+//        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+//    }
 
     public void onProgressImageClickListener (View v) {
         int id = v.getId();
@@ -175,6 +175,45 @@ public class Course1_1_2Activity extends AppCompatActivity implements OnGoNextPa
         else
             viewPager.setCurrentItem(--thisPage);
         PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+    }
+
+    @Override
+    public void onPressNext() {
+        int thisPage = viewPager.getCurrentItem();
+
+        if (thisPage < PageHelper.courseStepNum-1) {
+            Toast.makeText(Course1_1_2Activity.this, "성공!", Toast.LENGTH_SHORT).show();
+            viewPager.setCurrentItem(++thisPage);
+
+            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        }
+        //액티비티 종료
+        else {
+            Toast.makeText(Course1_1_2Activity.this, "축하합니다!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+    }
+
+    @Override
+    public void onPressPrev() {
+        int thisPage = viewPager.getCurrentItem();
+
+        if (thisPage > 0) {
+            viewPager.setCurrentItem(--thisPage);
+
+            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        }
+        //액티비티 종료
+        else {
+            Toast.makeText(Course1_1_2Activity.this, "축하합니다!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+
+
     }
 
 }

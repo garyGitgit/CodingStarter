@@ -28,7 +28,7 @@ import com.gachon.app.helper.ViewFactoryCS;
 
  **/
 
-public class Course1_1_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext {
+public class Course1_1_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext, ViewFactoryCS.onGoPrevious{
     MyViewPager viewPager;
 
     ImageView[] progressImageViewList;
@@ -78,6 +78,8 @@ public class Course1_1_1Activity extends AppCompatActivity implements ViewFactor
 
 
     }
+
+
 
 
     private class PagerAdapter extends FragmentStatePagerAdapter {
@@ -134,7 +136,7 @@ public class Course1_1_1Activity extends AppCompatActivity implements ViewFactor
 
 
     @Override
-    public void onPress() {
+    public void onPressNext() {
         int thisPage = viewPager.getCurrentItem();
 
         if (thisPage < PageHelper.courseStepNum-1) {
@@ -150,8 +152,28 @@ public class Course1_1_1Activity extends AppCompatActivity implements ViewFactor
             finish();
         }
         PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+    }
+
+    @Override
+    public void onPressPrev() {
+        int thisPage = viewPager.getCurrentItem();
+
+        if (thisPage > 0) {
+            viewPager.setCurrentItem(--thisPage);
+
+            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        }
+        //액티비티 종료
+        else {
+            Toast.makeText(Course1_1_1Activity.this, "축하합니다!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+
 
     }
+
 
     public void onProgressImageClickListener (View v) {
         int id = v.getId();

@@ -28,6 +28,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
@@ -152,9 +153,50 @@ public class ViewFactoryCS{
         return linearLayout;
     }
 
+
+    //animation card
+    public void createAnimationCard(float weight, int rawId, int[] margins){
+        //카드 생성
+        CardView cardView = new CardView(rootContext);
+
+        //TableLayout.LayoutParams params;
+        LinearLayout.LayoutParams params;
+
+        //weight 설정
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+
+        cardView.setLayoutParams(params);
+
+        //애니메이션이 들어갈 이미지 뷰
+        ImageView imageView = new ImageView(rootContext);
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        //
+
+        if(rootContext.getResources().openRawResource(R.raw.course1_1_1_step0) == null)
+            Log.e("garynoh", "null image");
+        Glide.with(rootContext).load(R.raw.course1_1_1_step0).into(imageView);
+        cardView.addView(imageView);
+        //루트에 카드 추가
+        root.addView(cardView);
+    }
+
     public void addCardOnSlideCard(String str, MainPagerAdapter pagerAdapter, final Activity parent){
         FrameLayout frameLayout = new FrameLayout(rootContext);
-        frameLayout.setBackgroundColor(Color.YELLOW);
+        //frameLayout.setBackgroundColor(Color.YELLOW);
 
 //        //TODO 터치해서 넘기는 것은 나중에
 //        frameLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -195,7 +237,7 @@ public class ViewFactoryCS{
             public void onClick(View v) {
                 if(textView.getText().equals("다음")){
                     onGoNext goNext = (onGoNext)parent;
-                    goNext.onPress();
+                    goNext.onPressNext();
                 }
             }
         });
@@ -788,7 +830,7 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
             public void onClick(View v) {
                 //go next
                 onGoNext goNext = (onGoNext)parent;
-                goNext.onPress();
+                goNext.onPressNext();
             }
         });
 
@@ -797,8 +839,14 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
     }
 
     public interface onGoNext{
-        void onPress();
+        void onPressNext();
     }
+
+    public interface onGoPrevious{
+        void onPressPrev();
+    }
+
+
 
 
     public HorizontalScrollView createHorizontalScrollViewCard(float weight, int color, int[] margins){

@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -88,7 +90,7 @@ public class Course1_1_2Step1 extends Fragment {
 
 //        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
         //MyViewPager viewPager = new MyViewPager(getContext());
-        ViewPager viewPager = new ViewPager(getContext());
+        final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
         //slideCardNum.add(0);
@@ -98,6 +100,44 @@ public class Course1_1_2Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("할당 연산자 '='\n변수 = 값", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
+
+        /* 페이지 넘아가는 버튼 */
+
+        //image button
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+                int pageNum = viewPager.getChildCount();
+
+                if (thisPage < pageNum-1) {
+                    viewPager.setCurrentItem(++thisPage);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
+                    onGoNext.onPressNext();
+                }
+            }
+        });
+
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+
+                if (thisPage > 0) {
+                    viewPager.setCurrentItem(--thisPage);
+                }
+                else{
+                    ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
+                    onGoPrev.onPressPrev();
+                }
+
+            }
+        });
 
 
 //        //카드 추가, 카드로 덮기

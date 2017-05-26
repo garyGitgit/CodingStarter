@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -72,7 +74,7 @@ public class Course1_1_1Step1 extends Fragment {
 
         //MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
         //MyViewPager viewPager = new MyViewPager(getContext());
-        ViewPager viewPager = new ViewPager(getContext());
+        final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
 
@@ -88,6 +90,42 @@ public class Course1_1_1Step1 extends Fragment {
 
         //space 추가
         viewFactory.addSpace(0.5f);
+
+        //image button
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+                int pageNum = 3;
+
+                if (thisPage < pageNum-1) {
+                    viewPager.setCurrentItem(++thisPage);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
+                    onGoNext.onPressNext();
+                }
+            }
+        });
+
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPager.getCurrentItem();
+
+                if (thisPage > 0) {
+                    viewPager.setCurrentItem(--thisPage);
+                }
+                else{
+                    ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
+                    onGoPrev.onPressPrev();
+                }
+
+            }
+        });
 
 
         //이해를 돕는 이미지 카드 생성

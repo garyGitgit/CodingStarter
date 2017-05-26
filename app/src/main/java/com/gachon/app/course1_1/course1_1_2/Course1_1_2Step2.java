@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -34,6 +36,11 @@ public class Course1_1_2Step2 extends Fragment {
     int size = 3;
     FrameLayout[] textCard = new FrameLayout[size];
     RelativeLayout[] cardCover = new RelativeLayout[size];
+
+    int numCards = 2;
+    final ViewPager[] viewPagers = new ViewPager[numCards];
+    int currentCardNum = 0;
+
 
     // Required empty public constructor
     public Course1_1_2Step2() {}
@@ -94,9 +101,9 @@ public class Course1_1_2Step2 extends Fragment {
 //            textCard[i].addView(cardCover[i]);
 //        }
 
-        ViewPager viewPager = new ViewPager(getContext());
-        viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
+        viewPagers[0] = new ViewPager(getContext());
+        viewPagers[0].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPagers[0]);
         //slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
@@ -105,17 +112,68 @@ public class Course1_1_2Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("int num = 1;", pagerAdapter, parentActivity);
 
 
-        ViewPager viewPager2 = new ViewPager(getContext());
-        viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter2 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager2);
+        viewPagers[1] = new ViewPager(getContext());
+        viewPagers[1].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        MainPagerAdapter pagerAdapter2 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPagers[1]);
 
-        viewFactory.addCardOnSlideCard("변수 값 재할당", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("변수 값 재할당", pagerAdapter2, parentActivity);
+        viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter2, parentActivity);
+        viewFactory.addCardOnSlideCard("다음", pagerAdapter2, parentActivity);
 
         //공간추가
         viewFactory.addSpace(0.5f);
 
+        /* 페이지 넘아가는 버튼 */
+
+        //image button
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPagers[currentCardNum].getCurrentItem();
+                int pageNum = viewPagers[currentCardNum].getChildCount();
+                if (thisPage < pageNum-1) {
+                    viewPagers[currentCardNum].setCurrentItem(++thisPage);
+                }
+                else{
+
+                    //만약에 마지막 카드라면 다음 페이지로 넘어감
+                    if(currentCardNum == numCards-1){
+                        Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                        ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
+                        onGoNext.onPressNext();
+                    }
+                    //그렇지 않으면 다음 카드로 넘어감
+                    else currentCardNum++;
+                }
+
+            }
+        });
+
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPagers[currentCardNum].getCurrentItem();
+
+                if (thisPage == 0) {
+                    //가장 첫번째 카드면 go previous
+                    if(currentCardNum == 0){
+                        ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
+                        onGoPrev.onPressPrev();
+                    }
+                    //아니면 이전 카드로 이동
+                    else{
+                        currentCardNum--;
+                    }
+                }
+                //0 페이지 이상일 떄는 하나씩 페이지를 뒤로 돌리고
+                else{
+                    viewPagers[currentCardNum].setCurrentItem(--thisPage);
+                }
+
+            }
+        });
     }
 
     class onCardClicked implements View.OnClickListener{

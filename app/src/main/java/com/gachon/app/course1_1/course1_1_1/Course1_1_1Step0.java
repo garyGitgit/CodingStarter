@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -68,7 +67,8 @@ public class Course1_1_1Step0 extends Fragment {
 //        viewFactory.addSpace(0.5f);
 
         //animation card 생성
-        FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        //FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0,0,0, PageHelper.defaultMargin});
 
         //viewpager card 생성
         //FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
@@ -103,13 +103,15 @@ public class Course1_1_1Step0 extends Fragment {
 
 
 
+        /* 페이지 넘아가는 버튼 */
+
         //image button
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
         goNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int thisPage = viewPager.getCurrentItem();
-                int pageNum = 3;
+                int pageNum = viewPager.getChildCount();
 
                 if (thisPage < pageNum-1) {
                     viewPager.setCurrentItem(++thisPage);
@@ -117,7 +119,7 @@ public class Course1_1_1Step0 extends Fragment {
                 else{
                     Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
                     ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
-                    onGoNext.onPress();
+                    onGoNext.onPressNext();
                 }
             }
         });
@@ -130,6 +132,10 @@ public class Course1_1_1Step0 extends Fragment {
 
                 if (thisPage > 0) {
                     viewPager.setCurrentItem(--thisPage);
+                }
+                else{
+                    ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
+                    onGoPrev.onPressPrev();
                 }
 
             }

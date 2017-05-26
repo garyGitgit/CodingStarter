@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -34,6 +36,9 @@ public class Course1_1_1Step2 extends Fragment {
     FrameLayout[] textCard = new FrameLayout[4];
     RelativeLayout[] cardCover = new RelativeLayout[4];
     int size = 4;
+    int numCards = 3;
+    final ViewPager[] viewPagers = new ViewPager[numCards];
+    int currentCardNum = 0;
 
     // Required empty public constructor
     public Course1_1_1Step2() {}
@@ -72,10 +77,13 @@ public class Course1_1_1Step2 extends Fragment {
         Activity parentActivity = getActivity();
         //MyViewPager viewPager = new MyViewPager(getContext());
         //MyViewPager viewPager = new MyViewPager(getContext());
-        ViewPager viewPager = new ViewPager(getContext());
-        viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+
+        viewPagers[0] = new ViewPager(getContext());
+        viewPagers[0].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         //MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPager, slideCard_linear);
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPager);
+        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[0]);
         viewFactory.addCardOnSlideCard("1. 변수의 타입을 정한다", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("int : 정수형 (예. 1, 100, 478)", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("float : 실수형 (예. 1.0, 100.1, 478.23)", pagerAdapter, parentActivity);
@@ -84,9 +92,9 @@ public class Course1_1_1Step2 extends Fragment {
 
         //MyViewPager viewPager2 = new MyViewPager(getContext());
         //MyViewPager viewPager = new MyViewPager(getContext());
-        ViewPager viewPager2 = new ViewPager(getContext());
-        viewPager2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter2 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPager2);
+        viewPagers[1] = new ViewPager(getContext());
+        viewPagers[1].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        MainPagerAdapter pagerAdapter2 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[1]);
 
         viewFactory.addCardOnSlideCard("2. 변수 이름을 정한다", pagerAdapter2, parentActivity);
         viewFactory.addCardOnSlideCard("변수 이름을 지을 때는 몇 가지 규칙이 있다.", pagerAdapter2, parentActivity);
@@ -98,9 +106,9 @@ public class Course1_1_1Step2 extends Fragment {
 
         //MyViewPager viewPager3 = new MyViewPager(getContext());
         //MyViewPager viewPager = new MyViewPager(getContext());
-        ViewPager viewPager3 = new ViewPager(getContext());
-        viewPager3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter3 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPager3);
+        viewPagers[2] = new ViewPager(getContext());
+        viewPagers[2].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        MainPagerAdapter pagerAdapter3 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[2]);
 
         viewFactory.addCardOnSlideCard("3. 세미콜론(;)", pagerAdapter3, parentActivity);
         viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다. 세미콜론이 없으면 에러가 난다.", pagerAdapter3, parentActivity);
@@ -116,6 +124,56 @@ public class Course1_1_1Step2 extends Fragment {
 //        //space 추가
         viewFactory.addSpace(0.5f);
 
+
+        //image button
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPagers[currentCardNum].getCurrentItem();
+                int pageNum = viewPagers[currentCardNum].getChildCount();;
+                if (thisPage < pageNum-1) {
+                    viewPagers[currentCardNum].setCurrentItem(++thisPage);
+                }
+                else{
+
+                    //만약에 마지막 카드라면 다음 페이지로 넘어감
+                    if(currentCardNum == numCards-1){
+                        Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                        ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
+                        onGoNext.onPressNext();
+                    }
+                    //그렇지 않으면 다음 카드로 넘어감
+                    else currentCardNum++;
+                }
+
+            }
+        });
+
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int thisPage = viewPagers[currentCardNum].getCurrentItem();
+
+                if (thisPage == 0) {
+                    //가장 첫번째 카드면 go previous
+                    if(currentCardNum == 0){
+                        ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
+                        onGoPrev.onPressPrev();
+                    }
+                    //아니면 이전 카드로 이동
+                    else{
+                        currentCardNum--;
+                    }
+                }
+                //0 페이지 이상일 떄는 하나씩 페이지를 뒤로 돌리고
+                else{
+                    viewPagers[currentCardNum].setCurrentItem(--thisPage);
+                }
+
+            }
+        });
 
 //        //헤더 카드 생성
 //
@@ -165,6 +223,27 @@ public class Course1_1_1Step2 extends Fragment {
 //        }
 
     }
+
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //화면이 넘어갔을 떄 카드들을 모두 처음으로 초기화시켜준다
+        for(int i = 0; i < numCards; i++ ){
+            viewPagers[i].setCurrentItem(0);
+        }
+        //현재 카드를 초기화 시킨다
+        currentCardNum = 0;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     class onCardClicked implements View.OnClickListener{
         @Override
         public void onClick(View v) {
