@@ -52,15 +52,7 @@ public class Course1_1_2Step4 extends Fragment {
         viewFactory.addSimpleText("정수형 변수를 선언하고, 45로 초기화시키시오.", 20 ,problemCard);
 
         //입력한 답이 보여지는 카드 : 사용자 입력 block 이 배치되는 카드
-        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
-
-        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        viewFactory.addView(linearLayout, answerCheckLayout);
-        //answercheckwithadd 동적으로 인플레이트
-        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.answercheck, linearLayout);
-
+        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
@@ -71,6 +63,18 @@ public class Course1_1_2Step4 extends Fragment {
         viewFactory.createBlocks(
                 new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
+
+        //컴파일, 삭제 버튼이 있는 카드
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        viewFactory.addView(linearLayout, answerCheckLayout);
+        //answercheckwithadd 동적으로 인플레이트
+        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.answercheck, linearLayout);
+
+
+
+
 
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);

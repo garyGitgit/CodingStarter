@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.helper.MainPagerAdapter;
+import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -38,7 +38,9 @@ public class Course1_1_2Step2 extends Fragment {
     RelativeLayout[] cardCover = new RelativeLayout[size];
 
     int numCards = 2;
-    final ViewPager[] viewPagers = new ViewPager[numCards];
+    //final ViewPager[] viewPagers = new ViewPager[numCards];
+    MyViewPager[] viewPagers = new MyViewPager[numCards];
+    MainPagerAdapter[] pagerAdapters = new MainPagerAdapter[numCards];
     int currentCardNum = 0;
 
 
@@ -101,24 +103,26 @@ public class Course1_1_2Step2 extends Fragment {
 //            textCard[i].addView(cardCover[i]);
 //        }
 
-        viewPagers[0] = new ViewPager(getContext());
+        viewPagers[0] = new MyViewPager(getContext());
         viewPagers[0].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPagers[0]);
+        pagerAdapters[0] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[0]);
         //slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
-        viewFactory.addCardOnSlideCard("변수의 초기화", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("처음에 할당했던 값을 바꿀 수 있다. 이 때, 다시 선언해주지 않아도 된다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("int num = 1;", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("변수의 초기화", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("처음에 할당했던 값을 바꿀 수 있다. 이 때, 다시 선언해주지 않아도 된다.", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("int num = 1;", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터;", pagerAdapters[0], parentActivity);
 
 
-        viewPagers[1] = new ViewPager(getContext());
+        viewPagers[1] = new MyViewPager(getContext());
         viewPagers[1].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter2 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPagers[1]);
+        pagerAdapters[1] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPagers[1]);
 
-        viewFactory.addCardOnSlideCard("변수 값 재할당", pagerAdapter2, parentActivity);
-        viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter2, parentActivity);
-        viewFactory.addCardOnSlideCard("다음", pagerAdapter2, parentActivity);
+        viewFactory.addCardOnSlideCard("변수 값 재할당", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[1], parentActivity);
+
 
         //공간추가
         viewFactory.addSpace(0.5f);
@@ -131,12 +135,12 @@ public class Course1_1_2Step2 extends Fragment {
             @Override
             public void onClick(View v) {
                 int thisPage = viewPagers[currentCardNum].getCurrentItem();
-                int pageNum = viewPagers[currentCardNum].getChildCount();
+                //pageradapter 를 동해서 page 의 갯수를 가져온다
+                int pageNum = pagerAdapters[currentCardNum].getCount();
                 if (thisPage < pageNum-1) {
                     viewPagers[currentCardNum].setCurrentItem(++thisPage);
                 }
                 else{
-
                     //만약에 마지막 카드라면 다음 페이지로 넘어감
                     if(currentCardNum == numCards-1){
                         Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();

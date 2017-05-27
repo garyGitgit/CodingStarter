@@ -196,35 +196,6 @@ public class ViewFactoryCS{
 
     public void addCardOnSlideCard(String str, MainPagerAdapter pagerAdapter, final Activity parent){
         FrameLayout frameLayout = new FrameLayout(rootContext);
-        //frameLayout.setBackgroundColor(Color.YELLOW);
-
-//        //TODO 터치해서 넘기는 것은 나중에
-//        frameLayout.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if(event.getAction() == MotionEvent.ACTION_DOWN){
-//                    //
-//                    if((int)event.getX() <= v.getWidth()/2){
-//                        //go left page
-//
-//                    }
-//                    else{
-//                        //go right page
-//                        //TODO goNext 가 지금은 다음페이지로 넘어가도록 설정이 되어있는데 각 페이지가 넘어가도록 설정한다
-//                        //TODO 다음 페이지
-////                        onGoNext goNext = (onGoNext)parent;
-////                        goNext.onPress();
-//
-//
-//                    }
-//
-//                }
-//
-//
-//                return true;
-//            }
-//        });
-
 
         final AutoResizeTextView textView = new AutoResizeTextView(rootContext);
         textView.setTextSize(20);
@@ -232,15 +203,15 @@ public class ViewFactoryCS{
         textView.setGravity(Gravity.CENTER);
         textView.setPadding(WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10), WidgetSet.getPxFromDp(10));
         textView.setText(str);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(textView.getText().equals("다음")){
-                    onGoNext goNext = (onGoNext)parent;
-                    goNext.onPressNext();
-                }
-            }
-        });
+//        textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(textView.getText().equals("다음")){
+//                    onGoNext goNext = (onGoNext)parent;
+//                    goNext.onPressNext();
+//                }
+//            }
+//        });
 
         frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         frameLayout.addView(textView);
@@ -683,6 +654,8 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
         else if(viewType.equalsIgnoreCase("EditText")){
             EditText editText = new EditText(rootContext);
             editText.setBackground(rootContext.getResources().getDrawable(android.R.drawable.editbox_background));
+            //엔터 방지
+            editText.setMaxLines(1);
 
             //widget set 에 저장
             widgetSet.setEditText(editText);

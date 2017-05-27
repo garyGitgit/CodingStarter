@@ -59,7 +59,7 @@ public class Course1_1_1Step3 extends Fragment{
         viewFactory.addSimpleText("변수를 선언해보자 ", 20, headerCard);
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
-        questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
+        questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         final TableLayout tableCard1 = new TableLayout(getContext());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
@@ -87,6 +87,10 @@ public class Course1_1_1Step3 extends Fragment{
 
         questionCard.addView(tableCard1);
 
+        //결과 블록 카드
+        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+
+
         //사용자 입력 블록 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         LinearLayout linearLayout = new LinearLayout(getContext());
@@ -99,8 +103,7 @@ public class Course1_1_1Step3 extends Fragment{
         ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 
-        //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+
 
         //새로고침을 누르면 editText 에 있는 값들이 모두 없어짐
         buttonRefresh.setOnClickListener(new View.OnClickListener() {

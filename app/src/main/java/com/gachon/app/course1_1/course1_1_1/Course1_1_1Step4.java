@@ -53,9 +53,12 @@ public class Course1_1_1Step4 extends Fragment {
         viewFactory.addSimpleText("다음 중 변수가 될 수 없는 이름은?", 20 ,problemCard);
 
         //보기가 나타나는 카드
-        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
+        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         RadioGroup radioGroup = (RadioGroup)viewFactory.createWidget("RadioButton", new String[]{"num", "1num", "num1", "_num1"});
         answerCard.addView(radioGroup);
+
+        //결과 블록 카드
+        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
 
         //컴파일 버튼 카드

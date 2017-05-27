@@ -1,6 +1,7 @@
 package com.gachon.app.course1_1.course1_1_1;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gachon.app.R;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -203,18 +206,36 @@ public class Course1_1_1Activity extends AppCompatActivity implements ViewFactor
         PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
     }
 
+    //뒤로가기버튼이 눌리면 종료한다
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        int thisPage = viewPager.getCurrentItem();
+//        int thisPage = viewPager.getCurrentItem();
+//
+//
+//        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
+//        if (thisPage == 0) {
+//            super.onBackPressed();
+//        }
+//        else
+//            viewPager.setCurrentItem(--thisPage);
+//        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        MaterialDialog.Builder confirmDialog = new MaterialDialog.Builder(this)
+                .title("CodingStarter")
+                .content("종료하시겠습니까?")
+                .positiveText("예")
+                .negativeText("아니오");
+
+        confirmDialog.onPositive(
+                new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // TODO
+                        finish();
+                    }
+                });
 
 
-        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
-        if (thisPage == 0) {
-            super.onBackPressed();
-        }
-        else
-            viewPager.setCurrentItem(--thisPage);
-        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        confirmDialog.show();
     }
 }

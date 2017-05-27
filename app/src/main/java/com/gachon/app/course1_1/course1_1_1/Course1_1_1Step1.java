@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.helper.MainPagerAdapter;
+import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -35,6 +35,8 @@ public class Course1_1_1Step1 extends Fragment {
     //layout
     FrameLayout[] textCard = new FrameLayout[3];
     RelativeLayout[] cardCover = new RelativeLayout[3];
+
+    MainPagerAdapter pagerAdapter;
 
     // Required empty public constructor
     public Course1_1_1Step1() {}
@@ -58,35 +60,19 @@ public class Course1_1_1Step1 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
-        //space 추가
-//        viewFactory.addSpace(0.5f);
+        //animation 카드 생성
+        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
-        //animation card 생성
-        FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //viewpager card 생성
-//        FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //final AutoResizeTextView autoResizeTextView = (AutoResizeTextView)viewFactory.createWidget("TextView", new String[] {"1"});
-
-//        LinearLayout slideCard_linear = (LinearLayout)getActivity().getLayoutInflater().inflate(R.layout.slidecard, null);
-//        MyViewPager viewPager = (MyViewPager) slideCard_linear.findViewById(R.id.slideCard_viewPager);
-
-        //MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
-        //MyViewPager viewPager = new MyViewPager(getContext());
-        final ViewPager viewPager = new ViewPager(getContext());
+        final MyViewPager viewPager = new MyViewPager(getContext());
+        //final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
+        pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
 
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("변수란\n값을 저장하기 위한 공간이다. (신발장 공간)", pagerAdapter,parentActivity);
         viewFactory.addCardOnSlideCard("변수의 데이터 타입\n변수를 사용하기 위한 목적이다. 데이터 타입은 공간의 목적에 따라 다르다. (신발장의 목적 : 신발을 담기 위함)", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("변수의 선언\n변수를 사용하겠다고 이름과 데이터 타입을 정의하는 것. (나는 신발장을 담기 위한 공간을 마련할거야.)", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
-//        viewFactory.addNextCard(slideCard, getActivity()); //다음페이지로 넘어가는 카드 추가
-//        viewFactory.addText("변수의 선언\n변수를 사용하겠다고 이름과 데이터 타입을 정의하는 것. (나는 신발장을 담기 위한 공간을 마련할거야.)", slideCard);
-//        viewFactory.addText("변수의 데이터 타입\n변수를 사용하기 위한 목적이다. 데이터 타입은 공간의 목적에 따라 다르다. (신발장의 목적 : 신발을 담기 위함)", slideCard);
-//        viewFactory.addText("변수란\n값을 저장하기 위한 공간이다. (신발장 공간)", slideCard);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
 
         //space 추가
         viewFactory.addSpace(0.5f);
@@ -97,7 +83,7 @@ public class Course1_1_1Step1 extends Fragment {
             @Override
             public void onClick(View v) {
                 int thisPage = viewPager.getCurrentItem();
-                int pageNum = 3;
+                int pageNum = pagerAdapter.getCount();
 
                 if (thisPage < pageNum-1) {
                     viewPager.setCurrentItem(++thisPage);

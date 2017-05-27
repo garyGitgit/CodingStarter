@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.MainPagerAdapter;
+import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -30,8 +30,7 @@ public class Course1_1_2Step0 extends Fragment {
     ViewFactoryCS viewFactory;
 
     ArrayList<Integer> slideCardNum = new ArrayList<>();
-
-
+    MainPagerAdapter pagerAdapter;
 
     public Course1_1_2Step0() {
         // Required empty public constructor
@@ -50,45 +49,35 @@ public class Course1_1_2Step0 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //최상단 루트 레이아웃
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step0);
+
+        //viewfactory 생성
         viewFactory = new ViewFactoryCS(layout);
 
-//        LinearLayout card1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0, 0, 0, PageHelper.defaultMargin});
-        //viewFactory.addSimpleText("컴퓨터 상에 변수라는 공간을 할당했으니 변수에 값은 어떻게 넣을까?", 30, card1);
         //animation card 생성
-        //FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-        /****/
         viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0,0,0, PageHelper.defaultMargin});
 
-        //viewpager card 생성
-        //FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //slide card 생성
-//        LinearLayout slideCard_linear = (LinearLayout)getActivity().getLayoutInflater().inflate(R.layout.slidecard, null);
-//        MyViewPager viewPager = (MyViewPager) slideCard_linear.findViewById(R.id.slideCard_viewPager);
-
-//        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
-        //MyViewPager viewPager = new MyViewPager(getContext());
-
-        /****/
-        final ViewPager viewPager = new ViewPager(getContext());
+        //text card 추가
+        final MyViewPager viewPager = new MyViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
+        pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
         slideCardNum.add(0);
 
+        //text card 에 내용 추가
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("컴퓨터 상에 변수라는 공간을 할당했으니 변수에 값은 어떻게 넣을까?", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
+
+        //공간 추가
+        viewFactory.addSpace(0.5f);
 
 
         /* 페이지 넘아가는 버튼 */
-
-        //image button
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
         goNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int thisPage = viewPager.getCurrentItem();
-                int pageNum = viewPager.getChildCount();
+                int pageNum = pagerAdapter.getCount();
 
                 if (thisPage < pageNum-1) {
                     viewPager.setCurrentItem(++thisPage);

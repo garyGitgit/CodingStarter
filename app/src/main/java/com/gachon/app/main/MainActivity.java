@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.gachon.app.R;
 import com.gachon.app.TabEnum;
 import com.gachon.app.helper.MyViewPager;
@@ -70,6 +71,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //progress 설정
+        RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
+        progressBar.setMax(100);
+        progressBar.setProgress(50);
 
 
 

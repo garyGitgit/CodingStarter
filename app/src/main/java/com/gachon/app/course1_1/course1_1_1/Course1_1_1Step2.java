@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.helper.MainPagerAdapter;
+import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -37,7 +37,9 @@ public class Course1_1_1Step2 extends Fragment {
     RelativeLayout[] cardCover = new RelativeLayout[4];
     int size = 4;
     int numCards = 3;
-    final ViewPager[] viewPagers = new ViewPager[numCards];
+    MyViewPager[] viewPagers = new MyViewPager[numCards];
+    //ViewPager[] viewPagers = new ViewPager[numCards];
+    MainPagerAdapter[] pagerAdapters = new MainPagerAdapter[numCards];
     int currentCardNum = 0;
 
     // Required empty public constructor
@@ -61,66 +63,42 @@ public class Course1_1_1Step2 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step2);
         viewFactory = new ViewFactoryCS(layout);
 
-        //viewpager card 생성
-//        FrameLayout slideCard1 = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-//        FrameLayout slideCard2 = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-//        FrameLayout slideCard3 = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //final AutoResizeTextView autoResizeTextView = (AutoResizeTextView)viewFactory.createWidget("TextView", new String[] {"1"});
-
-//        LinearLayout slideCard_linear = (LinearLayout)getActivity().getLayoutInflater().inflate(R.layout.slidecard, null);
-//        MyViewPager viewPager = (MyViewPager) slideCard_linear.findViewById(R.id.slideCard_viewPager);
-
         viewFactory.addSpace(0.5f);
 
-
         Activity parentActivity = getActivity();
-        //MyViewPager viewPager = new MyViewPager(getContext());
-        //MyViewPager viewPager = new MyViewPager(getContext());
 
-
-
-        viewPagers[0] = new ViewPager(getContext());
+        viewPagers[0] = new MyViewPager(getContext());
         viewPagers[0].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         //MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPager, slideCard_linear);
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[0]);
-        viewFactory.addCardOnSlideCard("1. 변수의 타입을 정한다", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("int : 정수형 (예. 1, 100, 478)", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("float : 실수형 (예. 1.0, 100.1, 478.23)", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("char : 문자형 (예. '1', 'a', 'K', '-')", pagerAdapter, parentActivity);
+        pagerAdapters[0] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[0]);
+        viewFactory.addCardOnSlideCard("1. 변수의 타입을 정한다", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("int : 정수형 (예. 1, 100, 478)", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("float : 실수형 (예. 1.0, 100.1, 478.23)", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("char : 문자형 (예. '1', 'a', 'K', '-')", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[0], parentActivity);
 //
 
-        //MyViewPager viewPager2 = new MyViewPager(getContext());
-        //MyViewPager viewPager = new MyViewPager(getContext());
-        viewPagers[1] = new ViewPager(getContext());
+        viewPagers[1] = new MyViewPager(getContext());
         viewPagers[1].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter2 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[1]);
+        pagerAdapters[1] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[1]);
 
-        viewFactory.addCardOnSlideCard("2. 변수 이름을 정한다", pagerAdapter2, parentActivity);
-        viewFactory.addCardOnSlideCard("변수 이름을 지을 때는 몇 가지 규칙이 있다.", pagerAdapter2, parentActivity);
-        viewFactory.addCardOnSlideCard("(1) 영어 알파벳 대소문자 또는 대소문자+숫자", pagerAdapter2, parentActivity);
-        viewFactory.addCardOnSlideCard("(2) 첫 글자는 반드시 알파벳 대소문자", pagerAdapter2, parentActivity);
-        viewFactory.addCardOnSlideCard("(3) 특수문자는 '_' 만 가능(이 특수문자는 첫 글자로도 쓸 수 있다)", pagerAdapter2, parentActivity);
+        viewFactory.addCardOnSlideCard("2. 변수 이름을 정한다", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("변수 이름을 지을 때는 몇 가지 규칙이 있다.", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("(1) 영어 알파벳 대소문자 또는 대소문자+숫자", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("(2) 첫 글자는 반드시 알파벳 대소문자", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("(3) 특수문자는 '_' 만 가능(이 특수문자는 첫 글자로도 쓸 수 있다)", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[1], parentActivity);
 
 
-
-        //MyViewPager viewPager3 = new MyViewPager(getContext());
-        //MyViewPager viewPager = new MyViewPager(getContext());
-        viewPagers[2] = new ViewPager(getContext());
+        viewPagers[2] = new MyViewPager(getContext());
         viewPagers[2].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter3 = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[2]);
+        pagerAdapters[2] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[2]);
 
-        viewFactory.addCardOnSlideCard("3. 세미콜론(;)", pagerAdapter3, parentActivity);
-        viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다. 세미콜론이 없으면 에러가 난다.", pagerAdapter3, parentActivity);
-        viewFactory.addCardOnSlideCard("다음", pagerAdapter3, parentActivity);
+        viewFactory.addCardOnSlideCard("3. 세미콜론(;)", pagerAdapters[2], parentActivity);
+        viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다. 세미콜론이 없으면 에러가 난다.", pagerAdapters[2], parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[2], parentActivity);
 
-////        거꾸로 입력
-//        viewFactory.addText("변수 선언하는 법\n(변수의 타입) (변수 이름);", slideCard1);
-//
-//        viewFactory.addText("1. 변수의 타입을 정한다\nint : 정수형 (예. 1, 100, 478)", slideCard2);
-//        viewFactory.addText("float : 실수형 (예. 1.0, 100.1, 478.23)", slideCard2);
-//        viewFactory.addText("char : 문자형 (예. '1', 'a', 'K', '-')", slideCard2);
-//
+
 //        //space 추가
         viewFactory.addSpace(0.5f);
 
@@ -131,7 +109,8 @@ public class Course1_1_1Step2 extends Fragment {
             @Override
             public void onClick(View v) {
                 int thisPage = viewPagers[currentCardNum].getCurrentItem();
-                int pageNum = viewPagers[currentCardNum].getChildCount();;
+                //pageradapter 를 동해서 page 의 갯수를 가져온다
+                int pageNum = pagerAdapters[currentCardNum].getCount();
                 if (thisPage < pageNum-1) {
                     viewPagers[currentCardNum].setCurrentItem(++thisPage);
                 }
@@ -175,40 +154,6 @@ public class Course1_1_1Step2 extends Fragment {
             }
         });
 
-//        //헤더 카드 생성
-//
-//
-//        //카드생성
-//        for(int i = 0; i < size; i++){
-//            if(i == 0 )
-//                textCard[i] = viewFactory.createCard(0.8f, new int[]{0,0,0,PageHelper.defaultMargin});
-//            else
-//                textCard[i] = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-//        }
-//        //텍스트 설정
-//
-//        viewFactory.addSimpleText("변수 선언하는 법\n(변수의 타입) (변수 이름);", 20, textCard[0]);
-//
-//        viewFactory.addSimpleText("" +
-//                "1. 변수의 타입을 정한다\n" +
-//                "- int : 정수형 (예. 1, 100, 478)\n" +
-//                "- float : 실수형 (예. 1.0, 100.1, 478.23)\n" +
-//                "- char : 문자형 (예. '1', 'a', 'K', '-')", 20, textCard[1]);
-//
-//        viewFactory.addSimpleText("" +
-//                "2. 변수 이름을 정한다\n" +
-//                "변수 이름을 지을 때는 몇 가지 규칙이 있다.\n" +
-//                "1. 영어 알파벳 대소문자 또는 대소문자+숫자\n" +
-//                "2. 첫 글자는 반드시 알파벳 대소문자\n" +
-//                "3. 특수문자는 '_' 만 가능(이 특수문자는 첫 글자로도 쓸 수 있다)", 20, textCard[2]);
-//
-//        viewFactory.addSimpleText("" +
-//                "3. 세미콜론(;)\n" +
-//                "세미콜론(;)은 프로그램 한 줄의 끝을 의미한다. 세미콜론이 없으면 에러가 난다.", 20, textCard[3]);
-//
-//        //inflate
-//        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//
 //
 //        //카드 추가, 카드로 덮기
 //        for(int i = 0 ; i < size; i++){

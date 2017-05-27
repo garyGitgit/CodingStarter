@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.helper.MainPagerAdapter;
+import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -36,6 +36,7 @@ public class Course1_1_2Step1 extends Fragment {
     int size = 3;
     FrameLayout[] textCard = new FrameLayout[size];
     RelativeLayout[] cardCover = new RelativeLayout[size];
+    MainPagerAdapter pagerAdapter;
 
     // Required empty public constructor
     public Course1_1_2Step1() {
@@ -58,48 +59,20 @@ public class Course1_1_2Step1 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
-        //이미지 추가
-//        LinearLayout imageCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0, 0, 0, PageHelper.defaultMargin});
-//        viewFactory.addImage(getResources().getDrawable(R.drawable.shoe), imageCard);
-//
-//        //카드 생성
-//        for(int i = 0; i < size; i ++){
-//            textCard[i] = viewFactory.createCard(1.0f, new int[]{0, 0, 0, PageHelper.defaultMargin});
-//        }
-//
-//        //텍스트 설정
-//        viewFactory.addSimpleText("할당이란\n" +
-//                "'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다. 예를 들어, '변수 num 에 10을 할당한다' 와 같이 표현한다.", 18, textCard[0]);
-//
-//        viewFactory.addSimpleText("할당 연산자 '='\n" +
-//                "변수 = 값", 18, textCard[1]);
-//
-//        viewFactory.addSimpleText("변수와 할당\n" +
-//                "상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", 18, textCard[2]);
-//        //inflate
-//        LayoutInflater inflater = (LayoutInflater) root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //animation card 생성
+        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0,0,0, PageHelper.defaultMargin});
 
-        FrameLayout animCard = viewFactory.createCard(3.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //viewpager card 생성
-        //FrameLayout slideCard = viewFactory.createCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //slide card 생성
-//        LinearLayout slideCard_linear = (LinearLayout)getActivity().getLayoutInflater().inflate(R.layout.slidecard, null);
-//        MyViewPager viewPager = (MyViewPager) slideCard_linear.findViewById(R.id.slideCard_viewPager);
-
-//        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager, slideCard_linear);
-        //MyViewPager viewPager = new MyViewPager(getContext());
-        final ViewPager viewPager = new ViewPager(getContext());
+        final MyViewPager viewPager = new MyViewPager(getContext());
+//        final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        MainPagerAdapter pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
+        pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
         //slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다. 예를 들어, '변수 num 에 10을 할당한다' 와 같이 표현한다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("할당 연산자 '='\n변수 = 값", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("다음", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
 
         /* 페이지 넘아가는 버튼 */
 
@@ -109,7 +82,7 @@ public class Course1_1_2Step1 extends Fragment {
             @Override
             public void onClick(View v) {
                 int thisPage = viewPager.getCurrentItem();
-                int pageNum = viewPager.getChildCount();
+                int pageNum = pagerAdapter.getCount();
 
                 if (thisPage < pageNum-1) {
                     viewPager.setCurrentItem(++thisPage);
@@ -139,6 +112,8 @@ public class Course1_1_2Step1 extends Fragment {
             }
         });
 
+        //공간 추가
+        viewFactory.addSpace(0.5f);
 
 //        //카드 추가, 카드로 덮기
 //        for (int i = 0; i < size; i++) {

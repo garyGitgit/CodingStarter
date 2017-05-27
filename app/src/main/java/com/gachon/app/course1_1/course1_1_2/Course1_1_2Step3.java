@@ -96,7 +96,10 @@ public class Course1_1_2Step3 extends Fragment{
         viewFactory.addRow(rowViews, answerCard);
         questionCard.addView(answerCard);
 
+        //결과 블록 카드
+        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
+        //컴파일 삭제 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
@@ -138,8 +141,6 @@ public class Course1_1_2Step3 extends Fragment{
             }
         });
 
-        //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
 
         //제출하기를 누르면 editText 에 있는 값들이 resultCard 에 보여짐

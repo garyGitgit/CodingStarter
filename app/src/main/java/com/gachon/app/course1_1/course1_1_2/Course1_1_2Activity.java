@@ -1,6 +1,7 @@
 package com.gachon.app.course1_1.course1_1_2;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gachon.app.R;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -17,15 +20,13 @@ import com.gachon.app.helper.ViewFactoryCS;
 
 /**
  * 일정한 포맷을 만들고 포맷에 따라 간편하게 문제를 만들 수 있는 ViewFactoryCS 클래스를 만들 예정
- *
+ * <p>
  * step1 비유) 이미지 or 애니메이션 + 글씨 설명(scrollview + linearlayout)
  * step2 개념) 이미지 or 애니메이션 + 글씨 설명(scrollview + linearlayout)
  * step3 체험) 원하는 뷰를 ViewFactoryCS 를 통해서 생성하여 차곡차곡 벽돌쌓기 하듯이 쌓는다.
  * 이에 따른 결과값도 한 페이지 안에서 보여준다. 공간이 모자라면 스크롤뷰로 내린다
  * step4 문제) 문제 섹션(이미지 or 애니메이션) + 문제 출제(이건 보통 코드 빈칸 문제가 나오는데 \n 이나 _____
  * 와 같은 delimiter 를 이용한다
- *
-
  **/
 
 public class Course1_1_2Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext, ViewFactoryCS.onGoPrevious {
@@ -46,11 +47,11 @@ public class Course1_1_2Activity extends AppCompatActivity implements ViewFactor
 
         //progress 상태 표시
         progressImageViewList = new ImageView[5];
-        progressImageViewList[0] = (ImageView)findViewById(R.id.course_progress0);
-        progressImageViewList[1] = (ImageView)findViewById(R.id.course_progress1);
-        progressImageViewList[2] = (ImageView)findViewById(R.id.course_progress2);
-        progressImageViewList[3] = (ImageView)findViewById(R.id.course_progress3);
-        progressImageViewList[4] = (ImageView)findViewById(R.id.course_progress4);
+        progressImageViewList[0] = (ImageView) findViewById(R.id.course_progress0);
+        progressImageViewList[1] = (ImageView) findViewById(R.id.course_progress1);
+        progressImageViewList[2] = (ImageView) findViewById(R.id.course_progress2);
+        progressImageViewList[3] = (ImageView) findViewById(R.id.course_progress3);
+        progressImageViewList[4] = (ImageView) findViewById(R.id.course_progress4);
 
         //초기 시작은 첫번째 progress 이미지 초기화
         progressImageViewList[0].setImageDrawable(getResources().getDrawable(R.drawable.course_progress_check_blue));
@@ -133,7 +134,7 @@ public class Course1_1_2Activity extends AppCompatActivity implements ViewFactor
 //        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
 //    }
 
-    public void onProgressImageClickListener (View v) {
+    public void onProgressImageClickListener(View v) {
         int id = v.getId();
         int index = 0;
         switch (id) {
@@ -164,24 +165,41 @@ public class Course1_1_2Activity extends AppCompatActivity implements ViewFactor
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        int thisPage = viewPager.getCurrentItem();
+//        //super.onBackPressed();
+//        int thisPage = viewPager.getCurrentItem();
+//
+//
+//        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
+//        if (thisPage == 0) {
+//            super.onBackPressed();
+//        }
+//        else
+//            viewPager.setCurrentItem(--thisPage);
+//        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        MaterialDialog.Builder confirmDialog = new MaterialDialog.Builder(this)
+                .title("CodingStarter")
+                .content("종료하시겠습니까?")
+                .positiveText("예")
+                .negativeText("아니오");
+
+        confirmDialog.onPositive(
+                new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // TODO
+                        finish();
+                    }
+                });
 
 
-        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
-        if (thisPage == 0) {
-            super.onBackPressed();
-        }
-        else
-            viewPager.setCurrentItem(--thisPage);
-        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        confirmDialog.show();
     }
 
     @Override
     public void onPressNext() {
         int thisPage = viewPager.getCurrentItem();
 
-        if (thisPage < PageHelper.courseStepNum-1) {
+        if (thisPage < PageHelper.courseStepNum - 1) {
             Toast.makeText(Course1_1_2Activity.this, "성공!", Toast.LENGTH_SHORT).show();
             viewPager.setCurrentItem(++thisPage);
 
