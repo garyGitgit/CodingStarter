@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
@@ -47,12 +48,21 @@ public class Course1_1_2Step4 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step4);
         viewFactory = new ViewFactoryCS(layout);
 
+        //header text 설정
+        viewFactory.createHeaderCard("확인문제", new int[]{0, 0, 0, PageHelper.headerCardMargin});
+
+
         //문제를 제시하는 카드 : 카드에 들어갈 위젯 또는 텍스트를 배치
         LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,PageHelper.defaultMargin});
         viewFactory.addSimpleText("정수형 변수를 선언하고, 45로 초기화시키시오.", 20 ,problemCard);
 
         //입력한 답이 보여지는 카드 : 사용자 입력 block 이 배치되는 카드
         final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+
+        //feedback card 추가
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        viewFactory.addFeedBackText("아래 블록을 탭해서 블록들을 배치해보세요", feedBackTextContainer);
+
 
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
@@ -64,6 +74,7 @@ public class Course1_1_2Step4 extends Fragment {
                 new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
 
+
         //컴파일, 삭제 버튼이 있는 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         LinearLayout linearLayout = new LinearLayout(getContext());
@@ -71,6 +82,7 @@ public class Course1_1_2Step4 extends Fragment {
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.answercheck, linearLayout);
+
 
 
 

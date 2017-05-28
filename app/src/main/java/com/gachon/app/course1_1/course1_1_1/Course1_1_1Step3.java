@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +56,12 @@ public class Course1_1_1Step3 extends Fragment{
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step3);
         viewFactory = new ViewFactoryCS(layout);
 
-        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
-        viewFactory.addSimpleText("변수를 선언해보자 ", 20, headerCard);
+//        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
+//        viewFactory.addSimpleText("변수를 선언해보자 ", 20, headerCard);
+
+        //header text 설정
+        viewFactory.createHeaderCard("변수를 직접 만들어보자", new int[]{0, 0, 0, PageHelper.headerCardMargin});
+
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
         questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
@@ -87,8 +92,13 @@ public class Course1_1_1Step3 extends Fragment{
 
         questionCard.addView(tableCard1);
 
-        //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+//        //결과 블록 카드
+//        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+
+        //feedback card 추가
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
+
 
 
         //사용자 입력 블록 카드
@@ -116,7 +126,7 @@ public class Course1_1_1Step3 extends Fragment{
                     editText.setText("");
                 }
                 //resultCard 이미지 제거
-                resultCard.removeAllViews();
+                //resultCard.removeAllViews();
 
             }
         });
@@ -161,7 +171,10 @@ public class Course1_1_1Step3 extends Fragment{
                 }
                 if(isSuccess){
                     //이 widget set 을 바탕으로 resultCard 에 반영 : 잘못된
-                    show(widgetSet, userInputs, resultCard);
+                    //show(widgetSet, userInputs, resultCard);
+
+                    //성공이라고 텍스트에 표시해줌
+                    viewFactory.addFeedBackText("성공", feedBackTextContainer);
                 }
             }
         });
@@ -209,11 +222,26 @@ public class Course1_1_1Step3 extends Fragment{
 
         ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
         for(Spinner spinner : spinnersList){
-            String result = spinner.getSelectedItem() + " "+ userInputs[i++];
+            String userDataType = spinner.getSelectedItem().toString();
+            String userVariableName = userInputs[i++];
+            String result = userDataType + " "+ userVariableName;
             //load image
             TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
-            textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
-            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            textView.setTextSize(PageHelper.questionTextSize);
+
+            //데이터 타입에 따라서 다른 box 색깔로 보여준다
+            switch (userDataType){
+                case "int":
+                    textView.setBackground(getResources().getDrawable(R.drawable.int_box));
+                    break;
+                case "float":
+                    textView.setBackground(getResources().getDrawable(R.drawable.float_box));
+                    break;
+                case "char":
+                    textView.setBackground(getResources().getDrawable(R.drawable.char_box));
+                    break;
+            }
+            textView.setGravity(Gravity.CENTER);
             viewFactory.addView(textView, resultCard);
         }
     }

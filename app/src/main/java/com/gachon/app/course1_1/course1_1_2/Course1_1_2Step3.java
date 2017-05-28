@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,12 +58,15 @@ public class Course1_1_2Step3 extends Fragment{
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step3);
         viewFactory = new ViewFactoryCS(layout);
 
-        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
-        viewFactory.addSimpleText("변수를 선언하고 초기화 해보자", 20, headerCard);
+//        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
+//        viewFactory.addSimpleText("변수를 선언하고 초기화 해보자", 20, headerCard);
+
+        //header text 설정
+        viewFactory.createHeaderCard("변수를 선언하고 초기화 해보자", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
         //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
 
-        questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
+        questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
 
         answerCard = new TableLayout(getContext());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
@@ -97,7 +101,12 @@ public class Course1_1_2Step3 extends Fragment{
         questionCard.addView(answerCard);
 
         //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        //final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+
+        //feedback card 추가
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
+
 
         //컴파일 삭제 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
@@ -175,7 +184,7 @@ public class Course1_1_2Step3 extends Fragment{
                 }
                 if(isSuccess){
                     //이 widget set 을 바탕으로 resultCard 에 반영 : 잘못된
-                    show(widgetSet, userVariables, userValues, resultCard);
+                    //show(widgetSet, userVariables, userValues, resultCard);
                 }
             }
         });
@@ -197,12 +206,33 @@ public class Course1_1_2Step3 extends Fragment{
         //TODO 2개씩 건너서 안나옴
         ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
         for(Spinner spinner : spinnersList){
-            String result = spinner.getSelectedItem() + "  "+ userInputs[i] + " = " + userValues[i++];
+//            String result = spinner.getSelectedItem() + "  "+ userInputs[i] + " = " + userValues[i++];
+//            //load image
+//            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
+//            textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
+//            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+//            viewFactory.addView(textView, resultCard);
+            String userDataType = spinner.getSelectedItem().toString();
+            String userVariableName = userInputs[i++];
+            String result = userDataType + " "+ userVariableName;
             //load image
             TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
-            textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
-            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
-            viewFactory.addView(textView, resultCard);
+            textView.setTextSize(PageHelper.questionTextSize);
+
+            //데이터 타입에 따라서 다른 box 색깔로 보여준다
+            switch (userDataType){
+                case "int":
+                    textView.setBackground(getResources().getDrawable(R.drawable.int_box));
+                    break;
+                case "float":
+                    textView.setBackground(getResources().getDrawable(R.drawable.float_box));
+                    break;
+                case "char":
+                    textView.setBackground(getResources().getDrawable(R.drawable.char_box));
+                    break;
+            }
+            textView.setGravity(Gravity.CENTER);
+            //viewFactory.addView(textView, resultCard);
         }
     }
 

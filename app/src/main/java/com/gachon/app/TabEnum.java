@@ -2,7 +2,6 @@ package com.gachon.app;
 
 import android.content.res.Resources;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,14 +33,13 @@ public enum TabEnum {
         public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
           ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon1, container,
               false);
-          Log.e("tabview", Integer.toString(position));
           switch (position) {
             case 0:
-              icon.setImageDrawable(res.getDrawable(R.drawable.icon_menu_heartbeat));
+              icon.setImageDrawable(res.getDrawable(R.drawable.icon_learn));
               break;
             case 1:
               //17.4.3 : case 1의 아이콘을 안쓰는 3으로 보냄
-              icon.setImageDrawable(res.getDrawable(R.drawable.icon_menu_home));
+              icon.setImageDrawable(res.getDrawable(R.drawable.icon_rank));
               break;
             case 2:
               icon.setImageDrawable(res.getDrawable(R.drawable.icon_menu_user_settings));

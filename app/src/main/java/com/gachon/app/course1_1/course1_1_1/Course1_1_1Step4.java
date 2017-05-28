@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
@@ -48,6 +49,10 @@ public class Course1_1_1Step4 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step4);
         viewFactory = new ViewFactoryCS(layout);
 
+        //header text 설정
+        viewFactory.createHeaderCard("확인문제", new int[]{0, 0, 0, PageHelper.headerCardMargin});
+
+
         //문제를 제시하는 카드 : 카드에 들어갈 위젯 또는 텍스트를 배치
         LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,PageHelper.defaultMargin});
         viewFactory.addSimpleText("다음 중 변수가 될 수 없는 이름은?", 20 ,problemCard);
@@ -58,7 +63,10 @@ public class Course1_1_1Step4 extends Fragment {
         answerCard.addView(radioGroup);
 
         //결과 블록 카드
-        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        //final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        //feedback card 추가
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        viewFactory.addFeedBackText("변수의 이름을 정할 때 규칙을 잘 생각해보세요", feedBackTextContainer);
 
 
         //컴파일 버튼 카드

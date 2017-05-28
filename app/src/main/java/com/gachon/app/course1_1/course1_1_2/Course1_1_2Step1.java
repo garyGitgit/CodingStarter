@@ -59,6 +59,9 @@ public class Course1_1_2Step1 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
+        //header text 설정
+        viewFactory.createHeaderCard("변수 할당", new int[]{0, 0, 0, PageHelper.headerCardMargin});
+
         //animation card 생성
         viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0,0,0, PageHelper.defaultMargin});
 
@@ -69,9 +72,10 @@ public class Course1_1_2Step1 extends Fragment {
         //slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
-        viewFactory.addCardOnSlideCard("'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다. 예를 들어, '변수 num 에 10을 할당한다' 와 같이 표현한다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("할당 연산자 '='\n변수 = 값", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다.", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("예를 들어, 변수 num 에 10을 저장하는 것을 '변수 num 에 10을 할당한다' 와 같이 표현한다.", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("할당 연산자 '=' 을 이용하여 '변수 = 값' 으로 쓴다 ", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
 
         /* 페이지 넘아가는 버튼 */

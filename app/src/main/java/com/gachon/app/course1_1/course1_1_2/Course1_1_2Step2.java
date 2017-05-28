@@ -103,15 +103,17 @@ public class Course1_1_2Step2 extends Fragment {
 //            textCard[i].addView(cardCover[i]);
 //        }
 
+        //header text 설정
+        viewFactory.createHeaderCard("변수의 초기화", new int[]{0, 0, 0, PageHelper.headerCardMargin});
+
         viewPagers[0] = new MyViewPager(getContext());
         viewPagers[0].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         pagerAdapters[0] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[0]);
-        //slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("변수의 초기화", pagerAdapters[0], parentActivity);
-        viewFactory.addCardOnSlideCard("처음에 할당했던 값을 바꿀 수 있다. 이 때, 다시 선언해주지 않아도 된다.", pagerAdapters[0], parentActivity);
-        viewFactory.addCardOnSlideCard("int num = 1;", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("처음에 할당했던 값을 바꿀 수 있다. 이 때, 다시 선언해주지 않아도 된다", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard("(예시) int num = 1;", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터;", pagerAdapters[0], parentActivity);
 
 
@@ -120,7 +122,9 @@ public class Course1_1_2Step2 extends Fragment {
         pagerAdapters[1] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPagers[1]);
 
         viewFactory.addCardOnSlideCard("변수 값 재할당", pagerAdapters[1], parentActivity);
-        viewFactory.addCardOnSlideCard("변수와 할당\n상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("한 번 할당한 값을 새로 할당할 수 있다", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("(예시) int num = 1; num = 2;", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard("이 때, num 에 저장되어있는 값은 2 이다", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[1], parentActivity);
 
 

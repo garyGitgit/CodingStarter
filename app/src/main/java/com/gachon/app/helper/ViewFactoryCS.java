@@ -29,11 +29,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 
 import java.util.LinkedList;
+
 
 /**
  *
@@ -182,14 +186,38 @@ public class ViewFactoryCS{
 
         //애니메이션이 들어갈 이미지 뷰
         ImageView imageView = new ImageView(rootContext);
+        imageView.setBackgroundColor(Color.WHITE);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         //
 
         if(rootContext.getResources().openRawResource(R.raw.course1_1_1_step0) == null)
             Log.e("garynoh", "null image");
-        Glide.with(rootContext).load(R.raw.course1_1_1_step0).into(imageView);
+
+
+        GlideBuilder builder = new GlideBuilder(rootContext);
+        builder.setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888);
+
+        Glide.with(rootContext)
+                .load(R.raw.course1_1_1_step0)
+                .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .fitCenter()
+                .dontTransform()
+                .crossFade()
+                .into(imageView);
+
         cardView.addView(imageView);
+
+//
+//        Glide.with(rootContext)
+//                .load(R.raw.course1_1_1_step0)
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .fitCenter()
+//                .dontTransform()
+//                .crossFade()
+//                .into(imageProduct);
+
         //루트에 카드 추가
         root.addView(cardView);
     }
@@ -257,44 +285,68 @@ public class ViewFactoryCS{
 ////        ft.add(containerId, fragment, "fragment");
 ////        ft.commit();
 //    }
-public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager viewPager){
 
-    MainPagerAdapter pagerAdapter = new MainPagerAdapter();
-    viewPager.setAdapter(pagerAdapter);
+    public void createHeaderCard(String txt, int margins[]){
+        TextView headerText = new TextView(rootContext);
+        //match parent, wrap content
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-    //create card view
-    CardView cardView = new CardView(rootContext);
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+        headerText.setLayoutParams(params);
 
-    //TableLayout.LayoutParams params;
-    LinearLayout.LayoutParams params;
+        //텍스트 설정
+        headerText.setText(txt);
+        headerText.setGravity(Gravity.CENTER);
+        headerText.setTextSize(20); //20dp
 
-    //weight 설정
-    if(weight > 0)
-        params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
-    else
-        params = new TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        //상위 뷰에 추가
+        root.addView(headerText);
+    }
 
 
-    //margin 설정
-    params.setMargins(
-            WidgetSet.getPxFromDp(margins[0]),
-            WidgetSet.getPxFromDp(margins[1]),
-            WidgetSet.getPxFromDp(margins[2]),
-            WidgetSet.getPxFromDp(margins[3]));
+    public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager viewPager) {
 
-    cardView.setLayoutParams(params);
-    cardView.addView(viewPager);
-    //cardView.addView(parent);
-    root.addView(cardView);
+        MainPagerAdapter pagerAdapter = new MainPagerAdapter();
+        viewPager.setAdapter(pagerAdapter);
 
-    return pagerAdapter;
+        //create card view
+        CardView cardView = new CardView(rootContext);
 
-//        Fragment fragment = new Fragment();
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.add(containerId, fragment, "fragment");
-//        ft.commit();
-}
+        //TableLayout.LayoutParams params;
+        LinearLayout.LayoutParams params;
+
+        //weight 설정
+        if (weight > 0)
+            params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+        cardView.setLayoutParams(params);
+        cardView.addView(viewPager);
+        //cardView.addView(parent);
+        root.addView(cardView);
+
+        return pagerAdapter;
+
+    //        Fragment fragment = new Fragment();
+    //        FragmentTransaction ft = fm.beginTransaction();
+    //        ft.add(containerId, fragment, "fragment");
+    //        ft.commit();
+    }
 
 
 
@@ -410,6 +462,86 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
         //루트에 카드 추가
         root.addView(cardView);
         return tableLayout;
+    }
+
+    public TextView createFeedBackCard(float weight, int[] margins){
+        //카드 생성
+        CardView cardView = new CardView(rootContext);
+
+        //weight 설정
+        TableLayout.LayoutParams params;
+
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(0, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+        //카드뷰 파라미터 설정
+        cardView.setLayoutParams(params);
+
+        //linear layout 생성
+        LinearLayout linearLayout = new LinearLayout(rootContext);
+
+        //weight 가 있을 때는 weight 를 맞추고 0일 때는 wrap content 로 parameter 설정
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        //가로
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        //padding 설정
+        linearLayout.setPadding(
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10)
+        );
+
+        //Text 들어갈 부분 추가
+        TextView feedBackText = new TextView(rootContext);
+        //weight 3.0f 줌, 근데 왜 반대로 되는거지?
+        feedBackText.setLayoutParams(new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.5f));
+        feedBackText.setGravity(Gravity.CENTER_VERTICAL);
+
+        //이미지 추가
+        ImageView imageView = new ImageView(rootContext);
+        //weight 1.0f 줌
+        imageView.setLayoutParams(new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        imageView.setImageDrawable(root.getResources().getDrawable(R.drawable.mascot));
+
+        //linearlayout 에 추가
+        linearLayout.addView(feedBackText);
+        linearLayout.addView(imageView);
+
+
+
+
+
+        //카드 테두리 설정
+        //tableLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
+
+        //카드에 table layout 추가
+        cardView.addView(linearLayout);
+
+        //루트에 카드 추가
+        root.addView(cardView);
+
+        return feedBackText;
+
+    }
+
+    public void addFeedBackText(String str, TextView feedBackText){
+        feedBackText.setText(str);
+        feedBackText.setTextSize(15);
     }
 
     /**
@@ -684,6 +816,7 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
             for(int i = 0 ; i < size; i++){
                 RadioButton radioButton = new RadioButton(rootContext);
                 radioButton.setText(str[i]);
+                radioButton.setTextSize(PageHelper.questionTextSize);
                 radioGroup.addView(radioButton);
             }
             return radioGroup;
@@ -890,6 +1023,12 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
         scrollView.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
         ));
+        scrollView.setPadding(
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10),
+                WidgetSet.getPxFromDp(10)
+        );
 
         //카드 배경색 설정
         scrollView .setBackgroundColor(color);
@@ -962,9 +1101,6 @@ public MainPagerAdapter createSlideCard(float weight, int margins[], ViewPager v
 
         }
     };
-
-
-
 
 
 }

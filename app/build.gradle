@@ -32,6 +32,7 @@ dependencies {
     //위젯 애니메이션
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+
     compile 'com.android.support:design:25.3.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
@@ -49,7 +50,10 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
     //gif glide
-    compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
+    //compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
 
     //material dialog
@@ -57,6 +61,8 @@ dependencies {
 
     //progressbar
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
+
 
 
 

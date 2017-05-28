@@ -91,9 +91,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //뷰페이저 페이지 설정
         pages = new FragmentPagerItems(this);
 
+        //탭은 학습, 순위 탭만 사용
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[0]), Fragment1.class));
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[1]), Fragment2.class));
-        pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[2]), Fragment3.class));
+        //pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[2]), Fragment3.class));
 
         viewPagerTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,13 +119,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             //17.4.3. : 0 ~ 3 은 위에서 만든 페이지 수와 같아야 함
             Fragment mFragment = adapter.getItem(0);
             Fragment mFragment2 = adapter.getItem(1);
-            Fragment mFragment3 = adapter.getItem(2);
+            //Fragment mFragment3 = adapter.getItem(2);
             //Fragment mFragment4 = adapter.getItem(3);
 
             mListener = (onBluetoothMessageReceived) mFragment;
             mListener2 = (onBluetoothMessageReceived) mFragment2;
             //TODO : 주석을 해제하면 null point error 가 발생, 어디인지 확인해보자
-            mListener3 = (onBluetoothMessageReceived) mFragment3;
+            //mListener3 = (onBluetoothMessageReceived) mFragment3;
             //mListener4 = (onBluetoothMessageReceived) mFragment4;
         }
         catch (ClassCastException e) {

@@ -63,7 +63,9 @@ public class Course1_1_1Step2 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step2);
         viewFactory = new ViewFactoryCS(layout);
 
-        viewFactory.addSpace(0.5f);
+
+        //header text 설정
+        viewFactory.createHeaderCard("변수를 어떻게 사용할까?", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
         Activity parentActivity = getActivity();
 
@@ -95,7 +97,8 @@ public class Course1_1_1Step2 extends Fragment {
         pagerAdapters[2] = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin}, viewPagers[2]);
 
         viewFactory.addCardOnSlideCard("3. 세미콜론(;)", pagerAdapters[2], parentActivity);
-        viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다. 세미콜론이 없으면 에러가 난다.", pagerAdapters[2], parentActivity);
+        viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다.", pagerAdapters[2], parentActivity);
+        viewFactory.addCardOnSlideCard("세미콜론이 없으면 에러가 난다.", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[2], parentActivity);
 
 
