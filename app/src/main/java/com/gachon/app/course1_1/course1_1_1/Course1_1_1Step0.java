@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -26,6 +26,10 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class Course1_1_1Step0 extends Fragment {
+
+
+
+
 
     //항상 추가
     View root; // 부모 액티비티
@@ -82,45 +86,50 @@ public class Course1_1_1Step0 extends Fragment {
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("결과값을 기억하기 위해 컴퓨터는 '변수'라는 것을 사용한다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
 
         //공간 추가
-        viewFactory.addSpace(0.5f);
+        viewFactory.addSpace(0.8f);
 
 
+
+
+
+
+//        goNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int thisPage = viewPager.getCurrentItem();
+//                int pageNum = pagerAdapter.getCount();
+//
+//                if (thisPage < pageNum - 1) {
+//                    viewPager.setCurrentItem(++thisPage);
+//                } else {
+//                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+//                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext) getActivity();
+//                    onGoNext.onPressNext();
+//                }
+//            }
+//        });
 
         /* 페이지 넘어가는 버튼 */
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-                int pageNum = pagerAdapter.getCount();
-
-                if (thisPage < pageNum - 1) {
-                    viewPager.setCurrentItem(++thisPage);
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
-                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext) getActivity();
-                    onGoNext.onPressNext();
-                }
-            }
-        });
-
+        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
         ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-
-                if (thisPage > 0) {
-                    viewPager.setCurrentItem(--thisPage);
-                } else {
-                    ViewFactoryCS.onGoPrevious onGoPrev = (ViewFactoryCS.onGoPrevious) getActivity();
-                    onGoPrev.onPressPrev();
-                }
-
-            }
-        });
+        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
+//        goPrev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int thisPage = viewPager.getCurrentItem();
+//
+//                if (thisPage > 0) {
+//                    viewPager.setCurrentItem(--thisPage);
+//                } else {
+//                    ViewFactoryCS.onGoPrevious onGoPrev = (ViewFactoryCS.onGoPrevious) getActivity();
+//                    onGoPrev.onPressPrev();
+//                }
+//
+//            }
+//        });
     }
 }

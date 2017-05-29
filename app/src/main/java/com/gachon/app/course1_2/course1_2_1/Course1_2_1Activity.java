@@ -1,6 +1,7 @@
 package com.gachon.app.course1_2.course1_2_1;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gachon.app.R;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
-import com.gachon.app.main.OnGoNextPageInterface;
+import com.gachon.app.helper.ViewFactoryCS;
 
-public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPageInterface {
+public class Course1_2_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext, ViewFactoryCS.onGoPrevious {
     MyViewPager viewPager;
     ImageView[] progressImageViewList;
     Button buttonGoNext;
@@ -54,6 +57,45 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
 //        });
     }
 
+
+    @Override
+    public void onPressNext() {
+        int thisPage = viewPager.getCurrentItem();
+
+        if (thisPage < PageHelper.courseStepNum-1) {
+            Toast.makeText(Course1_2_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
+            viewPager.setCurrentItem(++thisPage);
+
+            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        }
+        //액티비티 종료
+        else {
+            Toast.makeText(Course1_2_1Activity.this, "축하합니다!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+
+    }
+
+    @Override
+    public void onPressPrev() {
+        int thisPage = viewPager.getCurrentItem();
+
+        if (thisPage > 0) {
+            viewPager.setCurrentItem(--thisPage);
+
+            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        }
+        //액티비티 종료
+        else {
+            Toast.makeText(Course1_2_1Activity.this, "축하합니다!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+    }
+
     private class PagerAdapter extends FragmentStatePagerAdapter {
         public PagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
@@ -84,20 +126,20 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
     }
 
     //프래그먼트에서 발생한 다음으로 가기 버튼 이벤트 처리
-    @Override
-    public void onPressGoNext() {
-        int thisPage = viewPager.getCurrentItem();
-
-        if (thisPage < PageHelper.courseStepNum-1) {
-            Toast.makeText(Course1_2_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
-            viewPager.setCurrentItem(++thisPage);
-            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
-            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
-        }
-        else
-            Toast.makeText(Course1_2_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
-
-    }
+//    @Override
+//    public void onPressGoNext() {
+//        int thisPage = viewPager.getCurrentItem();
+//
+//        if (thisPage < PageHelper.courseStepNum-1) {
+//            Toast.makeText(Course1_2_1Activity.this, "성공!", Toast.LENGTH_SHORT).show();
+//            viewPager.setCurrentItem(++thisPage);
+//            //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
+//            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+//        }
+//        else
+//            Toast.makeText(Course1_2_1Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
+//
+//    }
 
     public void onProgressImageClickListener (View v){
         int id = v.getId();
@@ -131,16 +173,23 @@ public class Course1_2_1Activity extends AppCompatActivity implements OnGoNextPa
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        int thisPage = viewPager.getCurrentItem();
+        MaterialDialog.Builder confirmDialog = new MaterialDialog.Builder(this)
+                .title("CodingStarter")
+                .content("종료하시겠습니까?")
+                .positiveText("예")
+                .negativeText("아니오");
+
+        confirmDialog.onPositive(
+                new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // TODO
+                        finish();
+                    }
+                });
 
 
-        //TODO 처음이면 종료하시겠습니까 팝업을 띄운다. 지금은 종료
-        if (thisPage == 0) {
-            super.onBackPressed();
-        }
-        else
-            viewPager.setCurrentItem(--thisPage);
-        PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+        confirmDialog.show();
     }
 
 

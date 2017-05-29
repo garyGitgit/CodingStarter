@@ -36,6 +36,7 @@ public class SplashActivity extends Activity {
         public void run() {
             //scan activity 실행하고, 초기 activity 종료
             startActivity(new Intent(getApplication(), MainActivity.class));
+            //startActivity(new Intent(getApplication(), LoginActivity.class));
             SplashActivity.this.finish();
         }
     }

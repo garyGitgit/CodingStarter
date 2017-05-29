@@ -12,11 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -63,12 +61,12 @@ public class Course1_1_2Step1 extends Fragment {
         viewFactory.createHeaderCard("변수 할당", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
         //animation card 생성
-        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0,0,0, PageHelper.defaultMargin});
+        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
         final MyViewPager viewPager = new MyViewPager(getContext());
 //        final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
+        pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0, 0, 0, 0}, viewPager);
         //slideCardNum.add(0);
 
         Activity parentActivity = getActivity();
@@ -76,80 +74,16 @@ public class Course1_1_2Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("예를 들어, 변수 num 에 10을 저장하는 것을 '변수 num 에 10을 할당한다' 와 같이 표현한다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("할당 연산자 '=' 을 이용하여 '변수 = 값' 으로 쓴다 ", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
-
-        /* 페이지 넘아가는 버튼 */
-
-        //image button
-        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-                int pageNum = pagerAdapter.getCount();
-
-                if (thisPage < pageNum-1) {
-                    viewPager.setCurrentItem(++thisPage);
-                }
-                else{
-                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
-                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
-                    onGoNext.onPressNext();
-                }
-            }
-        });
-
-        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-
-                if (thisPage > 0) {
-                    viewPager.setCurrentItem(--thisPage);
-                }
-                else{
-                    ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
-                    onGoPrev.onPressPrev();
-                }
-
-            }
-        });
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
 
         //공간 추가
-        viewFactory.addSpace(0.5f);
+        viewFactory.addSpace(0.8f);
 
-//        //카드 추가, 카드로 덮기
-//        for (int i = 0; i < size; i++) {
-//            //card 커버 로드
-//            cardCover[i] = new RelativeLayout(getContext());
-//            inflater.inflate(R.layout.cardcover, cardCover[i]);
-//            //카드 눌렀을 때 카드 사라지기
-//            textCard[i].setTag(i);
-//            textCard[i].setOnClickListener(new onCardClicked());
-//            //card 로 덮기
-//            textCard[i].addView(cardCover[i]);
-//        }
-    }
+        /* 페이지 넘어가는 버튼 */
+        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
+        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
 
-    class onCardClicked implements View.OnClickListener{
-        @Override
-        public void onClick(View v) {
-            int tag = ((Integer)v.getTag());
-            switch (tag){
-                case 0:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[0]);
-                    break;
-                case 1:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[1]);
-                    break;
-                case 2:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[2]);
-                    break;
-                case 3:
-                    YoYo.with(Techniques.FadeOut).duration(PageHelper.cardOpenDelay).playOn(cardCover[3]);
-                    break;
-            }
-        }
     }
 }

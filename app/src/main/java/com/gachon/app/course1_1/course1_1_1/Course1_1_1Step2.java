@@ -12,11 +12,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -77,7 +77,7 @@ public class Course1_1_1Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("int : 정수형 (예. 1, 100, 478)", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("float : 실수형 (예. 1.0, 100.1, 478.23)", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("char : 문자형 (예. '1', 'a', 'K', '-')", pagerAdapters[0], parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[0], parentActivity);
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
 //
 
         viewPagers[1] = new MyViewPager(getContext());
@@ -89,7 +89,7 @@ public class Course1_1_1Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("(1) 영어 알파벳 대소문자 또는 대소문자+숫자", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("(2) 첫 글자는 반드시 알파벳 대소문자", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("(3) 특수문자는 '_' 만 가능(이 특수문자는 첫 글자로도 쓸 수 있다)", pagerAdapters[1], parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[1], parentActivity);
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
 
 
         viewPagers[2] = new MyViewPager(getContext());
@@ -99,63 +99,65 @@ public class Course1_1_1Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("3. 세미콜론(;)", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다.", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("세미콜론이 없으면 에러가 난다.", pagerAdapters[2], parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapters[2], parentActivity);
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[2], parentActivity);
 
 
 //        //space 추가
         viewFactory.addSpace(0.5f);
-
-
-        //image button
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPagers[currentCardNum].getCurrentItem();
-                //pageradapter 를 동해서 page 의 갯수를 가져온다
-                int pageNum = pagerAdapters[currentCardNum].getCount();
-                if (thisPage < pageNum-1) {
-                    viewPagers[currentCardNum].setCurrentItem(++thisPage);
-                }
-                else{
-
-                    //만약에 마지막 카드라면 다음 페이지로 넘어감
-                    if(currentCardNum == numCards-1){
-                        Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
-                        ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
-                        onGoNext.onPressNext();
-                    }
-                    //그렇지 않으면 다음 카드로 넘어감
-                    else currentCardNum++;
-                }
-
-            }
-        });
-
         ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPagers[currentCardNum].getCurrentItem();
 
-                if (thisPage == 0) {
-                    //가장 첫번째 카드면 go previous
-                    if(currentCardNum == 0){
-                        ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
-                        onGoPrev.onPressPrev();
-                    }
-                    //아니면 이전 카드로 이동
-                    else{
-                        currentCardNum--;
-                    }
-                }
-                //0 페이지 이상일 떄는 하나씩 페이지를 뒤로 돌리고
-                else{
-                    viewPagers[currentCardNum].setCurrentItem(--thisPage);
-                }
+        goNext.setOnClickListener(new ContentPageListener(3, viewPagers, pagerAdapters, getActivity()));
+        goPrev.setOnClickListener(new ContentPageListener(2, viewPagers, pagerAdapters, getActivity()));
+        //image button
 
-            }
-        });
+//        goNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int thisPage = viewPagers[currentCardNum].getCurrentItem();
+//                //pageradapter 를 동해서 page 의 갯수를 가져온다
+//                int pageNum = pagerAdapters[currentCardNum].getCount();
+//                if (thisPage < pageNum-1) {
+//                    viewPagers[currentCardNum].setCurrentItem(++thisPage);
+//                }
+//                else{
+//
+//                    //만약에 마지막 카드라면 다음 페이지로 넘어감
+//                    if(currentCardNum == numCards-1){
+//                        Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+//                        ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
+//                        onGoNext.onPressNext();
+//                    }
+//                    //그렇지 않으면 다음 카드로 넘어감
+//                    else currentCardNum++;
+//                }
+//
+//            }
+//        });
+//
+//        goPrev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int thisPage = viewPagers[currentCardNum].getCurrentItem();
+//
+//                if (thisPage == 0) {
+//                    //가장 첫번째 카드면 go previous
+//                    if(currentCardNum == 0){
+//                        ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
+//                        onGoPrev.onPressPrev();
+//                    }
+//                    //아니면 이전 카드로 이동
+//                    else{
+//                        currentCardNum--;
+//                    }
+//                }
+//                //0 페이지 이상일 떄는 하나씩 페이지를 뒤로 돌리고
+//                else{
+//                    viewPagers[currentCardNum].setCurrentItem(--thisPage);
+//                }
+//
+//            }
+//        });
 
 //
 //        //카드 추가, 카드로 덮기

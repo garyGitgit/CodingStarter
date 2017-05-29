@@ -80,7 +80,22 @@ public class Course1_1_1Activity extends AppCompatActivity implements ViewFactor
 //        });
 
 
+        //폰트적용
+//        Typekit.getInstance()
+//                .addNormal(Typekit.createFromAsset(this, "font1.ttf"))
+//                .addBold(Typekit.createFromAsset(this, "font1.ttf"));
+//
+
+
     }
+
+    //폰트 적용
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+//
+//    }
+
 
 
 

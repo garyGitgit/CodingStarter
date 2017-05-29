@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -47,6 +47,7 @@ public class Course1_1_2Step0 extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         //최상단 루트 레이아웃
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step0);
 
@@ -68,47 +69,17 @@ public class Course1_1_2Step0 extends Fragment {
         //text card 에 내용 추가
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("컴퓨터 상에 변수라는 공간을 할당했으니 변수에 값은 어떻게 넣을까?", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
 
         //공간 추가
-        viewFactory.addSpace(0.5f);
+        viewFactory.addSpace(0.8f);
 
 
-        /* 페이지 넘아가는 버튼 */
-        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-                int pageNum = pagerAdapter.getCount();
-
-                if (thisPage < pageNum-1) {
-                    viewPager.setCurrentItem(++thisPage);
-                }
-                else{
-                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
-                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
-                    onGoNext.onPressNext();
-                }
-            }
-        });
-
-        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-
-                if (thisPage > 0) {
-                    viewPager.setCurrentItem(--thisPage);
-                }
-                else{
-                    ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
-                    onGoPrev.onPressPrev();
-                }
-
-            }
-        });
+       /* 페이지 넘어가는 버튼 */
+        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
+        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
     }
 
 }

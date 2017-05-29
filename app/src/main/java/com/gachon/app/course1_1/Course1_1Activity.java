@@ -24,41 +24,64 @@ import com.gachon.app.helper.ViewFactoryCS;
 public class Course1_1Activity extends AppCompatActivity {
 
     ViewFactoryCS viewFactory;
+    LinearLayout card1, card2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course1_1);
+        setContentView(R.layout.activity_course_g_root);
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.activity_course1_1);
+
+        //int disabledColor = getResources().getColor(android.R.color.darker_gray);
+
+        LinearLayout layout = (LinearLayout)findViewById(R.id.activity_course_g_root);
         viewFactory = new ViewFactoryCS(layout);
 
+
         //변수의 기초 카드
-        LinearLayout card1 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
+        card1 = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         viewFactory.addSimpleText("변수의 기초", 30, card1);
         //누르면 연결
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Course1_1Activity.this, Course1_1_1Activity.class);
+//                card1.setBackgroundColor(Color.WHITE);
                 startActivity(intent);
             }
         });
 
+        viewFactory.addSpace(1.0f);
+
         //변수의 활용 카드
-        LinearLayout card2 = viewFactory.createCard(1.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
+        card2 = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0, PageHelper.defaultMargin});
         viewFactory.addSimpleText("변수의 활용", 30, card2);
 
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Course1_1Activity.this, Course1_1_2Activity.class);
+//                card2.setBackgroundColor(Color.WHITE);
                 startActivity(intent);
             }
         });
 
 
+
+        //폰트적용
+//        Typekit.getInstance()
+//                .addNormal(Typekit.createFromAsset(this, "font1.ttf"))
+//                .addBold(Typekit.createFromAsset(this, "font1.ttf"));
     }
+
+    //폰트 적용 : 작동안함
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+//
+//    }
+
+
 
 
 }

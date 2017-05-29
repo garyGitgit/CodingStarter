@@ -105,7 +105,7 @@ public class Course1_1_2Step3 extends Fragment{
 
         //feedback card 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-        viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
+        viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언하고 초기화해주세요!", feedBackTextContainer);
 
 
         //컴파일 삭제 카드

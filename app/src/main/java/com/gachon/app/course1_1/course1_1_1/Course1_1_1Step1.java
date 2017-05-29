@@ -12,11 +12,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -75,46 +75,18 @@ public class Course1_1_1Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("변수란\n값을 저장하기 위한 공간이다.", pagerAdapter,parentActivity);
         viewFactory.addCardOnSlideCard("변수의 데이터 타입\n변수를 사용하기 위한 목적이다. 데이터 타입은 공간의 목적에 따라 다르다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("변수의 선언\n변수를 사용하겠다고 이름과 데이터 타입을 정의하는 것 ", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard("로고 이미지 또는 캐릭터", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
 
         //space 추가
-        viewFactory.addSpace(0.5f);
+        viewFactory.addSpace(0.8f);
 
         //image button
-        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-                int pageNum = pagerAdapter.getCount();
+        /* 페이지 넘어가는 버튼 */
+        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
+        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
+        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
+        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
 
-                if (thisPage < pageNum-1) {
-                    viewPager.setCurrentItem(++thisPage);
-                }
-                else{
-                    Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
-                    ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
-                    onGoNext.onPressNext();
-                }
-            }
-        });
-
-        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int thisPage = viewPager.getCurrentItem();
-
-                if (thisPage > 0) {
-                    viewPager.setCurrentItem(--thisPage);
-                }
-                else{
-                    ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
-                    onGoPrev.onPressPrev();
-                }
-
-            }
-        });
 
 
         //이해를 돕는 이미지 카드 생성

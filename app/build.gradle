@@ -62,6 +62,12 @@ dependencies {
     //progressbar
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 
+    //parse
+    compile 'com.parse:parse-android:1.14.1'
+
+    //fonts
+    compile 'com.tsengvn:Typekit:1.0.0'
+
 
 
 

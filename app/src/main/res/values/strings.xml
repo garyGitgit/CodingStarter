@@ -15,6 +15,30 @@
 
     <!--course step page-->
     <string name="goNext">다음 단계로 이동</string>
+    <string name="title_activity_login">Sign in</string>
 
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <!--parse-->
+    <string name="parse_server_url">https://parse-example-gary.herokuapp.com/parse/</string>
+    <string name="parse_app_key">mastergary</string>
+    <string name="parse_app_id">gary</string>
+
+    <!--end text-->
+    <string name="ending_text">{ ; }</string>
+    <!--font name-->
+    <string name="font_name">font1.ttf</string>
 
 </resources>

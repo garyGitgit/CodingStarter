@@ -3,6 +3,7 @@ package com.gachon.app.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -68,6 +69,7 @@ public class ViewFactoryCS{
 
     Handler mHandler = new Handler();
 
+    String fontName;
 
     /**
      * root 와 rootContext 를 설정
@@ -81,6 +83,10 @@ public class ViewFactoryCS{
 
         userInputList = new LinkedList<>();
         remainList = new LinkedList<>();
+        
+        
+        //폰트 설정 
+        fontName = rootContext.getString(R.string.font_name);
     }
 
 
@@ -198,6 +204,8 @@ public class ViewFactoryCS{
         GlideBuilder builder = new GlideBuilder(rootContext);
         builder.setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888);
 
+
+        //여전히 메모리 문제가 있음
         Glide.with(rootContext)
                 .load(R.raw.course1_1_1_step0)
                 .asGif()
@@ -226,6 +234,11 @@ public class ViewFactoryCS{
         FrameLayout frameLayout = new FrameLayout(rootContext);
 
         final AutoResizeTextView textView = new AutoResizeTextView(rootContext);
+
+        //글꼴 설정
+        Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+        textView.setTypeface(typeface);
+
         textView.setTextSize(20);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         textView.setGravity(Gravity.CENTER);
@@ -288,6 +301,12 @@ public class ViewFactoryCS{
 
     public void createHeaderCard(String txt, int margins[]){
         TextView headerText = new TextView(rootContext);
+
+
+        //글꼴 설정
+        Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+        headerText.setTypeface(typeface);
+
         //match parent, wrap content
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -508,6 +527,13 @@ public class ViewFactoryCS{
 
         //Text 들어갈 부분 추가
         TextView feedBackText = new TextView(rootContext);
+
+
+        //글꼴 설정
+        Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+        feedBackText.setTypeface(typeface);
+
+
         //weight 3.0f 줌, 근데 왜 반대로 되는거지?
         feedBackText.setLayoutParams(new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.5f));
         feedBackText.setGravity(Gravity.CENTER_VERTICAL);
@@ -603,10 +629,12 @@ public class ViewFactoryCS{
         //textview 생성
         TextView textView = new TextView(rootContext);
 
+        Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+        textView.setTypeface(typeface);
         //card
 
 
-        AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
+        //AutoResizeTextView autoResizeTextView = new AutoResizeTextView(rootContext);
 
         //textView width & height 설정
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -623,13 +651,14 @@ public class ViewFactoryCS{
 
         //TODO : 잘리지 않게 텍스트 크기 조정
         //text 와 text 크기 설정
-//        textView.setText(str);
-//        textView.setTextSize(size);
-        autoResizeTextView.setText(str);
-        autoResizeTextView.setTextSize(size);
+        textView.setText(str);
+        textView.setTextSize(size);
+//        autoResizeTextView.setText(str);
+//        autoResizeTextView.setTextSize(size);
 
         //부모 레이아웃에 추가
-        parent.addView(autoResizeTextView);
+        //parent.addView(autoResizeTextView);
+        parent.addView(textView);
     }
 
     public void addQuestion(String str, int size, TableLayout parent){
@@ -638,10 +667,18 @@ public class ViewFactoryCS{
 
             TextView front = (TextView) createWidget("TextView", new String[]{str.substring(0, str.indexOf("[["))});
 
+            //font 설정
+            Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+            front.setTypeface(typeface);
+
 
             //답 체크할 때 비교!
             String answer = str.substring(str.indexOf("[[")+2, str.indexOf("]]"));
             final TextView blank = (TextView) createWidget("TextView", new String[]{"          "});
+
+            //글꼴 설정
+            typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+            blank.setTypeface(typeface);
 
             //widgetset 에 추가
             widgetSet.setTextView(blank);
@@ -653,6 +690,11 @@ public class ViewFactoryCS{
             blank.setTag(questionCnt++);
             remainList.add(blank);
             TextView next = (TextView) createWidget("TextView", new String[]{str.substring(str.indexOf("]]") +2)});
+
+
+            //글꼴 설정
+            typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+            next.setTypeface(typeface);
 
 
             front.setTextSize(size);
@@ -798,6 +840,10 @@ public class ViewFactoryCS{
         //text view 생성
         else if(viewType.equalsIgnoreCase("TextView")){
             TextView textView = new TextView(rootContext);
+            //글꼴 설정
+            Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+            textView.setTypeface(typeface);
+
             textView.setText(str[0]); // text 설정
             return textView;
         }
@@ -1062,6 +1108,11 @@ public class ViewFactoryCS{
         public void onClick(View v) {
             //Button button = (Button)v;
             TextView block = (TextView) v;
+
+            //글꼴 설정
+            Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
+            block.setTypeface(typeface);
+
             //Toast.makeText(rootContext, block.getText(), Toast.LENGTH_SHORT).show();
 
 

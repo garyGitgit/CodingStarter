@@ -16,6 +16,7 @@ public class PageHelper {
     public static int headerCardMargin = 10;
     public static int questionTextSize = 15;
     public static int cardOpenDelay = 1500;
+    public static String endingString = "{ ; }";
 
     /**
      *
