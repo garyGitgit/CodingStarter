@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:id="@+id/answerCheck"
     >
         <ImageButton
@@ -10,7 +10,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:src="@android:drawable/ic_menu_delete"
+            android:src="@drawable/icon_delete_all"
             android:id="@+id/button_delete"/>
         <ImageButton
             android:layout_width="0dp"
@@ -18,5 +18,5 @@
             android:layout_height="wrap_content"
             android:id="@+id/button_compile"
             android:background="@color/transparent"
-            android:src="@android:drawable/ic_media_play"/>
+            android:src="@drawable/icon_compile"/>
 </LinearLayout>

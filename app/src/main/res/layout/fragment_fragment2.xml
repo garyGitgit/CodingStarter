@@ -1,13 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gachon.app.main.Fragment2"
     android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/category_spinner"
+                    android:layout_marginRight="10dp"
+                    android:text="카테고리"/>
+                <Spinner
+                    android:text="카테고리"
+                    android:id="@+id/category_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true">
+                </Spinner>
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="page2"
-            />
-</RelativeLayout>
+            android:stretchColumns="1,2,3">
+                <TableRow >
+                        <Space android:layout_width="30dp"/>
+                        <TextView android:text="순위" android:gravity="center"/>
+                        <TextView android:text="그룹명" android:gravity="center"/>
+                        <TextView android:text="누적포인트" android:gravity="center"/>
+                </TableRow>
+        </TableLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/group_rank_list">
+                        </ListView>
+                </LinearLayout>
+
+        </ScrollView>
+</LinearLayout>

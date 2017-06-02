@@ -111,66 +111,6 @@ public class Course1_1_1Step2 extends Fragment {
         goPrev.setOnClickListener(new ContentPageListener(2, viewPagers, pagerAdapters, getActivity()));
         //image button
 
-//        goNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int thisPage = viewPagers[currentCardNum].getCurrentItem();
-//                //pageradapter 를 동해서 page 의 갯수를 가져온다
-//                int pageNum = pagerAdapters[currentCardNum].getCount();
-//                if (thisPage < pageNum-1) {
-//                    viewPagers[currentCardNum].setCurrentItem(++thisPage);
-//                }
-//                else{
-//
-//                    //만약에 마지막 카드라면 다음 페이지로 넘어감
-//                    if(currentCardNum == numCards-1){
-//                        Toast.makeText(getActivity().getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
-//                        ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)getActivity();
-//                        onGoNext.onPressNext();
-//                    }
-//                    //그렇지 않으면 다음 카드로 넘어감
-//                    else currentCardNum++;
-//                }
-//
-//            }
-//        });
-//
-//        goPrev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int thisPage = viewPagers[currentCardNum].getCurrentItem();
-//
-//                if (thisPage == 0) {
-//                    //가장 첫번째 카드면 go previous
-//                    if(currentCardNum == 0){
-//                        ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)getActivity();
-//                        onGoPrev.onPressPrev();
-//                    }
-//                    //아니면 이전 카드로 이동
-//                    else{
-//                        currentCardNum--;
-//                    }
-//                }
-//                //0 페이지 이상일 떄는 하나씩 페이지를 뒤로 돌리고
-//                else{
-//                    viewPagers[currentCardNum].setCurrentItem(--thisPage);
-//                }
-//
-//            }
-//        });
-
-//
-//        //카드 추가, 카드로 덮기
-//        for(int i = 0 ; i < size; i++){
-//            //card 커버 로드
-//            cardCover[i] = new RelativeLayout(getContext());
-//            inflater.inflate(R.layout.cardcover, cardCover[i]);
-//            //카드 눌렀을 때 카드 사라지기
-//            textCard[i].setTag(i);
-//            textCard[i].setOnClickListener(new onCardClicked());
-//            //card 로 덮기
-//            textCard[i].addView(cardCover[i]);
-//        }
 
     }
 

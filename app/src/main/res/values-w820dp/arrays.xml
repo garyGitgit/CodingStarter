@@ -5,4 +5,9 @@
         <item >float</item>
         <item >char</item>
     </string-array>
+
+    <string-array name="rank_by">
+        <item >개인별</item>
+        <item >그룹별</item>
+    </string-array>
 </resources>

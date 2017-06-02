@@ -57,8 +57,8 @@ public class Course1_1_2Step0 extends Fragment {
         //header text 설정
         viewFactory.createHeaderCard("변수에 값을 어떻게 넣을까?", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
-        //animation card 생성
-        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0,0,0, PageHelper.defaultMargin});
+        //animation 카드 생성
+        viewFactory.createAnimationCard(3.0f, R.raw.variable2_why, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
         //text card 추가
         final MyViewPager viewPager = new MyViewPager(getContext());

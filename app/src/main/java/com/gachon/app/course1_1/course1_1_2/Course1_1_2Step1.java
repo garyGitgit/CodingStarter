@@ -60,8 +60,8 @@ public class Course1_1_2Step1 extends Fragment {
         //header text 설정
         viewFactory.createHeaderCard("변수 할당", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
-        //animation card 생성
-        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0, 0, 0, PageHelper.defaultMargin});
+        //animation 카드 생성
+        viewFactory.createAnimationCard(3.0f, R.raw.variable2_how, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
         final MyViewPager viewPager = new MyViewPager(getContext());
 //        final ViewPager viewPager = new ViewPager(getContext());

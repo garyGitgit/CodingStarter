@@ -55,12 +55,19 @@ public class Course1_2_1Step0 extends Fragment {
         //text card 추가
         final MyViewPager viewPager = new MyViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        //header text 설정
+        viewFactory.createHeaderCard("컴퓨터와 연산자", new int[]{0, 0, 0, PageHelper.headerCardMargin});
+
+        //animation 카드 생성
+        viewFactory.createAnimationCard(3.0f, R.raw.variable2_how, new int[]{0, 0, 0, PageHelper.defaultMargin});
+
         pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
         slideCardNum.add(0);
 
         //text card 에 내용 추가
         Activity parentActivity = getActivity();
-        viewFactory.addCardOnSlideCard("더하기, 빼기, 나누기 등 연산자들은 어떻게 표현할까?", pagerAdapter, parentActivity);
+        //viewFactory.addCardOnSlideCard("더하기, 빼기, 나누기 등 연산자들은 어떻게 표현할까?", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
 
         //공간 추가

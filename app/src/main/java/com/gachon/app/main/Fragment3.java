@@ -1,6 +1,7 @@
 package com.gachon.app.main;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,9 @@ fragment 3번 페이지
 public class Fragment3 extends Fragment implements MainActivity.onBluetoothMessageReceived {
 
 
+    String[] testList = {"a","b","c","d","e"};
+    View root;
+    Context rootContext;
 
     public Fragment3() {
         // Required empty public constructor
@@ -30,7 +34,10 @@ public class Fragment3 extends Fragment implements MainActivity.onBluetoothMessa
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_fragment3, container, false);
+        root = inflater.inflate(R.layout.fragment_fragment3, container, false);
+        rootContext = root.getContext();
+
+        return root;
     }
 
 

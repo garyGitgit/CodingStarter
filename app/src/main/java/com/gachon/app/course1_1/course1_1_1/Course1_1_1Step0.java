@@ -73,7 +73,7 @@ public class Course1_1_1Step0 extends Fragment {
         viewFactory.createHeaderCard("변수가 왜 필요할까?", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
         //animation 카드 생성
-        viewFactory.createAnimationCard(3.0f, R.raw.course1_1_1_step0, new int[]{0, 0, 0, PageHelper.defaultMargin});
+        viewFactory.createAnimationCard(3.0f, R.raw.variable1_why, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
         //text card 추가
         final MyViewPager viewPager = new MyViewPager(getContext());

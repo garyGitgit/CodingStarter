@@ -117,6 +117,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
+        //테스트용 바로 메인으로 넘기는 버튼
+        Button goWithoutLoginButton = (Button)findViewById(R.id.freeLoginButton);
+        goWithoutLoginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        });
     }
 
     private void populateAutoComplete() {

@@ -207,7 +207,7 @@ public class ViewFactoryCS{
 
         //여전히 메모리 문제가 있음
         Glide.with(rootContext)
-                .load(R.raw.course1_1_1_step0)
+                .load(rawId)
                 .asGif()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .fitCenter()
