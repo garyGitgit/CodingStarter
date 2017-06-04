@@ -14,12 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.gachon.app.R;
 import com.gachon.app.TabEnum;
 import com.gachon.app.helper.MyViewPager;
+import com.gachon.app.helper.UserLevelManager;
 import com.gachon.app.helper.WidgetSet;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
@@ -72,10 +74,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //progress 설정
-        RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
-        progressBar.setMax(100);
-        progressBar.setProgress(50);
+        //level 과 point 에 따른 progress 설정
+
 
 
 
@@ -167,7 +167,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.reset) {
+            Toast.makeText(MainActivity.this, "경험치 초기화", Toast.LENGTH_SHORT).show();
+            UserLevelManager ulm = new UserLevelManager(getApplicationContext());
+            ulm.reset();
             return true;
         }
 
@@ -198,12 +201,49 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     /**
      * 켜질 때 항상 레이아웃을 초기화시킨다
      */
+    //업데이트된 경험치를 반영한다
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume");
         //17.2.7 : 레이아웃 설정을 메인에서 할 필요가 없음
         //TODO onViewCreated 로 이동
         super.onResume();
+        RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
+        UserLevelManager ulm = new UserLevelManager(getApplicationContext());
+        progressBar.setMax(ulm.getMaxPoints());
+        progressBar.setProgress(ulm.getPoints());
+        Log.e("gary", Integer.toString(ulm.getMaxPoints()));
+        Log.e("gary", Integer.toString(ulm.getPoints()));
+        ImageView levelBadge = (ImageView)findViewById(R.id.levelBadge);
+
+        switch (ulm.getMaxPoints()){
+            case 100:
+                levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level1));
+                progressBar.setProgressColor(getResources().getColor(R.color.level1_color));
+                break;
+            case 200:
+                levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level2));
+                progressBar.setProgressColor(getResources().getColor(R.color.level2_color));
+                break;
+            case 300:
+                levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level3));
+                progressBar.setProgressColor(getResources().getColor(R.color.level3_color));
+                break;
+            case 400:
+                levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level4));
+                progressBar.setProgressColor(getResources().getColor(R.color.level4_color));
+                break;
+            case 500:
+                levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level5));
+                progressBar.setProgressColor(getResources().getColor(R.color.level5_color));
+                break;
+            case 600:
+                levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level6));
+                progressBar.setProgressColor(getResources().getColor(R.color.level6_color));
+                break;
+        }
+
+
     }
 
     @Override
@@ -220,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
 
-/* ################################### end of loading thread #################################### */
+    /* ################################### end of loading thread #################################### */
 
     //17.2.10
     public interface onBluetoothMessageReceived{

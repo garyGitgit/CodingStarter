@@ -1,6 +1,7 @@
 package com.gachon.app.helper;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ public class ContentPageListener implements View.OnClickListener {
 
     MyViewPager[] viewPagers;
     MainPagerAdapter[] pagerAdapters;
-    int currentCardNum = 0;
+    static int currentCardNum = 0;
 
     public ContentPageListener(int type, MyViewPager viewPager, MainPagerAdapter pagerAdapter, Activity activity){
         this.type = type;
@@ -39,6 +40,7 @@ public class ContentPageListener implements View.OnClickListener {
     public void onClick(View v) {
         int thisPage;
         int pageNum;
+
 
         switch (type){
             // 0 은 prev일 떄
@@ -67,6 +69,7 @@ public class ContentPageListener implements View.OnClickListener {
             //여러개가 들어왔을 떄 prev
             case 2:
                 thisPage = viewPagers[currentCardNum].getCurrentItem();
+                Log.e("gary", "current card num : " + Integer.toString(currentCardNum) + "this page num : " + Integer.toString(thisPage));
 
                 if (thisPage == 0) {
                     //가장 첫번째 카드면 go previous
@@ -87,6 +90,7 @@ public class ContentPageListener implements View.OnClickListener {
             //여러개가 들어왔을 때 next
             case 3:
                 thisPage = viewPagers[currentCardNum].getCurrentItem();
+                Log.e("gary", "current card num : " + Integer.toString(currentCardNum) + "this page num : " + Integer.toString(thisPage));
                 //pageradapter 를 동해서 page 의 갯수를 가져온다
                 pageNum = pagerAdapters[currentCardNum].getCount();
                 int numCards = viewPagers.length;

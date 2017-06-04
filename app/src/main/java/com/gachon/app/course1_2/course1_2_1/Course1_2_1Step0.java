@@ -67,8 +67,9 @@ public class Course1_2_1Step0 extends Fragment {
 
         //text card 에 내용 추가
         Activity parentActivity = getActivity();
-        //viewFactory.addCardOnSlideCard("더하기, 빼기, 나누기 등 연산자들은 어떻게 표현할까?", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("더하기, 빼기, 나누기 등 연산자들은 어떻게 표현할까?", pagerAdapter, parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //공간 추가
         viewFactory.addSpace(0.8f);

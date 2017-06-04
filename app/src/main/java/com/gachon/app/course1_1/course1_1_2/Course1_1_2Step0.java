@@ -69,7 +69,8 @@ public class Course1_1_2Step0 extends Fragment {
         //text card 에 내용 추가
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("컴퓨터 상에 변수라는 공간을 할당했으니 변수에 값은 어떻게 넣을까?", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //공간 추가
         viewFactory.addSpace(0.8f);

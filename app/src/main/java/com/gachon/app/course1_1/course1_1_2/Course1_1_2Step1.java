@@ -74,7 +74,8 @@ public class Course1_1_2Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("예를 들어, 변수 num 에 10을 저장하는 것을 '변수 num 에 10을 할당한다' 와 같이 표현한다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("할당 연산자 '=' 을 이용하여 '변수 = 값' 으로 쓴다 ", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("상수가 아니라 변수이기 때문에 한 번 할당한 값을 새로 할당할 수 있다.", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //공간 추가
         viewFactory.addSpace(0.8f);

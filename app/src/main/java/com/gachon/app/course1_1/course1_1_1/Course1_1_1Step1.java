@@ -75,7 +75,8 @@ public class Course1_1_1Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("변수란\n값을 저장하기 위한 공간이다.", pagerAdapter,parentActivity);
         viewFactory.addCardOnSlideCard("변수의 데이터 타입\n변수를 사용하기 위한 목적이다. 데이터 타입은 공간의 목적에 따라 다르다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("변수의 선언\n변수를 사용하겠다고 이름과 데이터 타입을 정의하는 것 ", pagerAdapter, parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //space 추가
         viewFactory.addSpace(0.8f);

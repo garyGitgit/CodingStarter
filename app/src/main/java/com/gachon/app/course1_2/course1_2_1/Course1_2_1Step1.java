@@ -75,7 +75,8 @@ public class Course1_2_1Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("나머지 : %", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("거듭제곱 : ^", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("(예시) 2의 5승 : 2^5", pagerAdapters[0], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[0]);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
 
         //카드 2
         viewPagers[1] = new MyViewPager(getContext());
@@ -88,7 +89,8 @@ public class Course1_2_1Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("부등호 (≠) : !=", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("작거나 같다 (≤) : <=", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("크거나 같다 (≥) : >=", pagerAdapters[1], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[1]);
 
 
         //카드 3
@@ -102,7 +104,8 @@ public class Course1_2_1Step1 extends Fragment {
         viewFactory.addCardOnSlideCard("A = B 는 변수 A 에 B 값을 넣는다는 의미", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("부정 연산자 (~) : !", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("false == !true, true == !false ", pagerAdapters[2], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[2], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[2], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[2]);
 
 
         //space 추가

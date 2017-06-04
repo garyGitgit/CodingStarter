@@ -77,7 +77,8 @@ public class Course1_1_1Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("int : 정수형 (예. 1, 100, 478)", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("float : 실수형 (예. 1.0, 100.1, 478.23)", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("char : 문자형 (예. '1', 'a', 'K', '-')", pagerAdapters[0], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[0]);
 //
 
         viewPagers[1] = new MyViewPager(getContext());
@@ -89,7 +90,8 @@ public class Course1_1_1Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("(1) 영어 알파벳 대소문자 또는 대소문자+숫자", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("(2) 첫 글자는 반드시 알파벳 대소문자", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("(3) 특수문자는 '_' 만 가능(이 특수문자는 첫 글자로도 쓸 수 있다)", pagerAdapters[1], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[1]);
 
 
         viewPagers[2] = new MyViewPager(getContext());
@@ -99,7 +101,8 @@ public class Course1_1_1Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("3. 세미콜론(;)", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("세미콜론(;)은 프로그램 한 줄의 끝을 의미한다.", pagerAdapters[2], parentActivity);
         viewFactory.addCardOnSlideCard("세미콜론이 없으면 에러가 난다.", pagerAdapters[2], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[2], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[2], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[2]);
 
 
 //        //space 추가

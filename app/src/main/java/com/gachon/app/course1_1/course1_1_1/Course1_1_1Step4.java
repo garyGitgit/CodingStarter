@@ -2,10 +2,13 @@ package com.gachon.app.course1_1.course1_1_1;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.PageHelper;
+import com.gachon.app.helper.UserLevelManager;
 import com.gachon.app.helper.ViewFactoryCS;
 
 
@@ -91,7 +95,36 @@ public class Course1_1_1Step4 extends Fragment {
         buttonCompile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
+                //답이 맞을 시 정답입니다 후 종료
+                //Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
+                // 다이얼로그 바디
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
+                // 메세지
+                alert_confirm.setMessage("축하합니다! 한 코스를 완료하셨습니다!");
+                // 확인 버튼 리스너
+                alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //레벨업인지 확인
+                        UserLevelManager ulm = new UserLevelManager(getContext());
+                        Log.e("gary before : ", Integer.toString(ulm.getPoints()));
+                        if(ulm.addPoints()){
+                            Toast.makeText(getContext(), "레벨 업 하셨습니다!", Toast.LENGTH_SHORT).show();
+                        }
+                        Log.e("gary after : ", Integer.toString(ulm.getPoints()));
+                        getActivity().finish();
+                    }
+                });
+                // 다이얼로그 생성
+                AlertDialog alert = alert_confirm.create();
+
+                // 아이콘
+//                alert.setIcon(R.drawable.codingstarter_logo);
+                // 다이얼로그 타이틀
+                //alert.setTitle("완료");
+                // 다이얼로그 보기
+                alert.show();
+
             }
         });
     }

@@ -20,5 +20,13 @@
 
     <color name="codingstarter_background">#1776D0</color>
 
+    <!--progress bar color-->
+    <color name="level1_color">#434343</color>
+    <color name="level2_color">#557AC7</color>
+    <color name="level3_color">#00FF2D</color>
+    <color name="level4_color">#BB00FF</color>
+    <color name="level5_color">#FF455B</color>
+    <color name="level6_color">#FFD32D</color>
+
 
 </resources>

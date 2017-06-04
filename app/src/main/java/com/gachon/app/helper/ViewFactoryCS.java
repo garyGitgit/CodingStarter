@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.Spinner;
@@ -228,6 +229,22 @@ public class ViewFactoryCS{
 
         //루트에 카드 추가
         root.addView(cardView);
+    }
+
+    public void addEndCardOnSlideCard(MainPagerAdapter pagerAdapter){
+        RelativeLayout frameLayout = new RelativeLayout(rootContext);
+        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        ImageView imageView = new ImageView(rootContext);
+        imageView.setImageDrawable(rootContext.getResources().getDrawable(R.drawable.checked));
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        imageView.setLayoutParams(params);
+        frameLayout.addView(imageView);
+
+        pagerAdapter.addView(frameLayout);
+        pagerAdapter.notifyDataSetChanged();
     }
 
     public void addCardOnSlideCard(String str, MainPagerAdapter pagerAdapter, final Activity parent){
@@ -539,10 +556,18 @@ public class ViewFactoryCS{
         feedBackText.setGravity(Gravity.CENTER_VERTICAL);
 
         //이미지 추가
-        ImageView imageView = new ImageView(rootContext);
+        final ImageView imageView = new ImageView(rootContext);
         //weight 1.0f 줌
         imageView.setLayoutParams(new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
         imageView.setImageDrawable(root.getResources().getDrawable(R.drawable.mascot));
+        //눌렀을 때 반응하기
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YoYo.with(Techniques.Wave).duration(1000).playOn(imageView);
+            }
+        });
+
 
         //linearlayout 에 추가
         linearLayout.addView(feedBackText);

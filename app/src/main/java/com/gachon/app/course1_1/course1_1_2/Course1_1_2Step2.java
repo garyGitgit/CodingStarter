@@ -112,7 +112,8 @@ public class Course1_1_2Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("변수의 초기화", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("처음에 할당했던 값을 바꿀 수 있다. 이 때, 다시 선언해주지 않아도 된다", pagerAdapters[0], parentActivity);
         viewFactory.addCardOnSlideCard("(예시) int num = 1;", pagerAdapters[0], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[0], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[0]);
 
 
         viewPagers[1] = new MyViewPager(getContext());
@@ -123,7 +124,8 @@ public class Course1_1_2Step2 extends Fragment {
         viewFactory.addCardOnSlideCard("한 번 할당한 값을 새로 할당할 수 있다", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("(예시) int num = 1;\nnum = 2;", pagerAdapters[1], parentActivity);
         viewFactory.addCardOnSlideCard("이 때, num 에 저장되어있는 값은 2 이다", pagerAdapters[1], parentActivity);
-        viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
+        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapters[1], parentActivity);
+        viewFactory.addEndCardOnSlideCard(pagerAdapters[1]);
 
 
         //공간추가
