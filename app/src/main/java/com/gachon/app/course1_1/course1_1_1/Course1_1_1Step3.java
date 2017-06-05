@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +33,9 @@ import java.util.ArrayList;
  * step 3 : 직접 선언 체험
  */
 public class Course1_1_1Step3 extends Fragment{
-    //항상 추가
-    View root;
+    //공통으로 적용
+    View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
-
     ScrollView questionCard;
 
     // Required empty public constructor
@@ -54,75 +51,77 @@ public class Course1_1_1Step3 extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step3);
         viewFactory = new ViewFactoryCS(layout);
-
-//        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
-//        viewFactory.addSimpleText("변수를 선언해보자 ", 20, headerCard);
 
         //header text 설정
         viewFactory.createHeaderCard("변수를 직접 만들어보자", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
-
-        //카드뷰 생성 (linear layout 을 기본으로 한다, vertical, horizontal 설정도 고려해보자 )
+        //문제카드 생성
         questionCard = viewFactory.createVerticalScrollViewCard(1.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         final TableLayout tableCard1 = new TableLayout(getContext());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
         tableCard1.setLayoutParams(params);
 
-
+        //문제 한 줄
         View[] rowViews = {
                 viewFactory.createWidget("Spinner", new String[]{"int", "float", "char"}),
                 viewFactory.createWidget("EditText", new String[]{"num"}),
                 viewFactory.createWidget("TextView", new String[]{";"})};
+        //한 줄 추가
         viewFactory.addRow(rowViews, tableCard1);
 
+        //문제 한 줄
         rowViews = new View[]{
                 viewFactory.createWidget("Spinner", new String[]{"int", "float", "char"}),
                 viewFactory.createWidget("EditText", new String[]{"num"}),
                 viewFactory.createWidget("TextView", new String[]{";"})};
+        //한 줄 추가
         viewFactory.addRow(rowViews, tableCard1);
 
+        //문제 한 줄
         rowViews = new View[]{
                 viewFactory.createWidget("Spinner", new String[]{"int", "float", "char"}),
                 viewFactory.createWidget("EditText", new String[]{"num"}),
                 viewFactory.createWidget("TextView", new String[]{";"})};
-
+        //한줄 추가
         viewFactory.addRow(rowViews, tableCard1);
-
         questionCard.addView(tableCard1);
 
-//        //결과 블록 카드
-//        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //feedback card 추가
+        //피드백 카드 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
+        //카드에 텍스트 추가
         viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
 
-
-
-        //사용자 입력 블록 카드
+        //컴파일 버튼 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
 
+        //공간 추가
         viewFactory.addSpace(0.5f);
+
+
+        //페이지 넘기기 버튼 : 4,5 - 페이지만 넘기기
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
         ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
 
         goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
         goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
 
+
+
+
+
+
+        //컴파일 버튼 리스너
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.answercheckwithadd, linearLayout);
 
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonAdd = (ImageButton)root.findViewById(R.id.button_add);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
-
-
 
         //새로고침을 누르면 editText 에 있는 값들이 모두 없어짐
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
@@ -135,9 +134,6 @@ public class Course1_1_1Step3 extends Fragment{
                     editText.setText("");
                 }
                 Toast.makeText(getContext(), "입력하신 값을 모두 지웠습니다", Toast.LENGTH_LONG).show();
-                //resultCard 이미지 제거
-                //resultCard.removeAllViews();
-
             }
         });
 
@@ -167,18 +163,14 @@ public class Course1_1_1Step3 extends Fragment{
                 WidgetSet widgetSet = viewFactory.getWidgetSet();
                 ArrayList<EditText> editTextList = widgetSet.getEditText();
                 String[] userInputs = new String[editTextList.size()];
-                String errorMessage = "";
                 boolean isSuccess = true;
                 int i = 0;
                 for(EditText editText : editTextList){
                     //사용자가 입력한 변수를 가져온다
                     userInputs[i] = editText.getText().toString();
+                    //TODO : 답 체크하는 함수로 판단, 틀림없는지 확인해보자
                     if(!GrammarChecker.checkVariableValidity(userInputs[i])){
                         isSuccess = false;
-
-                        //토스트
-                        //Toast.makeText(getContext(), "변수 이름 설정 에러", Toast.LENGTH_SHORT).show();
-
                         //에러 보여주기
                         viewFactory.addFeedBackText("변수 이름 설정 에러!", feedBackTextContainer);
                         //진동
@@ -198,78 +190,48 @@ public class Course1_1_1Step3 extends Fragment{
                 }
             }
         });
-
-
-
-        //
-
-
-
     }
+
+
+
 
 
 
     /**
-     *
+     * 입력한 값대로 피드백을 띄워주겠다는 의도였는데 쓰진않을것 같지만 킵
      * @param widgetSet : 이 페이지에 있는 widget들
      * @param userInputs
      * @param resultCard : 사용자가 입력한 값을 보여주는 resultCard
      */
-    public void show(WidgetSet widgetSet, String[] userInputs, LinearLayout resultCard){
-        //resultCard 에 기존에 있던 위젯들을 제거
-        resultCard.removeAllViews();
-
-
-//        String str = "";
-//        boolean toggle = false;
-
-        //결과 string 을 가져온다
-
-//        int i = 0;
-//        //editText 에서 사용자가 입력한 값들 가져옴
-//        for (EditText editText : editTextList) {
-//            str += editText.getText().toString();
-//            if(str.equals("")) Toast.makeText(root.getContext(), "빈칸이 있습니다!", Toast.LENGTH_SHORT).show();
+//    public void show(WidgetSet widgetSet, String[] userInputs, LinearLayout resultCard){
+//        //resultCard 에 기존에 있던 위젯들을 제거
+//        resultCard.removeAllViews();
 //
-//            //TODO 텍스트말고 다른 방법으로 보여줄 방법?
-//            if(toggle) {
-//                //TODO 변수의 이름을 필터해야함 (변수 룰을 지켜야함)
-//                //viewFactory.addSimpleText(str, 20, resultCard);
-//                userInputs[i++] = str;
-//                toggle = false;
-//                str = ""; //초기화
+//        int i = 0;
+//
+//        ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
+//        for(Spinner spinner : spinnersList){
+//            String userDataType = spinner.getSelectedItem().toString();
+//            String userVariableName = userInputs[i++];
+//            String result = userDataType + " "+ userVariableName;
+//            //load image
+//            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
+//            textView.setTextSize(PageHelper.questionTextSize);
+//
+//            //데이터 타입에 따라서 다른 box 색깔로 보여준다
+//            switch (userDataType){
+//                case "int":
+//                    textView.setBackground(getResources().getDrawable(R.drawable.int_box));
+//                    break;
+//                case "float":
+//                    textView.setBackground(getResources().getDrawable(R.drawable.float_box));
+//                    break;
+//                case "char":
+//                    textView.setBackground(getResources().getDrawable(R.drawable.char_box));
+//                    break;
 //            }
-//            else {
-//                str += " = ";
-//                toggle = true;
-//            }
+//            textView.setGravity(Gravity.CENTER);
+//            viewFactory.addView(textView, resultCard);
 //        }
-
-        int i = 0;
-
-        ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
-        for(Spinner spinner : spinnersList){
-            String userDataType = spinner.getSelectedItem().toString();
-            String userVariableName = userInputs[i++];
-            String result = userDataType + " "+ userVariableName;
-            //load image
-            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
-            textView.setTextSize(PageHelper.questionTextSize);
-
-            //데이터 타입에 따라서 다른 box 색깔로 보여준다
-            switch (userDataType){
-                case "int":
-                    textView.setBackground(getResources().getDrawable(R.drawable.int_box));
-                    break;
-                case "float":
-                    textView.setBackground(getResources().getDrawable(R.drawable.float_box));
-                    break;
-                case "char":
-                    textView.setBackground(getResources().getDrawable(R.drawable.char_box));
-                    break;
-            }
-            textView.setGravity(Gravity.CENTER);
-            viewFactory.addView(textView, resultCard);
-        }
-    }
+//    }
 }

@@ -34,5 +34,8 @@
     <!--page inner padding-->
     <dimen name="activity_padding">20dp</dimen>
 
+    <!--go next, go prev arrow height-->
+    <dimen name="go_arrow_height">39dp</dimen>
+
 
 </resources>

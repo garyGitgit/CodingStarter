@@ -56,27 +56,24 @@ public class Course1_1_2Step4 extends Fragment {
 
 
         //문제를 제시하는 카드 : 카드에 들어갈 위젯 또는 텍스트를 배치
-        LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,0});
         viewFactory.addSimpleText("정수형 변수를 선언하고, 45로 초기화시키시오.", 20 ,problemCard);
 
         //입력한 답이 보여지는 카드 : 사용자 입력 block 이 배치되는 카드
-        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
-
-        //feedback card 추가
-        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
-        viewFactory.addFeedBackText("아래 블록을 탭해서 블록들을 배치해보세요", feedBackTextContainer);
-
-
+        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
 
         //TableLayout blockCard = viewFactory.createTableCard(0.0f, Color.WHITE, new int[]{0,0,0,20});
-        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,0});
+        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         //block 생성
         viewFactory.createBlocks(
                 new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
 
+        //feedback card 추가
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
+        viewFactory.addFeedBackText("위 블록을 탭해서 블록들을 배치해보세요", feedBackTextContainer);
 
         //컴파일, 삭제 버튼이 있는 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
@@ -138,7 +135,6 @@ public class Course1_1_2Step4 extends Fragment {
                 //alert.setTitle("완료");
                 // 다이얼로그 보기
                 alert.show();
-
             }
         });
     }

@@ -48,6 +48,7 @@ public class Course1_2_1Activity extends AppCompatActivity implements ViewFactor
         viewPager.setPagingEnabled(false);
 
         progressBar = (RoundCornerProgressBar)findViewById(R.id.course_round_progress);
+        progressBar.setProgress(1.0f);
 
         //gonext 버튼
         //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);

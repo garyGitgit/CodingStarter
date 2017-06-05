@@ -17,17 +17,17 @@
         <!--android:max="100"-->
         <!--android:progress="80"/>-->
 
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/totalProgress"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        app:rcProgress="100"
-        app:rcMax="100"
-        app:rcRadius="10dp"
-        app:rcBackgroundPadding="0dp"
-        app:rcReverse="false"
-        app:rcProgressColor="#88000000"
-        app:rcBackgroundColor="#11000000" />
+    <!--<com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar-->
+        <!--android:id="@+id/totalProgress"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="8dp"-->
+        <!--app:rcProgress="100"-->
+        <!--app:rcMax="100"-->
+        <!--app:rcRadius="10dp"-->
+        <!--app:rcBackgroundPadding="0dp"-->
+        <!--app:rcReverse="false"-->
+        <!--app:rcProgressColor="#88000000"-->
+        <!--app:rcBackgroundColor="#11000000" />-->
     <!--app:rcIconSrc="integer"-->
     <!--app:rcIconSize="dimension"-->
     <!--app:rcIconWidth="dimension"-->

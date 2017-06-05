@@ -30,8 +30,8 @@ import com.gachon.app.helper.ViewFactoryCS;
  * step 4 : 문제 풀이
  */
 public class Course1_1_1Step4 extends Fragment {
-    //항상 추가
-    View root;
+    //공통으로 적용
+    View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
 
     // Required empty public constructor
@@ -57,40 +57,42 @@ public class Course1_1_1Step4 extends Fragment {
         //header text 설정
         viewFactory.createHeaderCard("확인문제", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
-
-        //문제를 제시하는 카드 : 카드에 들어갈 위젯 또는 텍스트를 배치
-        LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,PageHelper.defaultMargin});
+        //문제 카드 생성
+        LinearLayout problemCard = viewFactory.createCard(0.0f, Color.WHITE, true, new int[]{0,0,0,0});
         viewFactory.addSimpleText("다음 중 변수가 될 수 없는 이름은?", 20 ,problemCard);
 
-        //보기가 나타나는 카드
+        //보기 카드 생성
         final LinearLayout answerCard = viewFactory.createCard(1.5f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        //보기 추가
         RadioGroup radioGroup = (RadioGroup)viewFactory.createWidget("RadioButton", new String[]{"num", "1num", "num1", "_num1"});
         answerCard.addView(radioGroup);
 
-        //결과 블록 카드
-        //final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         //feedback card 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
         viewFactory.addFeedBackText("변수의 이름을 정할 때 규칙을 잘 생각해보세요", feedBackTextContainer);
-
 
         //컴파일 버튼 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
-        //answercheckwithadd 동적으로 인플레이트
-        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.answercheck, linearLayout);
-
-        ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
-        ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 
         viewFactory.addSpace(0.5f);
+
+
+        //페이지 넘기기 버튼
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
         ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
 
         goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
         goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+
+
+        //컴파일 버튼 등 리스너
+        LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.answercheck, linearLayout);
+
+        ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
+        ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
 
         //새로고침 버튼을 누르면 블록들이 모두 없어진다
         //TODO : 사실 이게 별로 안 컸으면 좋겠음

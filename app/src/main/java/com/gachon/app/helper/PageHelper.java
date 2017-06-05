@@ -22,8 +22,20 @@ public class PageHelper {
 //     * @param progressImageViewList
      * @param finish
      */
-    public static void setProgressColor(RoundCornerProgressBar progressBar, int finish, Context context){
+    public static void setProgressColor(RoundCornerProgressBar progressBar, int finish, Context context) {
+        //int end = (finish + 1) * 10;
+        //초기값
         progressBar.setProgress(finish+1);
+        //증가분
+//        for(int i = finish*10 ; i < end; i++){
+//            progressBar.setProgress(i);
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
 //        for(int i = 0; i <= finish; i++){
 //            progressImageViewList[i].setImageDrawable(context.getResources().getDrawable(R.drawable.course_progress_check_blue));
 //        }

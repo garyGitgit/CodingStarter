@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.gachon.app.R;
 import com.gachon.app.TabEnum;
 import com.gachon.app.helper.AnswerManager;
@@ -216,10 +215,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //17.2.7 : 레이아웃 설정을 메인에서 할 필요가 없음
         //TODO onViewCreated 로 이동
         super.onResume();
-        RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
+        //RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
         UserManager ulm = new UserManager(getApplicationContext());
-        progressBar.setMax(ulm.getMaxPoints());
-        progressBar.setProgress(ulm.getPoints());
+//        progressBar.setMax(ulm.getMaxPoints());
+//        progressBar.setProgress(ulm.getPoints());
         Log.e("gary", Integer.toString(ulm.getMaxPoints()));
         Log.e("gary", Integer.toString(ulm.getPoints()));
         ImageView levelBadge = (ImageView)findViewById(R.id.levelBadge);
@@ -227,27 +226,27 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         switch (ulm.getMaxPoints()){
             case 100:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level1));
-                progressBar.setProgressColor(getResources().getColor(R.color.level1_color));
+//                progressBar.setProgressColor(getResources().getColor(R.color.level1_color));
                 break;
             case 200:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level2));
-                progressBar.setProgressColor(getResources().getColor(R.color.level2_color));
+//                progressBar.setProgressColor(getResources().getColor(R.color.level2_color));
                 break;
             case 300:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level3));
-                progressBar.setProgressColor(getResources().getColor(R.color.level3_color));
+//                progressBar.setProgressColor(getResources().getColor(R.color.level3_color));
                 break;
             case 400:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level4));
-                progressBar.setProgressColor(getResources().getColor(R.color.level4_color));
+//                progressBar.setProgressColor(getResources().getColor(R.color.level4_color));
                 break;
             case 500:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level5));
-                progressBar.setProgressColor(getResources().getColor(R.color.level5_color));
+//                progressBar.setProgressColor(getResources().getColor(R.color.level5_color));
                 break;
             case 600:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level6));
-                progressBar.setProgressColor(getResources().getColor(R.color.level6_color));
+//                progressBar.setProgressColor(getResources().getColor(R.color.level6_color));
                 break;
         }
 

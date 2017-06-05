@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/bottom_slide_move"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/go_arrow_height"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         />
