@@ -1,9 +1,8 @@
 package com.gachon.app.helper;
 
 import android.content.Context;
-import android.widget.ImageView;
 
-import com.gachon.app.R;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
 /**
  * Created by garyNoh on 2017. 5. 10..
@@ -20,16 +19,17 @@ public class PageHelper {
 
     /**
      *
-     * @param progressImageViewList
+//     * @param progressImageViewList
      * @param finish
      */
-    public static void setProgressColor(ImageView[] progressImageViewList, int finish, Context context){
-        for(int i = 0; i <= finish; i++){
-            progressImageViewList[i].setImageDrawable(context.getResources().getDrawable(R.drawable.course_progress_check_blue));
-        }
-        for(int i = finish+1; i < courseStepNum; i++){
-            //progressImageViewList[i].setBackgroundColor(Color.WHITE);
-            progressImageViewList[i].setImageDrawable(context.getResources().getDrawable(R.drawable.course_progress_check_gray));
-        }
+    public static void setProgressColor(RoundCornerProgressBar progressBar, int finish, Context context){
+        progressBar.setProgress(finish+1);
+//        for(int i = 0; i <= finish; i++){
+//            progressImageViewList[i].setImageDrawable(context.getResources().getDrawable(R.drawable.course_progress_check_blue));
+//        }
+//        for(int i = finish+1; i < courseStepNum; i++){
+//            //progressImageViewList[i].setBackgroundColor(Color.WHITE);
+//            progressImageViewList[i].setImageDrawable(context.getResources().getDrawable(R.drawable.course_progress_check_gray));
+//        }
     }
 }

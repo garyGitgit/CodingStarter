@@ -20,6 +20,14 @@ public class ContentPageListener implements View.OnClickListener {
     MainPagerAdapter[] pagerAdapters;
     static int currentCardNum = 0;
 
+    public ContentPageListener(int type, Activity activity){
+        this.type = type;
+        this.viewPager = null;
+        this.pagerAdapter = null;
+        this.activity = activity;
+    }
+
+
     public ContentPageListener(int type, MyViewPager viewPager, MainPagerAdapter pagerAdapter, Activity activity){
         this.type = type;
         this.viewPager = viewPager;
@@ -101,13 +109,24 @@ public class ContentPageListener implements View.OnClickListener {
 
                     //만약에 마지막 카드라면 다음 페이지로 넘어감
                     if(currentCardNum == numCards-1){
-                        Toast.makeText(activity.getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(activity.getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
                         ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)activity;
                         onGoNext.onPressNext();
                     }
                     //그렇지 않으면 다음 카드로 넘어감
                     else currentCardNum++;
                 }
+                break;
+            //슬라이드 카드가 없을 때 prev
+            case 4:
+                ViewFactoryCS.onGoPrevious onGoPrev= (ViewFactoryCS.onGoPrevious)activity;
+                onGoPrev.onPressPrev();
+                break;
+            //슬라이드 카드가 없을 때 next
+            case 5:
+                //Toast.makeText(activity.getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
+                ViewFactoryCS.onGoNext onGoNext = (ViewFactoryCS.onGoNext)activity;
+                onGoNext.onPressNext();
                 break;
         }
     }

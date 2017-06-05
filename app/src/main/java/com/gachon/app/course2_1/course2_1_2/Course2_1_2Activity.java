@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.gachon.app.R;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -18,6 +19,7 @@ public class Course2_1_2Activity extends AppCompatActivity implements OnGoNextPa
     MyViewPager viewPager;
     ImageView[] progressImageViewList;
     Button buttonGoNext;
+    RoundCornerProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class Course2_1_2Activity extends AppCompatActivity implements OnGoNextPa
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(0);
         viewPager.setPagingEnabled(false);
+
+        progressBar = (RoundCornerProgressBar)findViewById(R.id.course_round_progress);
 
         //gonext 버튼
         //buttonGoNext = (Button)findViewById(R.id.buttonGoNext1_1_2);
@@ -92,7 +96,8 @@ public class Course2_1_2Activity extends AppCompatActivity implements OnGoNextPa
             Toast.makeText(Course2_1_2Activity.this, "성공!", Toast.LENGTH_SHORT).show();
             viewPager.setCurrentItem(++thisPage);
             //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
-            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+            //PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+            PageHelper.setProgressColor(progressBar, thisPage, getApplicationContext());
         }
         else
             Toast.makeText(Course2_1_2Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
@@ -124,7 +129,7 @@ public class Course2_1_2Activity extends AppCompatActivity implements OnGoNextPa
                 index = 4;
                 break;
         }
-        PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
+        //PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
     }
 
 }

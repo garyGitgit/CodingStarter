@@ -20,8 +20,8 @@
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/PrimaryColor</item>
-        <item name="colorPrimaryDark">@color/PrimaryDarkColor</item>
+        <item name="colorPrimary">@color/codingstarter_background</item>
+        <item name="colorPrimaryDark">@color/codingstarter_background</item>
         <item name="colorAccent">#FF0000</item>
     </style>
 

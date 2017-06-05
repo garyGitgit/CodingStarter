@@ -4,11 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="#EEEEEE"
     android:padding="20dp"
     android:orientation="vertical"
     android:weightSum="10">
 
-    <include layout="@layout/progresscheck" />
+    <!--<include layout="@layout/progresscheck" />-->
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/course_round_progress"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="20dp"
+        app:rcProgress="1"
+        app:rcMax="5"
+        app:rcRadius="10dp"
+        app:rcBackgroundPadding="0dp"
+        app:rcReverse="false"
+        app:rcProgressColor="@color/codingstarter_background"
+        app:rcBackgroundColor="#11000000" />
+
     <com.gachon.app.helper.MyViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"

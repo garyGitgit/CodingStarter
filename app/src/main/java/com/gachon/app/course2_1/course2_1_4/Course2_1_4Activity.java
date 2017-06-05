@@ -92,7 +92,7 @@ public class Course2_1_4Activity extends AppCompatActivity implements OnGoNextPa
             Toast.makeText(Course2_1_4Activity.this, "성공!", Toast.LENGTH_SHORT).show();
             course1ViewPager.setCurrentItem(++thisPage);
             //지금 페이지 번호에 맞게 progress 배경색을 색칠해준다. 추후에는 색깔을 칠하던가 색깔있는 아이콘을 쓰던가 해야지
-            PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
+            //PageHelper.setProgressColor(progressImageViewList, thisPage, getApplicationContext());
         }
         else
             Toast.makeText(Course2_1_4Activity.this, "마지막 단계입니다", Toast.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class Course2_1_4Activity extends AppCompatActivity implements OnGoNextPa
                 index = 4;
                 break;
         }
-        PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
+        //PageHelper.setProgressColor(progressImageViewList, index, getApplicationContext());
     }
 
 }

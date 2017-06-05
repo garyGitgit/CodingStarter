@@ -19,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.PageHelper;
-import com.gachon.app.helper.UserLevelManager;
+import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.ViewFactoryCS;
 
 
@@ -69,12 +70,12 @@ public class Course1_1_1Step4 extends Fragment {
         //결과 블록 카드
         //final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
         //feedback card 추가
-        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
         viewFactory.addFeedBackText("변수의 이름을 정할 때 규칙을 잘 생각해보세요", feedBackTextContainer);
 
 
         //컴파일 버튼 카드
-        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
         //answercheckwithadd 동적으로 인플레이트
@@ -83,6 +84,13 @@ public class Course1_1_1Step4 extends Fragment {
 
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
+
+        viewFactory.addSpace(0.5f);
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+
+        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
 
         //새로고침 버튼을 누르면 블록들이 모두 없어진다
         //TODO : 사실 이게 별로 안 컸으면 좋겠음
@@ -106,7 +114,7 @@ public class Course1_1_1Step4 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //레벨업인지 확인
-                        UserLevelManager ulm = new UserLevelManager(getContext());
+                        UserManager ulm = new UserManager(getContext());
                         Log.e("gary before : ", Integer.toString(ulm.getPoints()));
                         if(ulm.addPoints()){
                             Toast.makeText(getContext(), "레벨 업 하셨습니다!", Toast.LENGTH_SHORT).show();

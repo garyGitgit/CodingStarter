@@ -7,16 +7,35 @@ import android.content.SharedPreferences;
  * Created by garyNoh on 2017. 6. 4..
  */
 
-public class UserLevelManager {
+public class UserManager {
     Context context;
     SharedPreferences sharedPreferences;
     static String pointsKey = "userPoints";
     static String maxKey = "maxPoints";
 
-    public UserLevelManager(Context context){
+    String nickname = "코딩이";
+    String mygroup = "NoGroup";
+
+    public UserManager(Context context){
         this.context = context;
         sharedPreferences = context.getSharedPreferences(pointsKey, 0);
         sharedPreferences = context.getSharedPreferences(maxKey, 0);
+    }
+
+    public String getMygroup() {
+        return mygroup;
+    }
+
+    public void setMygroup(String mygroup) {
+        this.mygroup = mygroup;
+    }
+
+    public String getNickname(){
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname){
+        this.nickname = nickname;
     }
 
     public int getPoints(){
@@ -57,4 +76,6 @@ public class UserLevelManager {
         editor.putInt(maxKey, 100); // max 를 초깃값으로 초기화
         editor.commit();
     }
+
+
 }

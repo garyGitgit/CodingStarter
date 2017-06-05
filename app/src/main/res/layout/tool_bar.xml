@@ -17,12 +17,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="@string/app_name"-->
+            <!--android:textColor="#000000" />-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/user_nickname"
             android:layout_centerVertical="true"
-            android:text="@string/app_name"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,12 +37,6 @@
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="코딩스타터 "
-                android:textColor="#000000"
-                />
 
             <ImageView
                 android:layout_marginLeft="10dp"

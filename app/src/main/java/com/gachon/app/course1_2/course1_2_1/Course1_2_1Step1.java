@@ -109,7 +109,7 @@ public class Course1_2_1Step1 extends Fragment {
 
 
         //space 추가
-        viewFactory.addSpace(0.8f);
+        viewFactory.addSpace(0.5f);
 
         /* 페이지 넘어가는 버튼 */
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);

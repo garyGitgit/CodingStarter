@@ -17,6 +17,7 @@ import com.gachon.app.R;
 import com.gachon.app.course1_1.Course1_1Activity;
 import com.gachon.app.course1_2.Course1_2Activity;
 import com.gachon.app.course2_1.Course2_1Activity;
+import com.gachon.app.helper.AnswerManager;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
 public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived {
@@ -24,6 +25,8 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
 
     //ImageView imageViewMainBlock1_1, imageViewMainBlock1_2, imageViewMainBlock1_3, imageViewMainBlock2_1;
     ImageView[][] mainBlocks = new ImageView[4][3];
+
+    AnswerManager answerManager;
 
 
 
@@ -58,6 +61,8 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
             }
         }
 
+        //answer manager
+        answerManager = new AnswerManager(rootView.getContext());
 
         return rootView;
     }
@@ -75,33 +80,42 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
                     break;
                 case R.id.mainBlock1_3:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock2_1:
                     startActivity(new Intent(rootView.getContext(), Course2_1Activity.class));
                     break;
                 case R.id.mainBlock2_2:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock2_3:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock3_1:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock3_2:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock3_3:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock4_1:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock4_2:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
                 case R.id.mainBlock4_3:
                     YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                    answerManager.vibrate();
                     break;
             }
         }

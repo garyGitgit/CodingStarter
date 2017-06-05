@@ -14,11 +14,16 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+
     <application
         android:allowBackup="true"
+        android:name="com.gachon.app.helper.ParseApplication"
         android:icon="@mipmap/codingstarter_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:screenOrientation="portrait">
 
         <!-- SplashAcvitiy 는 시작화면 -->
         <activity
@@ -37,27 +42,38 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".course1_1.course1_1_1.Course1_1_1Activity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".course1_1.Course1_1Activity" />
+        <activity android:screenOrientation="portrait"
+            android:name=".course1_1.Course1_1Activity" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".course1_1.course1_1_2.Course1_1_2Activity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".course1_2.Course1_2Activity" />
+        <activity android:screenOrientation="portrait"
+            android:name=".course1_2.Course1_2Activity" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".course1_2.course1_2_1.Course1_2_1Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".course2_1.Course2_1Activity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".course2_1.Course2_1Activity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".course2_1.course2_1_1.Course2_1_1Activity"
             android:windowSoftInputMode="adjustNothing" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".course2_1.course2_1_2.Course2_1_2Activity"
             android:windowSoftInputMode="adjustNothing" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".course2_1.course2_1_3.Course2_1_3Activity"
             android:windowSoftInputMode="adjustNothing" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".main.LoginActivity"
             android:label="@string/title_activity_login"/>
     </application>

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.GrammarChecker;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
@@ -104,14 +105,21 @@ public class Course1_1_2Step3 extends Fragment{
         //final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
         //feedback card 추가
-        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
         viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언하고 초기화해주세요!", feedBackTextContainer);
 
 
         //컴파일 삭제 카드
-        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
+
+        viewFactory.addSpace(0.5f);
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+
+        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
 
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.TabCodingInterface;
 import com.gachon.app.helper.ViewFactoryCS;
@@ -70,9 +71,14 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         viewFactory.addQuestion("4. 22 [[/]] 2 = 11", 20, userInputCard);
         viewFactory.addQuestion("5. 6 [[==]] 6 = True", 20, userInputCard);
 
-        final LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        //보기 블록 카드 생성
+        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,0});
+        viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, scrollView, userInputCard, 2);
+
+        final LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
+
 
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -106,9 +112,13 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         });
 
 
-        //보기 블록 카드 생성
-        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0, PageHelper.defaultMargin});
-        viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, scrollView, userInputCard, 2);
+        viewFactory.addSpace(0.5f);
+
+        /* 페이지 넘어가는 버튼 */
+        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
+        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
+        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
 
     }
 

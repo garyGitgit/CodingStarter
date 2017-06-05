@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -27,13 +28,16 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
+import com.gachon.app.helper.UserManager;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -72,24 +76,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    boolean isIdMatch = false;
-    boolean isPwdMatch = false;
+
+    //UserManager
+    UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        //error 방지를 위해서 parse application 으로 뺌
         //parse 시작하기
         //로컬 데이터베이스 활성화
-        Parse.enableLocalDatastore(getApplicationContext());
-
-        //Parse 초기화
-        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
-                .applicationId(getString(R.string.parse_app_id))
-                .clientKey(null)
-                .server(getString(R.string.parse_server_url))   // '/' important after 'parse'
-                .build());
+//        Parse.enableLocalDatastore(getApplicationContext());
+//
+//        //Parse 초기화
+//        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
+//                .applicationId(getString(R.string.parse_app_id))
+//                .clientKey(null)
+//                .server(getString(R.string.parse_server_url))   // '/' important after 'parse'
+//                .build());
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -125,8 +132,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                finish(); // 액티비티 종료
             }
         });
+
+        //시작이 될 때 로그인 할 때까지 캐릭터가 움직이면서 로그인을 하라는 애니메이션을 보여준다
+        final ImageView loginMascot = (ImageView)findViewById(R.id.login_mascot);
+        Handler mHandler = new Handler();
+//        while(true){
+//
+//        }
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                YoYo.with(Techniques.Swing).duration(1000).playOn(loginMascot);
+            }
+        }, 1000);
+
+
+        //usermanager
+        userManager = new UserManager(getApplicationContext());
+
     }
 
     private void populateAutoComplete() {
@@ -250,9 +277,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     public void done(ParseUser u, ParseException e) {
                                         if(u != null){
                                             //로그인 성공
+
+                                            //닉네임과 그룹 저장
+                                            EditText editTextNickname = (EditText)findViewById(R.id.nickname);
+                                            EditText editTextMyGroup = (EditText)findViewById(R.id.mygroup);
+
+                                            //null 이 아닐 것이라 가정
+                                            String nickname = editTextNickname.getText().toString();
+                                            String mygroup = editTextMyGroup.getText().toString();
+
+
+                                            //preference 에 저장
+                                            userManager.setNickname(nickname);
+                                            userManager.setMygroup(mygroup);
+
                                             showProgress(false);
                                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+
                                             Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                                            finish(); // 액티비티 종료
                                         }
                                         else{
                                             //로그인 실패
@@ -266,35 +310,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 });
                                 //검사하고 종료
                                 return;
-
-//                                try {
-//                                    user.fetch();
-//
-//                                } catch (ParseException e1) {
-//                                    e1.printStackTrace();
-//                                }
-//                                Log.e("gary", "getString password : " + user.get("password"));
-//                                Log.e("gary", "getString object id : " + user.getObjectId());
-//                                Log.e("gary", "getString createAt : " + user.getCreatedAt());
-//
-//
-//                                //Log.e("gary", "getString email by username: " + user.getString("User"));
-//                                if (user.getString("password") != null && user.getString("password").equals(password)) {
-//                                    //비밀번호 일치하면 로그인 성공
-//                                    Log.e("gary", "password match");
-//                                    //isPwdMatch = true;
-//                                    Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
-//                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                                    showProgress(false);
-//                                    return;
-//                                }
-//                                //비밀번호가 일치하지 않으면 로그인 실패
-//                                else {
-//                                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                                    mPasswordView.requestFocus();
-//                                    showProgress(false);
-//                                    return;
-//                                }
                             }
                         }
                         else {
@@ -462,18 +477,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-
-
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
-
-
-
             // TODO: register the new account here.
             return true;
         }
@@ -482,17 +485,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
-//            if (isPwdMatch) {
-//                //finish();
-//                Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            }
-//            else {
-//                Log.e("gary", "password not match");
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
-//            }
         }
 
         @Override

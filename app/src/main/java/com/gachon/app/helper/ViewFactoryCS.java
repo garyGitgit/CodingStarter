@@ -560,6 +560,8 @@ public class ViewFactoryCS{
         //weight 1.0f 줌
         imageView.setLayoutParams(new TableLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
         imageView.setImageDrawable(root.getResources().getDrawable(R.drawable.mascot));
+
+
         //눌렀을 때 반응하기
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -574,9 +576,6 @@ public class ViewFactoryCS{
         linearLayout.addView(imageView);
 
 
-
-
-
         //카드 테두리 설정
         //tableLayout.setBackground(root.getResources().getDrawable(R.drawable.cardborder));
 
@@ -589,6 +588,7 @@ public class ViewFactoryCS{
         return feedBackText;
 
     }
+
 
     public void addFeedBackText(String str, TextView feedBackText){
         feedBackText.setText(str);

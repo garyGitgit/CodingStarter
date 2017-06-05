@@ -15,13 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.gachon.app.R;
 import com.gachon.app.TabEnum;
+import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.MyViewPager;
-import com.gachon.app.helper.UserLevelManager;
+import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.WidgetSet;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     static long tabClickTime = 0;
     static final long tabClickWaitingTIme = 500;
+
+
+    AnswerManager answerManager;
 
 
     /* ################################### start of life cycle ###################################### */
@@ -135,6 +140,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         //dp 설정
         WidgetSet.setScale(getResources().getDisplayMetrics().density);
+
+
+        //닉네임 설정
+        TextView nickname = (TextView)findViewById(R.id.user_nickname);
+        nickname.setText(new UserManager(getApplicationContext()).getNickname());
+
     }
 
     private TabEnum getDemo() {
@@ -169,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //noinspection SimplifiableIfStatement
         if (id == R.id.reset) {
             Toast.makeText(MainActivity.this, "경험치 초기화", Toast.LENGTH_SHORT).show();
-            UserLevelManager ulm = new UserLevelManager(getApplicationContext());
+            UserManager ulm = new UserManager(getApplicationContext());
             ulm.reset();
             return true;
         }
@@ -182,10 +193,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -209,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //TODO onViewCreated 로 이동
         super.onResume();
         RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
-        UserLevelManager ulm = new UserLevelManager(getApplicationContext());
+        UserManager ulm = new UserManager(getApplicationContext());
         progressBar.setMax(ulm.getMaxPoints());
         progressBar.setProgress(ulm.getPoints());
         Log.e("gary", Integer.toString(ulm.getMaxPoints()));

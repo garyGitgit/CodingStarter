@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.AnswerManager;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.GrammarChecker;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
@@ -96,15 +98,22 @@ public class Course1_1_1Step3 extends Fragment{
 //        final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
         //feedback card 추가
-        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,PageHelper.defaultMargin});
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
         viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
 
 
 
         //사용자 입력 블록 카드
-        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
+
+        viewFactory.addSpace(0.5f);
+        ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
+        ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
+
+        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
 
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.answercheckwithadd, linearLayout);
@@ -125,6 +134,7 @@ public class Course1_1_1Step3 extends Fragment{
                 for (EditText editText : editTextList){
                     editText.setText("");
                 }
+                Toast.makeText(getContext(), "입력하신 값을 모두 지웠습니다", Toast.LENGTH_LONG).show();
                 //resultCard 이미지 제거
                 //resultCard.removeAllViews();
 
@@ -143,6 +153,7 @@ public class Course1_1_1Step3 extends Fragment{
                 viewFactory.addRow(rowViews, tableCard1);
                 //가장 아래로 이동
                 questionCard.fullScroll(View.FOCUS_DOWN);
+                Toast.makeText(getContext(), "문제를 하나 더 추가했습니다", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -164,7 +175,16 @@ public class Course1_1_1Step3 extends Fragment{
                     userInputs[i] = editText.getText().toString();
                     if(!GrammarChecker.checkVariableValidity(userInputs[i])){
                         isSuccess = false;
-                        Toast.makeText(getContext(), "변수 이름 설정 에러", Toast.LENGTH_SHORT).show();
+
+                        //토스트
+                        //Toast.makeText(getContext(), "변수 이름 설정 에러", Toast.LENGTH_SHORT).show();
+
+                        //에러 보여주기
+                        viewFactory.addFeedBackText("변수 이름 설정 에러!", feedBackTextContainer);
+                        //진동
+                        new AnswerManager(getContext()).vibrate();
+                        //캐릭터 움직이기
+
                         break;
                     }
                     i++;
@@ -178,6 +198,13 @@ public class Course1_1_1Step3 extends Fragment{
                 }
             }
         });
+
+
+
+        //
+
+
+
     }
 
 

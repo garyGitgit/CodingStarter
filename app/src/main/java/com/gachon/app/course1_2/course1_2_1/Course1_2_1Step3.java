@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.ContentPageListener;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
 
@@ -98,9 +99,19 @@ public class Course1_2_1Step3 extends Fragment {
 //        };
 //        viewFactory.addRow(rowViews , answerCard);
 
-        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
+        LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
+
+        viewFactory.addSpace(0.5f);
+
+        /* 페이지 넘어가는 버튼 */
+        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
+        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
+        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+
+
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.answercheck, linearLayout);
