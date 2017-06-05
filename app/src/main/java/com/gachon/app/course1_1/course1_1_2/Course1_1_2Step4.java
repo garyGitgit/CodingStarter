@@ -68,12 +68,12 @@ public class Course1_1_2Step4 extends Fragment {
         HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         //block 생성
         viewFactory.createBlocks(
-                new String[]{"int", "45", "float", "num", "char", ";"}, scrollView, answerCard, 1
+                new String[]{"int", "=" ,"45", "float", "num", "char", ";"}, scrollView, answerCard, 1
         );
 
         //feedback card 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
-        viewFactory.addFeedBackText("위 블록을 탭해서 블록들을 배치해보세요", feedBackTextContainer);
+        viewFactory.addFeedBackText("위 블록을 탭해서 블록들을 배치해보세요. 잘못 배치된 블록은 터치하면 취소할 수 있습니다.", feedBackTextContainer);
 
         //컴파일, 삭제 버튼이 있는 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});

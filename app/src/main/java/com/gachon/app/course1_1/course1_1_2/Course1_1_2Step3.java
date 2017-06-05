@@ -59,9 +59,6 @@ public class Course1_1_2Step3 extends Fragment{
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step3);
         viewFactory = new ViewFactoryCS(layout);
 
-//        LinearLayout headerCard = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
-//        viewFactory.addSimpleText("변수를 선언하고 초기화 해보자", 20, headerCard);
-
         //header text 설정
         viewFactory.createHeaderCard("변수를 선언하고 초기화 해보자", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
@@ -73,7 +70,6 @@ public class Course1_1_2Step3 extends Fragment{
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
         answerCard.setLayoutParams(params);
-
 
         View[] rowViews = {
                 viewFactory.createWidget("Spinner", new String[]{"int", "float", "char"}),

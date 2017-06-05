@@ -8,10 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.ContentPageListener;
@@ -29,11 +27,6 @@ public class Course1_1_2Step1 extends Fragment {
     //항상 추가
     View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
-
-    //layout
-    int size = 3;
-    FrameLayout[] textCard = new FrameLayout[size];
-    RelativeLayout[] cardCover = new RelativeLayout[size];
     MainPagerAdapter pagerAdapter;
 
     // Required empty public constructor
@@ -64,11 +57,9 @@ public class Course1_1_2Step1 extends Fragment {
         viewFactory.createAnimationCard(3.0f, R.raw.variable2_how, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
         final MyViewPager viewPager = new MyViewPager(getContext());
-//        final ViewPager viewPager = new ViewPager(getContext());
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        //슬라이드 카드 생성
         pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0, 0, 0, 0}, viewPager);
-        //slideCardNum.add(0);
-
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("'할당' 이라는 말은 변수에 값을 넣는 것을 의미한다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("예를 들어, 변수 num 에 10을 저장하는 것을 '변수 num 에 10을 할당한다' 와 같이 표현한다.", pagerAdapter, parentActivity);
@@ -78,7 +69,7 @@ public class Course1_1_2Step1 extends Fragment {
         viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //공간 추가
-        viewFactory.addSpace(0.8f);
+        viewFactory.addSpace(0.5f);
 
         /* 페이지 넘어가는 버튼 */
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);

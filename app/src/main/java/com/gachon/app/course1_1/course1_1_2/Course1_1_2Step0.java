@@ -73,7 +73,7 @@ public class Course1_1_2Step0 extends Fragment {
         viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //공간 추가
-        viewFactory.addSpace(0.8f);
+        viewFactory.addSpace(0.5f);
 
 
        /* 페이지 넘어가는 버튼 */
