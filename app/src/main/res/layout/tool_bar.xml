@@ -46,6 +46,4 @@
                 android:id="@+id/levelBadge"/>
         </LinearLayout>
     </RelativeLayout>
-
-
 </android.support.v7.widget.Toolbar>

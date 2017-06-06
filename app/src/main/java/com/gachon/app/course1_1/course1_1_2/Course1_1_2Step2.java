@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.gachon.app.R;
-import com.gachon.app.helper.ContentPageListener;
+import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -83,7 +83,10 @@ public class Course1_1_2Step2 extends Fragment {
         /* 페이지 넘어가는 버튼 */
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
         ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
-        goNext.setOnClickListener(new ContentPageListener(3, viewPagers, pagerAdapters, getActivity()));
-        goPrev.setOnClickListener(new ContentPageListener(2, viewPagers, pagerAdapters, getActivity()));
+//        goNext.setOnClickListener(new ContentPageListener(3, viewPagers, pagerAdapters, getActivity()));
+//        goPrev.setOnClickListener(new ContentPageListener(2, viewPagers, pagerAdapters, getActivity()));
+        ContentPagerListener contentPagerListener = new ContentPagerListener(viewPagers, pagerAdapters, getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
     }
 }

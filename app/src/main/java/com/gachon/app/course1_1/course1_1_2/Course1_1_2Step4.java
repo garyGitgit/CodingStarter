@@ -17,8 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gachon.app.R;
-import com.gachon.app.helper.ContentPageListener;
+import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.PageHelper;
+import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.ViewFactoryCS;
 
 
@@ -85,8 +86,11 @@ public class Course1_1_2Step4 extends Fragment {
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
         ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
 
-        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
-        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+//        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+//        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+        ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
 
 
         //answercheckwithadd 동적으로 인플레이트
@@ -110,13 +114,17 @@ public class Course1_1_2Step4 extends Fragment {
                 //답이 맞을 시 정답입니다 후 종료
                 //Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
                 // 다이얼로그 바디
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
+                final AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
                 // 메세지
                 alert_confirm.setMessage("축하합니다! 한 코스를 완료하셨습니다!");
                 // 확인 버튼 리스너
                 alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //다음 코스 오픈
+                        UserManager um = new UserManager(getActivity());
+                        um.incrementProgress();
+                        //액티비티 종료
                         getActivity().finish();
                     }
                 });

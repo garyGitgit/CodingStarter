@@ -9,6 +9,10 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/tool_bar" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow_bottom"/>
 
     <!--<ProgressBar-->
         <!--android:layout_width="match_parent"-->

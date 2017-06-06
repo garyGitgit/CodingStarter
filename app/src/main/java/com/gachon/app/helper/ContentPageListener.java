@@ -18,7 +18,9 @@ public class ContentPageListener implements View.OnClickListener {
 
     MyViewPager[] viewPagers;
     MainPagerAdapter[] pagerAdapters;
-    static int currentCardNum = 0;
+    int currentCardNum = 0;
+
+
 
     public ContentPageListener(int type, Activity activity){
         this.type = type;
@@ -38,6 +40,15 @@ public class ContentPageListener implements View.OnClickListener {
     //여러 개 일때
     public ContentPageListener(int type, MyViewPager[] viewPagers, MainPagerAdapter[] pagerAdapters, Activity activity){
         this.type = type;
+        this.viewPagers = viewPagers;
+        this.pagerAdapters = pagerAdapters;
+        this.activity = activity;
+    }
+
+
+    //여러 개 일때
+    public ContentPageListener(MyViewPager[] viewPagers, MainPagerAdapter[] pagerAdapters, Activity activity){
+        //this.type = type;
         this.viewPagers = viewPagers;
         this.pagerAdapters = pagerAdapters;
         this.activity = activity;

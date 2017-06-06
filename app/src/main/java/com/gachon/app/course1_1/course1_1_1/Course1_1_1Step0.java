@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.gachon.app.R;
-import com.gachon.app.helper.ContentPageListener;
+import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -71,8 +71,14 @@ public class Course1_1_1Step0 extends Fragment {
 
         //페이지 넘기기 버튼 : 0, 1 하나짜리 슬라이드 넘기기
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
         ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
+        //goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
+
+        ContentPagerListener contentPagerListener = new ContentPagerListener(new MyViewPager[]{viewPager}, new MainPagerAdapter[]{pagerAdapter}, getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
+
+        //goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
+
     }
 }

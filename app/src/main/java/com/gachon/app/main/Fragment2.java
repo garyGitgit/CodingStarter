@@ -76,59 +76,17 @@ public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessa
                         //username 으로 밖에 못 가져온다 (getString 으로 하니까 안가져와짐)
                         Log.e("gary", "getString group name : " + group.get("name"));
                         Log.e("gary", "getString group point : " + group.getNumber("points"));
-
-//                        TableLayout tableLayout = new TableLayout(rootContext);
-//                        tableLayout.setStretchAllColumns(true);
-//                        tableLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                        TableRow tableRow = new TableRow(rootContext);
-//
-//                        //순위 텍스트
-//                        TextView rankText = new TextView(rootContext);
-//                        rankText.setText(Integer.toString(rank++));
-//                        rankText.setGravity(Gravity.CENTER);
-//                        //그룹명 텍스트
-//                        TextView groupNameText = new TextView(rootContext);
-//                        groupNameText.setText((String)group.get("name"));
-//                        groupNameText.setGravity(Gravity.CENTER);
-//                        //누적 포인트 텍스트
-//                        TextView groupPointsText = new TextView(rootContext);
-//                        groupPointsText.setText(Integer.toString((int)group.getNumber("points")) + "pt");
-//                        groupPointsText.setGravity(Gravity.CENTER);
-//
-//                        //row 에 추가
-//                        tableRow.addView(rankText);
-//                        tableRow.addView(groupNameText);
-//                        tableRow.addView(groupPointsText);
-//
-//                        tableLayout.addView(tableRow);
-
-                        //array list 에 추가
                         groupLists.add(group);
-
-                        //listView Object 에 추가
-//                        groupLists.add(tableLayout);
                     }
                 }
-
-                //Collections.sort(groupLists, new Descending());
                 //TODO : 리스트 뷰를 모두 세팅하면 progress 를 종료한다
                 //adapter 설정을 해준다
                 GroupRankAdapter groupRankAdapter = new GroupRankAdapter(rootContext, R.layout.rank_row, groupLists);
-                listview.setAdapter(groupRankAdapter) ;
+                listview.setAdapter(groupRankAdapter);
             }
         });
         return root;
     }
-
-    // 내림차순
-//    class Descending implements Comparator<Integer> {
-//
-//        @Override
-//        public int compare(Integer o1, Integer o2) {
-//            return o2.compareTo(o1);
-//        }
-//
-//    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

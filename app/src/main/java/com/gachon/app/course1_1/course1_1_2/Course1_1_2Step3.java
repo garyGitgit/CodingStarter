@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
-import com.gachon.app.helper.ContentPageListener;
+import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.GrammarChecker;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.ViewFactoryCS;
@@ -114,8 +114,12 @@ public class Course1_1_2Step3 extends Fragment{
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
         ImageButton goPrev= (ImageButton)root.findViewById(R.id.goPrevious);
 
-        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
-        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+//        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+//        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+        ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
+
 
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

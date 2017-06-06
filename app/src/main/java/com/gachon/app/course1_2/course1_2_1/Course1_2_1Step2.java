@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
-import com.gachon.app.helper.ContentPageListener;
+import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.TabCodingInterface;
 import com.gachon.app.helper.ViewFactoryCS;
@@ -72,12 +72,16 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         viewFactory.addQuestion("5. 6 [[==]] 6 = True", 20, userInputCard);
 
         //보기 블록 카드 생성
-        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,0});
+        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, scrollView, userInputCard, 2);
+
+        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(0.5f, new int[]{0,0,0,0});
+        viewFactory.addFeedBackText("빈칸에 알맞은 연산자를 넣어주세요! 잘못 입력한 값은 빈칸을 터치하면 취소됩니다", feedBackTextContainer);
 
         final LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
+
 
 
         //answercheckwithadd 동적으로 인플레이트
@@ -112,13 +116,16 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         });
 
 
-        viewFactory.addSpace(0.5f);
+        viewFactory.addSpace(0.3f);
 
         /* 페이지 넘어가는 버튼 */
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
         ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
-        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
-        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+//        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+//        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+        ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
 
     }
 

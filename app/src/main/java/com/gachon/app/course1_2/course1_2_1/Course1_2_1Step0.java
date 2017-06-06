@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.gachon.app.R;
-import com.gachon.app.helper.ContentPageListener;
+import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.MainPagerAdapter;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.PageHelper;
@@ -60,26 +60,28 @@ public class Course1_2_1Step0 extends Fragment {
         viewFactory.createHeaderCard("컴퓨터와 연산자", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
         //animation 카드 생성
-        viewFactory.createAnimationCard(3.0f, R.raw.variable2_how, new int[]{0, 0, 0, PageHelper.defaultMargin});
+        viewFactory.createAnimationCard(3.0f, R.raw.operator_why, new int[]{0, 0, 0, PageHelper.defaultMargin});
 
         pagerAdapter = viewFactory.createSlideCard(1.0f, new int[]{0,0,0,0}, viewPager);
-        slideCardNum.add(0);
 
         //text card 에 내용 추가
         Activity parentActivity = getActivity();
         viewFactory.addCardOnSlideCard("더하기, 빼기, 나누기 등 연산자들은 어떻게 표현할까?", pagerAdapter, parentActivity);
-        //viewFactory.addCardOnSlideCard(PageHelper.endingString, pagerAdapter, parentActivity);
         viewFactory.addEndCardOnSlideCard(pagerAdapter);
 
         //공간 추가
-        viewFactory.addSpace(0.8f);
+        viewFactory.addSpace(0.5f);
 
 
        /* 페이지 넘어가는 버튼 */
         ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
-        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
         ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
-        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
+//        goNext.setOnClickListener(new ContentPageListener(1, viewPager, pagerAdapter, getActivity()));
+//        goPrev.setOnClickListener(new ContentPageListener(0, viewPager, pagerAdapter, getActivity()));
+
+        ContentPagerListener contentPagerListener = new ContentPagerListener(new MyViewPager[]{viewPager}, new MainPagerAdapter[]{pagerAdapter}, getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
 
 //        LinearLayout textCard1 = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0, PageHelper.defaultMargin});
 //        viewFactory.addSimpleText("더하기, 빼기, 나누기 등 연산자들은 어떻게 표현할까?", 25, textCard1);

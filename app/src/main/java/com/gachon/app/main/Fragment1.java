@@ -10,14 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 import com.gachon.app.course1_1.Course1_1Activity;
 import com.gachon.app.course1_2.Course1_2Activity;
-import com.gachon.app.course2_1.Course2_1Activity;
 import com.gachon.app.helper.AnswerManager;
+import com.gachon.app.helper.UserManager;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
 public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived {
@@ -27,6 +28,7 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     ImageView[][] mainBlocks = new ImageView[4][3];
 
     AnswerManager answerManager;
+    int progress = 1;
 
 
 
@@ -76,49 +78,34 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
                     startActivity(new Intent(rootView.getContext(), Course1_1Activity.class));
                     break;
                 case R.id.mainBlock1_2:
-                    startActivity(new Intent(rootView.getContext(), Course1_2Activity.class));
+                    //progress 가
+                    if(progress >= 2)
+                        startActivity(new Intent(rootView.getContext(), Course1_2Activity.class));
+                    else{
+                        YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+                        answerManager.vibrate();
+                    }
                     break;
                 case R.id.mainBlock1_3:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock2_1:
-                    startActivity(new Intent(rootView.getContext(), Course2_1Activity.class));
-                    break;
                 case R.id.mainBlock2_2:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock2_3:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock3_1:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock3_2:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock3_3:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock4_1:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock4_2:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
-                    break;
                 case R.id.mainBlock4_3:
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(v);
-                    answerManager.vibrate();
+                    alertClosed(v);
                     break;
             }
         }
+    }
+
+    private void alertClosed(View v){
+        YoYo.with(Techniques.Shake).duration(1000).playOn(v);
+        answerManager.vibrate();
+        Toast.makeText(getContext(), "콘텐츠 준비중입니다", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -133,6 +120,33 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     public void onResume() {
         Log.e("bisecu", "onResume");
         super.onResume();
+
+//        mainBlocks[0][0] = (ImageView) rootView.findViewById(R.id.mainBlock1_1);
+//        mainBlocks[0][1]= (ImageView) rootView.findViewById(R.id.mainBlock1_2);
+//        mainBlocks[0][2] = (ImageView) rootView.findViewById(R.id.mainBlock1_3);
+//        mainBlocks[1][0] = (ImageView) rootView.findViewById(R.id.mainBlock2_1);
+//        mainBlocks[1][1] = (ImageView) rootView.findViewById(R.id.mainBlock2_2);
+//        mainBlocks[1][2]= (ImageView) rootView.findViewById(R.id.mainBlock2_3);
+//        mainBlocks[2][0] = (ImageView) rootView.findViewById(R.id.mainBlock3_1);
+//        mainBlocks[2][1] = (ImageView) rootView.findViewById(R.id.mainBlock3_2);
+//        mainBlocks[2][2] = (ImageView) rootView.findViewById(R.id.mainBlock3_3);
+//        mainBlocks[3][0]= (ImageView) rootView.findViewById(R.id.mainBlock4_1);
+//        mainBlocks[3][1] = (ImageView) rootView.findViewById(R.id.mainBlock4_2);
+//        mainBlocks[3][2] = (ImageView) rootView.findViewById(R.id.mainBlock4_3);
+
+
+
+        progress = new UserManager(getContext()).getProgress();
+
+        Log.e("gary", Integer.toString(progress));
+        if(progress == 1){
+            mainBlocks[0][0].setImageDrawable(getResources().getDrawable(R.drawable.main_block1));
+        }
+        else if(progress == 2){
+            mainBlocks[0][0].setImageDrawable(getResources().getDrawable(R.drawable.main_block1));
+            mainBlocks[0][1].setImageDrawable(getResources().getDrawable(R.drawable.main_block2));
+        }
+
     }
 
     @Override

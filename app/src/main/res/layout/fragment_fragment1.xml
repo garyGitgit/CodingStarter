@@ -31,7 +31,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock1_1"
-                            android:src="@drawable/main_block1" />
+                            android:src="@drawable/main_block1_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock1_2"
-                            android:src="@drawable/main_block2" />
+                            android:src="@drawable/main_block2_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock1_3"
-                            android:src="@drawable/main_block3"/>
+                            android:src="@drawable/main_block3_disabled"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock2_1"
-                            android:src="@drawable/main_block1" />
+                            android:src="@drawable/main_block1_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock2_2"
-                            android:src="@drawable/main_block2" />
+                            android:src="@drawable/main_block2_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock2_3"
-                            android:src="@drawable/main_block3" />
+                            android:src="@drawable/main_block3_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock3_1"
-                            android:src="@drawable/main_block1" />
+                            android:src="@drawable/main_block1_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock3_2"
-                            android:src="@drawable/main_block2" />
+                            android:src="@drawable/main_block2_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock3_3"
-                            android:src="@drawable/main_block3" />
+                            android:src="@drawable/main_block3_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock4_1"
-                            android:src="@drawable/main_block1" />
+                            android:src="@drawable/main_block1_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock4_2"
-                            android:src="@drawable/main_block2" />
+                            android:src="@drawable/main_block2_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -242,7 +242,7 @@
                             android:layout_width="@dimen/mainPage_block_size"
                             android:layout_height="@dimen/mainPage_block_size"
                             android:id="@+id/mainBlock4_3"
-                            android:src="@drawable/main_block3" />
+                            android:src="@drawable/main_block3_disabled" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -253,12 +253,6 @@
                 </TableRow>
             </TableLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mainPage_divider_height"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/codingstarter_main_divider_color"/>
         </LinearLayout>
 
         <Space

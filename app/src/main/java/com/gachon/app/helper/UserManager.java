@@ -9,17 +9,22 @@ import android.content.SharedPreferences;
 
 public class UserManager {
     Context context;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferencesPoints;
+    SharedPreferences sharedPreferencesMax;
+    SharedPreferences sharedPreferencesProgress;
     static String pointsKey = "userPoints";
     static String maxKey = "maxPoints";
+    static String progressKey = "userProgress";
 
     String nickname = "코딩이";
     String mygroup = "NoGroup";
 
     public UserManager(Context context){
         this.context = context;
-        sharedPreferences = context.getSharedPreferences(pointsKey, 0);
-        sharedPreferences = context.getSharedPreferences(maxKey, 0);
+        sharedPreferencesPoints = context.getSharedPreferences(pointsKey, 0);
+        sharedPreferencesMax = context.getSharedPreferences(maxKey, 0);
+        sharedPreferencesProgress = context.getSharedPreferences(progressKey, 1);
+
     }
 
     public String getMygroup() {
@@ -39,11 +44,11 @@ public class UserManager {
     }
 
     public int getPoints(){
-        return sharedPreferences.getInt(pointsKey, 0);
+        return sharedPreferencesPoints.getInt(pointsKey, 0);
     }
 
     public int getMaxPoints(){
-        return sharedPreferences.getInt(maxKey, 0);
+        return sharedPreferencesMax.getInt(maxKey, 0);
     }
 
     /**
@@ -51,7 +56,7 @@ public class UserManager {
      * @return true 면 레벨업
      */
     public boolean addPoints(){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferencesPoints.edit();
         editor.putInt(pointsKey, getPoints()+100); //100점씩 더한다
         editor.commit();
         //레벨업 할 때
@@ -65,16 +70,45 @@ public class UserManager {
     }
 
     public void setMaxPoints(int maxPoints){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferencesMax.edit();
         editor.putInt(maxKey, maxPoints); // max 를 초깃값으로 초기화
         editor.commit();
     }
 
-    public void reset(){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(pointsKey, 0);
+
+    public void incrementProgress(){
+        SharedPreferences.Editor editor = sharedPreferencesProgress.edit();
+        editor.putInt(progressKey, getProgress()+1); // max 를 초깃값으로 초기화
+        editor.commit();
+    }
+
+    public int getProgress(){return sharedPreferencesProgress.getInt(progressKey, 0);}
+
+
+
+
+    void resetMaxPoints(){
+        SharedPreferences.Editor editor = sharedPreferencesMax.edit();
         editor.putInt(maxKey, 100); // max 를 초깃값으로 초기화
         editor.commit();
+    }
+
+    void resetPoints(){
+        SharedPreferences.Editor editor = sharedPreferencesPoints.edit();
+        editor.putInt(pointsKey, 0);
+        editor.commit();
+    }
+
+    void resetProgress(){
+        SharedPreferences.Editor editor = sharedPreferencesProgress.edit();
+        editor.putInt(progressKey, 1);
+        editor.commit();
+    }
+
+    public void reset(){
+        resetPoints();
+        resetMaxPoints();
+        resetProgress();
     }
 
 
