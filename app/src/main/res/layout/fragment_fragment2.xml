@@ -7,19 +7,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp">
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/category_spinner"
                     android:layout_marginRight="10dp"
-                    android:text="카테고리"/>
-                <Spinner
-                    android:text="카테고리"
-                    android:id="@+id/category_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true">
-                </Spinner>
+                    android:text="그룹별 랭킹"/>
+                <!--<Spinner-->
+                    <!--android:text="카테고리"-->
+                    <!--android:id="@+id/category_spinner"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true">-->
+                <!--</Spinner>-->
         </RelativeLayout>
 
         <TableLayout
