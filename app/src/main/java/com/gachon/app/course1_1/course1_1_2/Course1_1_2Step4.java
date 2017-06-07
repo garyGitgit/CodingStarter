@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,16 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.ViewFactoryCS;
+import com.gachon.app.helper.WidgetSet;
+
+import java.util.ArrayList;
 
 
 /**
@@ -61,7 +66,8 @@ public class Course1_1_2Step4 extends Fragment {
         viewFactory.addSimpleText("정수형 변수를 선언하고, 45로 초기화시키시오.", 20 ,problemCard);
 
         //입력한 답이 보여지는 카드 : 사용자 입력 block 이 배치되는 카드
-        final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
+        //final LinearLayout answerCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,0});
+        final LinearLayout answerCard = viewFactory.createHorizontalCard(1.0f, new int[]{0,0,0,0});
 
         //보기를 보여주는 카드 : 탭 block 이 배치되는 카드
 
@@ -74,13 +80,12 @@ public class Course1_1_2Step4 extends Fragment {
 
         //feedback card 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
-        viewFactory.addFeedBackText("위 블록을 탭해서 블록들을 배치해보세요. 잘못 배치된 블록은 터치하면 취소할 수 있습니다.", feedBackTextContainer);
+        viewFactory.addFeedBackText(0, "위 블록을 탭해서 블록들을 배치해보세요. 잘못 배치된 블록은 터치하면 취소할 수 있습니다.", feedBackTextContainer);
 
         //컴파일, 삭제 버튼이 있는 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
         viewFactory.addView(linearLayout, answerCheckLayout);
-
 
         viewFactory.addSpace(0.5f);
         ImageButton goNext = (ImageButton)root.findViewById(R.id.goNext);
@@ -103,7 +108,11 @@ public class Course1_1_2Step4 extends Fragment {
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //뷰에서 모두 제거
                 answerCard.removeAllViews();
+                WidgetSet widgetSet = viewFactory.getWidgetSet();
+                ArrayList<TextView> answerBlocks = widgetSet.getAnswerBlocks();
+                answerBlocks.clear();
             }
         });
 
@@ -114,36 +123,82 @@ public class Course1_1_2Step4 extends Fragment {
                 //답이 맞을 시 정답입니다 후 종료
                 //Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
                 // 다이얼로그 바디
-                final AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
-                // 메세지
-                alert_confirm.setMessage("축하합니다! 한 코스를 완료하셨습니다!");
-                // 확인 버튼 리스너
-                alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //다음 코스 오픈
-                        UserManager um = new UserManager(getActivity());
-                        um.incrementProgress();
-                        //액티비티 종료
-                        getActivity().finish();
-                    }
-                });
-                alert_confirm.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
 
-                    }
-                });
-                // 다이얼로그 생성
-                AlertDialog alert = alert_confirm.create();
+                if(isCorrect()){
 
-                // 아이콘
+                    final AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
+                    // 메세지
+                    alert_confirm.setMessage("축하합니다! 한 코스를 완료하셨습니다!");
+                    // 확인 버튼 리스너
+                    alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            doFinishJobs();
+
+
+                        }
+                    });
+                    alert_confirm.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    // 다이얼로그 생성
+                    AlertDialog alert = alert_confirm.create();
+
+                    // 아이콘
 //                alert.setIcon(R.drawable.codingstarter_logo);
-                // 다이얼로그 타이틀
-                //alert.setTitle("완료");
-                // 다이얼로그 보기
-                alert.show();
+                    // 다이얼로그 타이틀
+                    //alert.setTitle("완료");
+                    // 다이얼로그 보기
+                    alert.show();
+                    //모두 제거
+                    WidgetSet widgetSet = viewFactory.getWidgetSet();
+                    widgetSet.removeAllWidgetSets();
+
+                    viewFactory.addFeedBackText(1, "축하합니다~ 성공!", feedBackTextContainer);
+
+                }
+                else{
+                    viewFactory.addFeedBackText(2, "다시 한 번 확인해주세요!", feedBackTextContainer);
+                }
+
             }
         });
+    }
+
+    public void doFinishJobs(){
+        //레벨업인지 확인
+        UserManager ulm = new UserManager(getContext());
+        //포인트 추가
+        if(ulm.addPoints()){
+            Toast.makeText(getContext(), "레벨업을 축하드립니다!", Toast.LENGTH_SHORT).show();
+        }
+
+        //course 1_1 마지막 이므로 progress 증가
+        ulm.incrementProgress();
+
+        //widget set 모두 제거
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        widgetSet.removeAllWidgetSets();
+        //액티비티 종료
+        getActivity().finish();
+    }
+
+    public boolean isCorrect(){
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        ArrayList<TextView> answerBlocks = widgetSet.getAnswerBlocks();
+        String str = "";
+        //getAlltext
+        for(TextView block : answerBlocks){
+            str += block.getText();
+        }
+        Log.e("gary", "answer : " +  str);
+        if(str.equals("intnum=45;")){
+            return true;
+        }
+        return false;
+
     }
 }

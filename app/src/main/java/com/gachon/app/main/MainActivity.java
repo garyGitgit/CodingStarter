@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.TabEnum;
-import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.MyViewPager;
 import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.WidgetSet;
@@ -41,13 +40,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     public final static int pageCount = 3;
 
     onBluetoothMessageReceived mListener, mListener2, mListener3, mListener4;
-
-    static long tabClickTime = 0;
-    static final long tabClickWaitingTIme = 500;
-
-
-    AnswerManager answerManager;
-
+    TextView levelText;
 
     /* ################################### start of life cycle ###################################### */
     @Override
@@ -61,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(null);
+            toolbar.setNavigationIcon(null);
 
         setSupportActionBar(toolbar);
         //TODO gachon : delete menu
@@ -145,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         TextView nickname = (TextView)findViewById(R.id.user_nickname);
         nickname.setText(new UserManager(getApplicationContext()).getNickname());
 
+        //레벨 텍스트
+        levelText = (TextView)findViewById(R.id.levelText);
     }
 
     private TabEnum getDemo() {
@@ -178,10 +173,18 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.reset) {
-            Toast.makeText(MainActivity.this, "경험치 초기화", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "경험치를 초기화합니다", Toast.LENGTH_SHORT).show();
             UserManager ulm = new UserManager(getApplicationContext());
             ulm.reset();
+
             return true;
+        }
+        else if(id == R.id.logout){
+            Toast.makeText(MainActivity.this, "로그아웃합니다. 다시 시작해주세요", Toast.LENGTH_SHORT).show();
+            UserManager ulm = new UserManager(getApplicationContext());
+            ulm.setAutoLogin(false);
+            finish();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -211,6 +214,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     //업데이트된 경험치를 반영한다
     @Override
     protected void onResume() {
+
+
         Log.d(TAG, "onResume");
         //17.2.7 : 레이아웃 설정을 메인에서 할 필요가 없음
         //TODO onViewCreated 로 이동
@@ -219,34 +224,40 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         UserManager ulm = new UserManager(getApplicationContext());
 //        progressBar.setMax(ulm.getMaxPoints());
 //        progressBar.setProgress(ulm.getPoints());
-        Log.e("gary", Integer.toString(ulm.getMaxPoints()));
-        Log.e("gary", Integer.toString(ulm.getPoints()));
+        Log.e("gary", "max point : " + Integer.toString(ulm.getMaxPoints()));
+        Log.e("gary", "points : " + Integer.toString(ulm.getPoints()));
         ImageView levelBadge = (ImageView)findViewById(R.id.levelBadge);
 
         switch (ulm.getMaxPoints()){
             case 100:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level1));
+                levelText.setText("Lv.1");
 //                progressBar.setProgressColor(getResources().getColor(R.color.level1_color));
                 break;
             case 200:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level2));
 //                progressBar.setProgressColor(getResources().getColor(R.color.level2_color));
+                levelText.setText("Lv.2");
                 break;
             case 300:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level3));
 //                progressBar.setProgressColor(getResources().getColor(R.color.level3_color));
+                levelText.setText("Lv.3");
                 break;
             case 400:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level4));
 //                progressBar.setProgressColor(getResources().getColor(R.color.level4_color));
+                levelText.setText("Lv.4");
                 break;
             case 500:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level5));
 //                progressBar.setProgressColor(getResources().getColor(R.color.level5_color));
+                levelText.setText("Lv.5");
                 break;
             case 600:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level6));
 //                progressBar.setProgressColor(getResources().getColor(R.color.level6_color));
+                levelText.setText("Lv.6");
                 break;
         }
 

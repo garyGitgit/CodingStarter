@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,9 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.GrammarChecker;
 import com.gachon.app.helper.PageHelper;
@@ -43,6 +42,9 @@ public class Course1_1_2Step3 extends Fragment{
 
     TableLayout answerCard;
     ScrollView questionCard;
+
+    TextView feedBackTextContainer;
+
     public Course1_1_2Step3() {}
 
     @Override
@@ -101,8 +103,8 @@ public class Course1_1_2Step3 extends Fragment{
         //final LinearLayout resultCard = viewFactory.createCard(1.0f, Color.WHITE, false, new int[]{0,0,0,PageHelper.defaultMargin});
 
         //feedback card 추가
-        final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
-        viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언하고 초기화해주세요!", feedBackTextContainer);
+        feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
+        viewFactory.addFeedBackText(0, "빈칸에 변수 이름 규칙을 따라서 변수를 선언하고 초기화해주세요!", feedBackTextContainer);
 
 
         //컴파일 삭제 카드
@@ -116,7 +118,7 @@ public class Course1_1_2Step3 extends Fragment{
 
 //        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
 //        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
-        ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
+        final ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
         goNext.setOnClickListener(contentPagerListener);
         goPrev.setOnClickListener(contentPagerListener);
 
@@ -167,82 +169,131 @@ public class Course1_1_2Step3 extends Fragment{
                 //답이 맞는지 판단 : 변수가 반드시 대소문자 또는 _ 로 시작하고 변수는 문자 + 숫자로만 구성이 된다
 
                 //이 페이지에 있는 widget set 를 가져옴
-                WidgetSet widgetSet = viewFactory.getWidgetSet();
-                ArrayList<EditText> editTextList = widgetSet.getEditText();
-                String[] userVariables = new String[editTextList.size()/2];
-                String[] userValues = new String[editTextList.size()/2];
-                String errorMessage = "";
-                boolean isSuccess = true;
-                int i = 0;
-                for(EditText editText : editTextList){
-                    if(i%2 == 0){
-                        userVariables[i/2] = editText.getText().toString();
-                        Log.e("garynoh", userVariables[i/2]);
-                        if(!GrammarChecker.checkVariableValidity(userVariables[i/2])){
-                            isSuccess = false;
-                            Toast.makeText(getContext(), "변수 이름 설정 에러", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
-                    }
-                    else{
-                        //사용자가 입력한 값을 가져온다
-                        userValues[i/2] = editText.getText().toString();
-                    }
-                    i++;
-                }
-                if(isSuccess){
+
+                if(isCorrect()){
                     //이 widget set 을 바탕으로 resultCard 에 반영 : 잘못된
                     //show(widgetSet, userVariables, userValues, resultCard);
+                    viewFactory.addFeedBackText(1, "축하합니다~ 성공!", feedBackTextContainer);
+                    contentPagerListener.setIsSolved(true);
+                }
+                else{
+                    new AnswerManager(getContext()).vibrate();
                 }
             }
         });
     }
 
-    /**
-     * resultCard 에 widgetSet 의 내용들을 뿌려줌
-     *
-     * @param widgetSet : 이 페이지에 있는 widget들
-     * @param resultCard : 사용자가 입력한 값을 보여주는 resultCard
-     */
-    public void show(WidgetSet widgetSet, String[] userInputs, String[] userValues,LinearLayout resultCard){
-        //resultCard 에 기존에 있던 위젯들을 제거
-        resultCard.removeAllViews();
+    boolean isCorrect(){
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        ArrayList<EditText> editTextList = widgetSet.getEditText();
+        ArrayList<Spinner> spinnerList = widgetSet.getSpinner();
 
+        String[] userVariables = new String[editTextList.size()/2];
+        String[] userValues = new String[editTextList.size()/2];
         int i = 0;
+        for(EditText editText : editTextList){
+            if(i%2 == 0){
+                userVariables[i/2] = editText.getText().toString();
+                Log.e("garynoh", userVariables[i/2]);
+                if(!GrammarChecker.checkVariableValidity(userVariables[i/2])){
+                    viewFactory.addFeedBackText(2, "변수 이름 설정 에러!", feedBackTextContainer);
+                    new AnswerManager(getContext()).vibrate();
+                    return false;
+                }
+            }
+            else{
+                //사용자가 입력한 값을 가져온다
+                userValues[i/2] = editText.getText().toString();
+            }
+            i++;
+        }
 
-
-        //TODO 2개씩 건너서 안나옴
-        ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
-        for(Spinner spinner : spinnersList){
-//            String result = spinner.getSelectedItem() + "  "+ userInputs[i] + " = " + userValues[i++];
-//            //load image
-//            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
-//            textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
-//            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
-//            viewFactory.addView(textView, resultCard);
-            String userDataType = spinner.getSelectedItem().toString();
-            String userVariableName = userInputs[i++];
-            String result = userDataType + " "+ userVariableName;
-            //load image
-            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
-            textView.setTextSize(PageHelper.questionTextSize);
-
-            //데이터 타입에 따라서 다른 box 색깔로 보여준다
-            switch (userDataType){
+        int size = spinnerList.size();
+        double num;
+        for(int j = 0 ; j < size; j++){
+            switch (spinnerList.get(j).getSelectedItem().toString()){
                 case "int":
-                    textView.setBackground(getResources().getDrawable(R.drawable.int_box));
+                    //숫자가 아니면 false 리털
+                    try { num = Double.parseDouble(userValues[j]); }
+                    catch(NumberFormatException nfe) {
+                        viewFactory.addFeedBackText(2, "문자는 안돼요!", feedBackTextContainer);
+                        return false;
+                    }
+
+                    Log.e("gary", "int check num  " + Double.toString(num));
+                    if(num%1 != 0) {
+                        viewFactory.addFeedBackText(2, "int 값에 float 값을 넣었네요!", feedBackTextContainer);
+                        return false;
+                    }
+
                     break;
                 case "float":
-                    textView.setBackground(getResources().getDrawable(R.drawable.float_box));
+                    //숫자가 아니면 false 리털
+                    try { Double.parseDouble(userValues[j]); }
+                    catch(NumberFormatException nfe) {
+                        viewFactory.addFeedBackText(2, "문자는 안돼요!", feedBackTextContainer);
+                        return false;
+                    }
                     break;
                 case "char":
-                    textView.setBackground(getResources().getDrawable(R.drawable.char_box));
+                    try { num = Double.parseDouble(userValues[j]); }
+                    catch(NumberFormatException nfe) {return true;}
+                    Log.e("gary", "int check num  " + Double.toString(num));
+                    if(num%1 != 0) {
+                        viewFactory.addFeedBackText(2, "char 에 float 값을 넣을 수 없어요!", feedBackTextContainer);
+                        return false;
+                    }
                     break;
             }
-            textView.setGravity(Gravity.CENTER);
-            //viewFactory.addView(textView, resultCard);
         }
+        return true;
     }
+
+//    /**
+//     * resultCard 에 widgetSet 의 내용들을 뿌려줌
+//     *
+//     * @param widgetSet : 이 페이지에 있는 widget들
+//     * @param resultCard : 사용자가 입력한 값을 보여주는 resultCard
+//     */
+//    public void show(WidgetSet widgetSet, String[] userInputs, String[] userValues,LinearLayout resultCard){
+//        //resultCard 에 기존에 있던 위젯들을 제거
+//        resultCard.removeAllViews();
+//
+//        int i = 0;
+//
+//
+//        //TODO 2개씩 건너서 안나옴
+//        ArrayList<Spinner> spinnersList = widgetSet.getSpinner();
+//        for(Spinner spinner : spinnersList){
+////            String result = spinner.getSelectedItem() + "  "+ userInputs[i] + " = " + userValues[i++];
+////            //load image
+////            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
+////            textView.setBackground(getResources().getDrawable(R.drawable.shoebox));
+////            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+////            viewFactory.addView(textView, resultCard);
+//            String userDataType = spinner.getSelectedItem().toString();
+//            String userVariableName = userInputs[i++];
+//            String result = userDataType + " "+ userVariableName;
+//            //load image
+//            TextView textView = (TextView)viewFactory.createWidget("TextView", new String[]{result});
+//            textView.setTextSize(PageHelper.questionTextSize);
+//
+//            //데이터 타입에 따라서 다른 box 색깔로 보여준다
+//            switch (userDataType){
+//                case "int":
+//                    textView.setBackground(getResources().getDrawable(R.drawable.int_box));
+//                    break;
+//                case "float":
+//                    textView.setBackground(getResources().getDrawable(R.drawable.float_box));
+//                    break;
+//                case "char":
+//                    textView.setBackground(getResources().getDrawable(R.drawable.char_box));
+//                    break;
+//            }
+//            textView.setGravity(Gravity.CENTER);
+//            //viewFactory.addView(textView, resultCard);
+//        }
+//    }
 
 
 

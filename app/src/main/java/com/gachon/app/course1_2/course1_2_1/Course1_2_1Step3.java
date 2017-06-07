@@ -8,19 +8,26 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.ViewFactoryCS;
+import com.gachon.app.helper.WidgetSet;
+
+import java.util.ArrayList;
 
 
 /**
@@ -104,7 +111,7 @@ public class Course1_2_1Step3 extends Fragment {
 //        viewFactory.addRow(rowViews , answerCard);
 
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(0.5f, new int[]{0,0,0,0});
-        viewFactory.addFeedBackText("빈칸에 알맞은 결과 값을 타아핑해주세요!", feedBackTextContainer);
+        viewFactory.addFeedBackText(0, "빈칸에 알맞은 결과 값을 타아핑해주세요!", feedBackTextContainer);
 
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
@@ -149,10 +156,7 @@ public class Course1_2_1Step3 extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //다음 코스 오픈
-                            UserManager um = new UserManager(getActivity());
-                            um.incrementProgress();
-                            //액티비티 종료
-                            getActivity().finish();
+                            doFinishJobs();
                         }
                     });
                     alert_confirm.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -170,16 +174,47 @@ public class Course1_2_1Step3 extends Fragment {
                     //alert.setTitle("완료");
                     // 다이얼로그 보기
                     alert.show();
-
+                    viewFactory.addFeedBackText(1, "성공", feedBackTextContainer);
                 }
                 else{
-
+                    new AnswerManager(getContext()).vibrate();
+                    viewFactory.addFeedBackText(2, "다시 한 번 생각해보세요!", feedBackTextContainer);
                 }
             }
         });
     }
 
-    boolean isCorrect(){
-        return true;
+    public void doFinishJobs(){
+        //레벨업인지 확인
+        UserManager ulm = new UserManager(getContext());
+        //포인트 추가
+        if(ulm.addPoints()){
+            Toast.makeText(getContext(), "레벨업을 축하드립니다!", Toast.LENGTH_SHORT).show();
+        }
+
+        //course 1_1 마지막 이므로 progress 증가
+        ulm.incrementProgress();
+
+        //widget set 모두 제거
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        widgetSet.removeAllWidgetSets();
+        //액티비티 종료
+        getActivity().finish();
+    }
+
+    public boolean isCorrect(){
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        //radiogroup 은 하나밖에 없음
+        ArrayList<EditText> userAnswers= widgetSet.getEditText();
+        String str = "";
+        //getAlltext
+        for(TextView answer : userAnswers){
+            str += answer.getText();
+        }
+        Log.e("gary", "answerblocks : " + str);
+        if(str.equals("4831truetrue")){
+            return true;
+        }
+        return false;
     }
 }

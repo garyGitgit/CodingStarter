@@ -2,6 +2,8 @@ package com.gachon.app.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,12 +32,14 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     AnswerManager answerManager;
     int progress = 1;
 
-
-
     /*
     fragment 1 : 메인 페이지
      */
     public static final String TAG = "gachon/Fragment1/";
+
+    Bitmap bitmapBlock1_disabled, bitmapBlock2_disabled, bitmapBlock3_disabled;
+    Bitmap bitmapBlock1, bitmapBlock2, bitmapBlock3;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -44,18 +48,50 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
         Log.e("bisecu", "onCreateView : " + Integer.toString(position));
         setRetainInstance(true);
         rootView = inflater.inflate(R.layout.fragment_fragment1, container, false);
+
+        bitmapBlock1_disabled = BitmapFactory.decodeResource(getResources(), R.drawable.main_block1_disabled);
+        bitmapBlock2_disabled = BitmapFactory.decodeResource(getResources(), R.drawable.main_block2_disabled);
+        bitmapBlock3_disabled = BitmapFactory.decodeResource(getResources(), R.drawable.main_block3_disabled);
+        bitmapBlock1 = BitmapFactory.decodeResource(getResources(), R.drawable.main_block1);
+        bitmapBlock2 = BitmapFactory.decodeResource(getResources(), R.drawable.main_block2);
+        bitmapBlock3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_block3);
+
+
         mainBlocks[0][0] = (ImageView) rootView.findViewById(R.id.mainBlock1_1);
+        mainBlocks[0][0].setImageBitmap(bitmapBlock1);
+
         mainBlocks[0][1]= (ImageView) rootView.findViewById(R.id.mainBlock1_2);
+        mainBlocks[0][1].setImageBitmap(bitmapBlock2_disabled);
+
         mainBlocks[0][2] = (ImageView) rootView.findViewById(R.id.mainBlock1_3);
+        mainBlocks[0][2].setImageBitmap(bitmapBlock3_disabled);
+
         mainBlocks[1][0] = (ImageView) rootView.findViewById(R.id.mainBlock2_1);
+        mainBlocks[1][0].setImageBitmap(bitmapBlock1_disabled);
+
         mainBlocks[1][1] = (ImageView) rootView.findViewById(R.id.mainBlock2_2);
+        mainBlocks[1][1].setImageBitmap(bitmapBlock2_disabled);
+
         mainBlocks[1][2]= (ImageView) rootView.findViewById(R.id.mainBlock2_3);
+        mainBlocks[1][2].setImageBitmap(bitmapBlock3_disabled);
+
         mainBlocks[2][0] = (ImageView) rootView.findViewById(R.id.mainBlock3_1);
+        mainBlocks[2][0].setImageBitmap(bitmapBlock1_disabled);
+
         mainBlocks[2][1] = (ImageView) rootView.findViewById(R.id.mainBlock3_2);
+        mainBlocks[2][1].setImageBitmap(bitmapBlock2_disabled);
+
         mainBlocks[2][2] = (ImageView) rootView.findViewById(R.id.mainBlock3_3);
+        mainBlocks[2][2].setImageBitmap(bitmapBlock3_disabled);
+
         mainBlocks[3][0]= (ImageView) rootView.findViewById(R.id.mainBlock4_1);
+        mainBlocks[3][0].setImageBitmap(bitmapBlock1_disabled);
+
         mainBlocks[3][1] = (ImageView) rootView.findViewById(R.id.mainBlock4_2);
+        mainBlocks[3][1].setImageBitmap(bitmapBlock2_disabled);
+
         mainBlocks[3][2] = (ImageView) rootView.findViewById(R.id.mainBlock4_3);
+        mainBlocks[3][2].setImageBitmap(bitmapBlock3_disabled);
 
         for(int i = 0 ; i < 4; i++){
             for(int j = 0 ; j< 3; j++){
@@ -112,14 +148,25 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
 
     @Override
     public void onStop() {
-        Log.e("bisecu", "onStop");
         super.onStop();
+        bitmapBlock1_disabled.recycle();
+        bitmapBlock2_disabled.recycle();
+        bitmapBlock3_disabled.recycle();
+        bitmapBlock1.recycle();
+        bitmapBlock2.recycle();
+        bitmapBlock3.recycle();
     }
 
     @Override
     public void onResume() {
-        Log.e("bisecu", "onResume");
         super.onResume();
+        bitmapBlock1_disabled = BitmapFactory.decodeResource(getResources(), R.drawable.main_block1_disabled);
+        bitmapBlock2_disabled = BitmapFactory.decodeResource(getResources(), R.drawable.main_block2_disabled);
+        bitmapBlock3_disabled = BitmapFactory.decodeResource(getResources(), R.drawable.main_block3_disabled);
+        bitmapBlock1 = BitmapFactory.decodeResource(getResources(), R.drawable.main_block1);
+        bitmapBlock2 = BitmapFactory.decodeResource(getResources(), R.drawable.main_block2);
+        bitmapBlock3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_block3);
+
 
 //        mainBlocks[0][0] = (ImageView) rootView.findViewById(R.id.mainBlock1_1);
 //        mainBlocks[0][1]= (ImageView) rootView.findViewById(R.id.mainBlock1_2);
@@ -138,16 +185,17 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
 
         progress = new UserManager(getContext()).getProgress();
 
-        Log.e("gary", Integer.toString(progress));
+        Log.e("gary", "PROGRESS - " + Integer.toString(progress));
         if(progress == 1){
-            mainBlocks[0][0].setImageDrawable(getResources().getDrawable(R.drawable.main_block1));
+            mainBlocks[0][0].setImageBitmap(bitmapBlock1);
         }
-        else if(progress == 2){
-            mainBlocks[0][0].setImageDrawable(getResources().getDrawable(R.drawable.main_block1));
-            mainBlocks[0][1].setImageDrawable(getResources().getDrawable(R.drawable.main_block2));
+        else if(progress >= 2){
+            mainBlocks[0][0].setImageBitmap(bitmapBlock1);
+            mainBlocks[0][1].setImageBitmap(bitmapBlock2);
         }
-
     }
+
+
 
     @Override
     public void onPause() {

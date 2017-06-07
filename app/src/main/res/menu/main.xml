@@ -4,6 +4,13 @@
     <item
         android:id="@+id/reset"
         android:orderInCategory="100"
-        android:title="Reset Exp"
+        android:title="경험치 초기화"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="100"
+        android:title="로그아웃"
+        app:showAsAction="never" />
+
 </menu>

@@ -14,42 +14,6 @@
         android:layout_height="5dp"
         android:background="@drawable/shadow_bottom"/>
 
-    <!--<ProgressBar-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="5dp"-->
-        <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
-        <!--android:max="100"-->
-        <!--android:progress="80"/>-->
-
-    <!--<com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar-->
-        <!--android:id="@+id/totalProgress"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="8dp"-->
-        <!--app:rcProgress="100"-->
-        <!--app:rcMax="100"-->
-        <!--app:rcRadius="10dp"-->
-        <!--app:rcBackgroundPadding="0dp"-->
-        <!--app:rcReverse="false"-->
-        <!--app:rcProgressColor="#88000000"-->
-        <!--app:rcBackgroundColor="#11000000" />-->
-    <!--app:rcIconSrc="integer"-->
-    <!--app:rcIconSize="dimension"-->
-    <!--app:rcIconWidth="dimension"-->
-    <!--app:rcIconHeight="dimension"-->
-    <!--app:rcIconPadding="dimension"-->
-    <!--app:rcIconPaddingLeft="dimension"-->
-    <!--app:rcIconPaddingRight="dimension"-->
-    <!--app:rcIconPaddingTop="dimension"-->
-    <!--app:rcIconPaddingBottom="dimension"-->
-    <!--app:rcIconBackgroundColor="color"-->
-
-
-    <!--&lt;!&ndash;TODO : validated by gachon &ndash;&gt;-->
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/main_gradient_height_xxxhdpi"-->
-        <!--android:background="@drawable/shadow_bottom"-->
-        <!--/>-->
 
 
     <com.gachon.app.helper.MyViewPager
@@ -65,6 +29,10 @@
         <!--android:layout_height="@dimen/main_gradient_height_xxxhdpi"-->
         <!--android:background="@drawable/shadow_top"-->
         <!--/>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow_top"/>
 
     <FrameLayout
         android:id="@id/tab"

@@ -38,6 +38,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gachon.app.R;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -58,6 +59,8 @@ public class ViewFactoryCS{
     WidgetSet widgetSet;
 
     LinearLayout answerLayout;
+    HorizontalScrollView answerLayoutHorizontalScroll;
+
     //문제풀이에서의 answer list
 
     //blank 리스트
@@ -385,6 +388,50 @@ public class ViewFactoryCS{
     }
 
 
+    public LinearLayout createHorizontalCard(float weight, int[] margins){
+        //카드 생성
+        CardView cardView = new CardView(rootContext);
+
+        //TableLayout.LayoutParams params;
+        LinearLayout.LayoutParams params;
+
+        //weight 설정
+        if(weight > 0)
+            params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, weight);
+        else
+            params = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+        //margin 설정
+        params.setMargins(
+                WidgetSet.getPxFromDp(margins[0]),
+                WidgetSet.getPxFromDp(margins[1]),
+                WidgetSet.getPxFromDp(margins[2]),
+                WidgetSet.getPxFromDp(margins[3]));
+
+
+        cardView.setLayoutParams(params);
+
+        LinearLayout linearLayout = new LinearLayout(rootContext);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+
+        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(rootContext);
+        horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+
+        horizontalScrollView.addView(linearLayout);
+
+        cardView.addView(horizontalScrollView);
+        //cardView.addView(linearLayout);
+
+        //루트에 카드 추가
+        root.addView(cardView);
+        return linearLayout;
+    }
 
 
     public FrameLayout createCard(float weight, int[] margins){
@@ -590,9 +637,26 @@ public class ViewFactoryCS{
     }
 
 
-    public void addFeedBackText(String str, TextView feedBackText){
+    /**
+     * @param code 0 : 일반, 1 : 정답, 2 : error 코드
+     * @param str
+     * @param feedBackText
+     */
+    public void addFeedBackText(int code, String str, TextView feedBackText){
         feedBackText.setText(str);
         feedBackText.setTextSize(15);
+        switch (code){
+            case 1:
+                feedBackText.setTextSize(18);
+                feedBackText.setTypeface(null, Typeface.BOLD);
+                feedBackText.setTextColor(rootContext.getResources().getColor(R.color.correct_text_color));
+                break;
+            case 2:
+                feedBackText.setTextSize(18);
+                feedBackText.setTypeface(null, Typeface.ITALIC);
+                feedBackText.setTextColor(rootContext.getResources().getColor(R.color.incorrect_text_color));
+                break;
+        }
     }
 
     /**
@@ -732,10 +796,10 @@ public class ViewFactoryCS{
                     //소팅해서 추가
                     Log.e("garynoh", (blank.getTag()).toString());
                     sortByTag(blank);
+
                 }
             });
             next.setTextSize(size);
-
             addRow(new View[]{front, blank, next}, parent);
         }
     }
@@ -887,9 +951,16 @@ public class ViewFactoryCS{
             for(int i = 0 ; i < size; i++){
                 RadioButton radioButton = new RadioButton(rootContext);
                 radioButton.setText(str[i]);
+                //radio answer 설정 : TODO 확장성 없음
+                if(str[i].equals("1num"))
+                    radioButton.setId(R.id.radio_answer);
                 radioButton.setTextSize(PageHelper.questionTextSize);
                 radioGroup.addView(radioButton);
             }
+
+
+            //list에 추가
+            widgetSet.setRadioGroup(radioGroup);
             return radioGroup;
         }
         return null;
@@ -962,6 +1033,42 @@ public class ViewFactoryCS{
         //레이아웃에 버튼을 추가
         //addRow(blocks, table);
     }
+
+    public void createBlocks(String[] blockTexts, HorizontalScrollView scrollView, HorizontalScrollView answerLayout, int type){
+        //정답 구성 레이아웃 설정
+        this.answerLayoutHorizontalScroll = answerLayout;
+        //문제 타입 설정
+        this.type = type;
+
+        int size = blockTexts.length; //block 갯수
+        //Button[] blocks = new Button[size];
+        TextView[] blocks = new TextView[size];
+        LinearLayout linearLayout = new LinearLayout(rootContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(WidgetSet.getPxFromDp(5), WidgetSet.getPxFromDp(5), WidgetSet.getPxFromDp(5), WidgetSet.getPxFromDp(5));
+        //버튼 생성
+        for(int i = 0 ; i < size; i ++){
+            //blocks[i] = (Button) createWidget("Button", new String[]{blockTexts[i]});
+            blocks[i] = (TextView) createWidget("TextView", new String[]{blockTexts[i]});
+            //padding 설정
+            blocks[i].setPadding(50, 10, 50, 10);
+            //크기 설정
+            blocks[i].setTextSize(20);
+            //border 배경 설정
+
+            blocks[i].setBackground(rootContext.getResources().getDrawable(R.drawable.cardborder));
+            blocks[i].setLayoutParams(params);
+            blocks[i].setOnClickListener(blockClickListener);
+
+            linearLayout.addView(blocks[i]);
+        }
+        scrollView.addView(linearLayout);
+        //addRow(new View[]{scrollView},table);
+        //레이아웃에 버튼을 추가
+        //addRow(blocks, table);
+    }
+
 
 
 
@@ -1133,6 +1240,9 @@ public class ViewFactoryCS{
         public void onClick(View v) {
             //Button button = (Button)v;
             TextView block = (TextView) v;
+            //widget set 에 추가
+            widgetSet.setAnswerBlock(block);
+
 
             //글꼴 설정
             Typeface typeface = Typeface.createFromAsset(rootContext.getAssets(), fontName);
@@ -1159,6 +1269,20 @@ public class ViewFactoryCS{
                             @Override
                             public void onClick(View v) {
                                 //블록을 제거
+                                String txt = ((TextView)v).getText().toString() ;
+                                //widget set 에서 제거
+                                ArrayList<TextView> answerList = widgetSet.getAnswerBlocks();
+                                TextView tmp = null;
+
+                                for(TextView textView : answerList){
+                                    String str = textView.getText().toString();
+                                    if(str.equals(txt)){
+                                        tmp = textView;
+                                    }
+                                }
+
+                                if(tmp != null) answerList.remove(tmp);
+
                                 answerLayout.removeView(v);
                             }
                         });
@@ -1174,6 +1298,8 @@ public class ViewFactoryCS{
                         remainList.removeFirst().setText(userInput);
                     break;
             }
+
+
 
         }
     };

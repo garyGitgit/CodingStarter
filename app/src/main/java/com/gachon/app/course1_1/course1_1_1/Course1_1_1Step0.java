@@ -62,7 +62,7 @@ public class Course1_1_1Step0 extends Fragment {
 
         //text card 에 내용 추가
         Activity parentActivity = getActivity();
-        viewFactory.addCardOnSlideCard("프로그램은 수학적인 문제를 해결하기 위해서 만들어졌다.", pagerAdapter, parentActivity);
+        viewFactory.addCardOnSlideCard("컴퓨터에서 계산된 값을 기억하기 위한 공간이 필요했다.", pagerAdapter, parentActivity);
         viewFactory.addCardOnSlideCard("결과값을 기억하기 위해 컴퓨터는 '변수'라는 것을 사용한다.", pagerAdapter, parentActivity);
         viewFactory.addEndCardOnSlideCard(pagerAdapter); //완료 페이지 추가
 

@@ -3,6 +3,7 @@ package com.gachon.app.helper;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gachon.app.R;
 
@@ -17,6 +18,7 @@ public class ContentPagerListener implements View.OnClickListener{
     int numOfCards = 0;
     int currentCardNum = 0;
 
+    boolean isSolved = false;
 
     public ContentPagerListener(Activity activity){
         //나머지는 null
@@ -31,6 +33,10 @@ public class ContentPagerListener implements View.OnClickListener{
         this.activity = activity;
         this.numOfCards = viewPagers.length;
 
+    }
+
+    public void setIsSolved(boolean isSolved){
+        this.isSolved = isSolved;
     }
 
 
@@ -70,7 +76,12 @@ public class ContentPagerListener implements View.OnClickListener{
                 break;
             case R.id.goNext :
                 //카드가 하나도 없을 떄, 다음페이지로 넘어감
-                if(viewPagers == null){ onGoNext.onPressNext(); return;}
+                if(viewPagers == null){
+                    if(isSolved)
+                        onGoNext.onPressNext();
+                    else Toast.makeText(activity, "문제를 풀어야합니다!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
                 thisPage = viewPagers[currentCardNum].getCurrentItem();

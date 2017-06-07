@@ -38,6 +38,13 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true">
 
+            <TextView
+                android:id="@+id/levelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Lv.0"/>
+
             <ImageView
                 android:layout_marginLeft="10dp"
                 android:layout_width="30dp"

@@ -8,10 +8,15 @@ package com.gachon.app.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.ImageView;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.UserManager;
 
 /*
 첫 화면
@@ -21,11 +26,21 @@ public class SplashActivity extends Activity {
     public static final int SPLASH_PERIOD = 3000;
 
     Handler mHandler;
+
+    Bitmap bitmap;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.codingstarter_logo_burned);
+
+        ImageView logo = (ImageView)findViewById(R.id.codingstarter_logo);
+        logo.setImageBitmap(bitmap);
+
+
 
         //3초 후에 화면 종료
         mHandler = new Handler();
@@ -34,8 +49,15 @@ public class SplashActivity extends Activity {
 
     private class SplashHandler implements Runnable{
         public void run() {
-            //startActivity(new Intent(getApplication(), MainActivity.class));
-            startActivity(new Intent(getApplication(), LoginActivity.class));
+            boolean isAutoLogin = new UserManager(getApplicationContext()).isAutoLogin();
+            //자동 로그인인지 확인
+            Log.e("gary", Boolean.toString(isAutoLogin));
+
+            //자동로그인이면 바로 main 으로 아니면 login 페이지
+            if(isAutoLogin)
+                startActivity(new Intent(getApplication(), MainActivity.class));
+            else
+                startActivity(new Intent(getApplication(), LoginActivity.class));
             SplashActivity.this.finish();
         }
     }
@@ -43,6 +65,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        bitmap.recycle();
 
     }
 

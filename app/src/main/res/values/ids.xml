@@ -8,4 +8,6 @@
 
   <item name="linearlayout" type="id"/>
 
+  <item name="radio_answer" type="id"/>
+
 </resources>

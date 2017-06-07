@@ -92,7 +92,7 @@ public class Course1_1_1Step3 extends Fragment{
         //피드백 카드 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
         //카드에 텍스트 추가
-        viewFactory.addFeedBackText("빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
+        viewFactory.addFeedBackText(0, "빈칸에 변수 이름 규칙을 따라서 변수를 선언해주세요!", feedBackTextContainer);
 
         //컴파일 버튼 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
@@ -109,14 +109,10 @@ public class Course1_1_1Step3 extends Fragment{
 
 //        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
 //        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
-        ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
+        final ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
 
         goNext.setOnClickListener(contentPagerListener);
         goPrev.setOnClickListener(contentPagerListener);
-
-
-
-
 
 
         //컴파일 버튼 리스너
@@ -176,7 +172,7 @@ public class Course1_1_1Step3 extends Fragment{
                     if(!GrammarChecker.checkVariableValidity(userInputs[i])){
                         isSuccess = false;
                         //에러 보여주기
-                        viewFactory.addFeedBackText("변수 이름 설정 에러!", feedBackTextContainer);
+                        viewFactory.addFeedBackText(2, "변수 이름 설정 에러!", feedBackTextContainer);
                         //진동
                         new AnswerManager(getContext()).vibrate();
                         //캐릭터 움직이기
@@ -190,7 +186,8 @@ public class Course1_1_1Step3 extends Fragment{
                     //show(widgetSet, userInputs, resultCard);
 
                     //성공이라고 텍스트에 표시해줌
-                    viewFactory.addFeedBackText("성공", feedBackTextContainer);
+                    viewFactory.addFeedBackText(1, "축하합니다~ 성공!", feedBackTextContainer);
+                    contentPagerListener.setIsSolved(true); //문제 풀었음
                 }
             }
         });

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.PageHelper;
 import com.gachon.app.helper.UserManager;
 import com.gachon.app.helper.ViewFactoryCS;
+import com.gachon.app.helper.WidgetSet;
 
 
 /**
@@ -69,7 +70,7 @@ public class Course1_1_1Step4 extends Fragment {
 
         //feedback card 추가
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(1.0f, new int[]{0,0,0,0});
-        viewFactory.addFeedBackText("변수의 이름을 정할 때 규칙을 잘 생각해보세요", feedBackTextContainer);
+        viewFactory.addFeedBackText(0, "변수의 이름을 정할 때 규칙을 잘 생각해보세요", feedBackTextContainer);
 
         //컴파일 버튼 카드
         LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
@@ -112,38 +113,66 @@ public class Course1_1_1Step4 extends Fragment {
                 //답이 맞을 시 정답입니다 후 종료
                 //Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
                 // 다이얼로그 바디
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
-                // 메세지
-                alert_confirm.setMessage("축하합니다! 한 코스를 완료하셨습니다!");
-                // 확인 버튼 리스너
-                alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //레벨업인지 확인
-                        UserManager ulm = new UserManager(getContext());
-                        Log.e("gary before : ", Integer.toString(ulm.getPoints()));
-                        if(ulm.addPoints()){
-                            Toast.makeText(getContext(), "레벨 업 하셨습니다!", Toast.LENGTH_SHORT).show();
-                        }
-                        Log.e("gary after : ", Integer.toString(ulm.getPoints()));
-                        getActivity().finish();
-                    }
-                });
-                // 다이얼로그 생성
-                AlertDialog alert = alert_confirm.create();
 
-                // 아이콘
+                if(isCorrect()){
+                    viewFactory.addFeedBackText(1, "축하합니다~ 성공!", feedBackTextContainer);
+
+                    AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
+                    // 메세지
+                    alert_confirm.setMessage("축하합니다! 한 코스를 완료하셨습니다!");
+                    // 확인 버튼 리스너
+                    alert_confirm.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            doFinishJobs();
+                        }
+                    });
+                    // 다이얼로그 생성
+                    AlertDialog alert = alert_confirm.create();
+
+                    // 아이콘
 //                alert.setIcon(R.drawable.codingstarter_logo);
-                // 다이얼로그 타이틀
-                //alert.setTitle("완료");
-                // 다이얼로그 보기
-                alert.show();
+                    // 다이얼로그 타이틀
+                    //alert.setTitle("완료");
+                    // 다이얼로그 보기
+                    alert.show();
+                    viewFactory.addFeedBackText(1, "성공", feedBackTextContainer);
+                }
+                else{
+                    viewFactory.addFeedBackText(2, "다시 한 번 생각해보세요!", feedBackTextContainer);
+                    new AnswerManager(getContext()).vibrate();
+                }
+
+
+
+
+
 
             }
         });
     }
 
+    public void doFinishJobs(){
+        //레벨업인지 확인
+        UserManager ulm = new UserManager(getContext());
+        //포인트 추가
+        if(ulm.addPoints()){
+            Toast.makeText(getContext(), "레벨업을 축하드립니다!", Toast.LENGTH_SHORT).show();
+        }
+        //widget set 모두 제거
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        widgetSet.removeAllWidgetSets();
+        //액티비티 종료
+        getActivity().finish();
+    }
+
     public boolean isCorrect(){
-        return true;
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        //radiogroup 은 하나밖에 없음
+        RadioGroup radioGroup = widgetSet.getRadioGroupList().get(0);
+        int id = radioGroup.getCheckedRadioButtonId();
+
+        if(id == R.id.radio_answer)return true;
+        return false;
     }
 }

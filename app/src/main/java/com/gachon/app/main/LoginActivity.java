@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -39,6 +40,7 @@ import com.gachon.app.helper.UserManager;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -80,6 +82,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //UserManager
     UserManager userManager;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                .server(getString(R.string.parse_server_url))   // '/' important after 'parse'
 //                .build());
 
+        //로그인 타이틀 폰트 설정
+        String fontName = getString(R.string.font_name);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), fontName);
+        TextView title = (TextView)findViewById(R.id.loginTitle);
+        title.setTypeface(typeface);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -115,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setTypeface(typeface);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,11 +140,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //테스트용 바로 메인으로 넘기는 버튼
         Button goWithoutLoginButton = (Button)findViewById(R.id.freeLoginButton);
+        goWithoutLoginButton.setTypeface(typeface);
         goWithoutLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "로그인하지 않고 시작합니다", Toast.LENGTH_SHORT).show();
                 finish(); // 액티비티 종료
             }
         });
@@ -257,94 +270,159 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             userQuery.findInBackground(new FindCallback<ParseUser>() {
                 @Override
                 public void done(List<ParseUser> objects, ParseException e) {
-                    //object 의 갯수를 계산한다
-                    Log.e("tag", "number of objects : " + Integer.toString(objects.size()));
-
-                    //해당 class 의 모든 object 들에 대해서 토스트 메시지로 확인한다
-                    for (ParseUser user : objects) {
-                        if (e == null) {
+                    if(objects == null){
+                        Toast.makeText(LoginActivity.this, "object 가 null 입니다", Toast.LENGTH_SHORT).show();
+                        createNewUser(email, password);
+//                        finish();
+                        return;
+                    }
+                    else{
+                        for (ParseUser user : objects) {
+                            if (e == null) {
 //                            Log.e("gary", "getString email : " + user.getEmail());
 //                            Log.e("gary", "getString email by getstring: " + user.getString("email"));
 
-                            //username 으로 밖에 못 가져온다 (getString 으로 하니까 안가져와짐)
-                            Log.e("gary", "getString username : " + user.getUsername());
-                            Log.e("gary", "getString email by username: " + user.getString("User"));
-                            if (user.getUsername() != null && user.getUsername().equals(email)) {
+                                //username 으로 밖에 못 가져온다 (getString 으로 하니까 안가져와짐)
+                                Log.e("gary", "getString username : " + user.getUsername());
+                                Log.e("gary", "getString email by username: " + user.getString("User"));
+                                if (user.getUsername() != null && user.getUsername().equals(email)) {
 
-                                //일치하는 user 가 있으면 로그인 시도
-                                ParseUser.logInInBackground(email, password, new LogInCallback() {
-                                    @Override
-                                    public void done(ParseUser u, ParseException e) {
-                                        if(u != null){
-                                            //로그인 성공
+                                    //일치하는 user 가 있으면 로그인 시도
+                                    ParseUser.logInInBackground(email, password, new LogInCallback() {
+                                        @Override
+                                        public void done(ParseUser u, ParseException e) {
+                                            if(u != null){
+                                                //로그인 성공
 
-                                            //닉네임과 그룹 저장
-                                            EditText editTextNickname = (EditText)findViewById(R.id.nickname);
-                                            EditText editTextMyGroup = (EditText)findViewById(R.id.mygroup);
-
-                                            //null 이 아닐 것이라 가정
-                                            String nickname = editTextNickname.getText().toString();
-                                            String mygroup = editTextMyGroup.getText().toString();
+                                                //자동로그인 되도록 설정
+                                                new UserManager(getApplicationContext()).setAutoLogin(true);
 
 
-                                            //preference 에 저장
-                                            userManager.setNickname(nickname);
-                                            userManager.setMygroup(mygroup);
-
-                                            showProgress(false);
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                showProgress(false);
+                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
 
-                                            Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
-                                            finish(); // 액티비티 종료
+                                                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                                                finish(); // 액티비티 종료
+                                            }
+                                            else{
+                                                //로그인 실패
+                                                showProgress(false);
+                                                mPasswordView.setError("비밀번호 불일치");
+                                                mPasswordView.requestFocus();
+                                                Toast.makeText(getApplicationContext(), "비밀번호 불일치", Toast.LENGTH_SHORT).show();
+                                            }
+
                                         }
-                                        else{
-                                            //로그인 실패
-                                            showProgress(false);
-                                            mPasswordView.setError(getString(R.string.error_incorrect_password));
-                                            mPasswordView.requestFocus();
-                                            Toast.makeText(getApplicationContext(), "비밀번호 불일치", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-                                });
-                                //검사하고 종료
+                                    });
+                                    //검사하고 종료
+                                    return;
+                                }
+                            }
+                            else {
+                                // something went wrong
+                                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
                                 return;
                             }
                         }
-                        else {
-                            // something went wrong
-                            Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                            return;
-                        }
                     }
-                    Log.e("gary", "create new account");
-                    //for 문 마지막까지 왔다는 것은 일치하는 아이디가 없다는 것
-                    ParseUser newUser = new ParseUser();
-                    newUser.setUsername(email);
-                    newUser.setEmail(email);
-                    newUser.setPassword(password);
-                    newUser.signUpInBackground(new SignUpCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if(e == null) {
-                                Toast.makeText(getApplicationContext(), "등록 성공", Toast.LENGTH_SHORT).show();
+                    //object 의 갯수를 계산한다
 
-                                //isPwdMatch = true;
-                                showProgress(false);
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(), "서버에러 : 등록 실패", Toast.LENGTH_SHORT).show();
-                                showProgress(false);
-                            }
+                    //Log.e("tag", "number of objects : " + Integer.toString(objects.size()));
 
-                        }
-                    });
+                    //해당 class 의 모든 object 들에 대해서 토스트 메시지로 확인한다
+                    createNewUser(email, password);
+
+
                 }
             });
         }
+    }
+
+    private void createNewUser(String email, String password){
+        Log.e("gary", "create new account");
+
+        //for 문 마지막까지 왔다는 것은 일치하는 아이디가 없다는 것
+
+        //닉네임과 그룹 저장
+        EditText editTextNickname = (EditText)findViewById(R.id.nickname);
+        EditText editTextMyGroup = (EditText)findViewById(R.id.mygroup);
+
+        //null 이 아닐 것이라 가정
+        String nickname = editTextNickname.getText().toString();
+        String mygroup = editTextMyGroup.getText().toString();
+
+        //preference 에 저장
+        userManager.setNickname(nickname);
+        userManager.setMygroup(mygroup);
+        userManager.setMaxPoints(100);
+        userManager.setAutoLogin(true);
+
+        ParseUser newUser = new ParseUser();
+        newUser.setUsername(email);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        newUser.put("nickname", nickname);
+        newUser.put("group", mygroup);
+        //그룹 생성
+        tryCreateNewGroup(mygroup);
+
+
+        newUser.put("points", 0);
+
+        newUser.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null) {
+                    Toast.makeText(getApplicationContext(), "등록 성공", Toast.LENGTH_SHORT).show();
+
+                    //TODO : 왜 안되지?  자동로그인 되도록 설정
+                    new UserManager(getApplicationContext()).setAutoLogin(true);
+
+                    //isPwdMatch = true;
+                    showProgress(false);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                }
+                else{
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "서버에러 : 등록 실패", Toast.LENGTH_SHORT).show();
+                    showProgress(false);
+                }
+
+            }
+        });
+    }
+
+    private void tryCreateNewGroup(final String groupName){
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Groups");
+        query.whereEqualTo("name", groupName);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(e == null){
+                    //아무것도 안함
+                    Log.e("gary", "size of list of group name " + Integer.toString(objects.size()));
+
+                    if(objects.size() == 0){
+                        Toast.makeText(getApplicationContext(), groupName +  " 그룹이 존재하지않아 새로 만듭니다", Toast.LENGTH_SHORT).show();
+                        ParseObject newGroup = new ParseObject("Groups");
+                        newGroup.put("name", groupName);
+                        newGroup.put("points", 0);
+                        newGroup.saveInBackground();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), groupName +  " 그룹이 존재합니다", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+
+
+                }
+            }
+        });
     }
 
     private boolean isEmailValid(String email) {

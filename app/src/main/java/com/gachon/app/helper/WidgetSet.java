@@ -1,6 +1,7 @@
 package com.gachon.app.helper;
 
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -15,12 +16,16 @@ public class WidgetSet {
     ArrayList<Spinner> spinnerList;
     ArrayList<EditText> editTextList;
     ArrayList<TextView> textViewList;
+    ArrayList<RadioGroup> radioGroupList;
+    ArrayList<TextView> answerBlocks;
     static float scale;
 
     public WidgetSet(){
         spinnerList = new ArrayList<>();
         editTextList = new ArrayList<>();
         textViewList = new ArrayList<>();
+        radioGroupList = new ArrayList<>();
+        answerBlocks = new ArrayList<>();
     }
 
     /**
@@ -63,6 +68,22 @@ public class WidgetSet {
 
     public ArrayList<TextView> getTextView(){
         return textViewList;
+    }
+
+    public void setRadioGroup(RadioGroup radioGroup){this.radioGroupList.add(radioGroup);}
+
+    public ArrayList<RadioGroup> getRadioGroupList(){return radioGroupList;}
+
+    public ArrayList<TextView> getAnswerBlocks() {return answerBlocks;}
+
+    public void setAnswerBlock(TextView block){answerBlocks.add(block);}
+
+    public void removeAllWidgetSets(){
+        spinnerList.clear();
+        editTextList.clear();
+        textViewList.clear();
+        radioGroupList.clear();
+        answerBlocks.clear();
     }
 
 

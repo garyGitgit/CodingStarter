@@ -1,6 +1,7 @@
 package com.gachon.app.helper;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +21,13 @@ import java.util.ArrayList;
 
 public class GroupRankAdapter extends ArrayAdapter<ParseObject> {
     private ArrayList<ParseObject> items;
+    String fontName = "font1.ttf";
+    Typeface typeface;
 
     public GroupRankAdapter(Context context, int resId, ArrayList<ParseObject> items){
         super(context, resId, items);
         this.items = items;
+        typeface = Typeface.createFromAsset(getContext().getAssets(), fontName);
     }
 
     @Override
@@ -53,15 +57,20 @@ public class GroupRankAdapter extends ArrayAdapter<ParseObject> {
                         medalImage.setImageDrawable(v.getResources().getDrawable(R.drawable.medal3));
                     break;
             }
-            
+
+
             TextView groupRankText = (TextView) v.findViewById(R.id.group_rank);
             groupRankText.setText(Integer.toString(position+1));
+            groupRankText.setTypeface(typeface);
+
 
             TextView groupNameText = (TextView) v.findViewById(R.id.group_name);
             groupNameText.setText((String)p.get("name"));
+            groupNameText.setTypeface(typeface);
 
             TextView groupPointText = (TextView) v.findViewById(R.id.group_point);
             groupPointText.setText(Integer.toString((int)p.getNumber("points")) + "pt");
+            groupPointText.setTypeface(typeface);
 
         }
         return v;

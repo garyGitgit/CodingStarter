@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.GroupRankAdapter;
@@ -66,8 +67,12 @@ public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessa
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> groups, ParseException e) {
+                if(groups == null){
+                    Toast.makeText(getContext(), "error : groups이 null", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //object 의 갯수를 계산한다
-                Log.e("gary", "number of objects : " + Integer.toString(groups.size()));
+                //Log.e("gary", "number of objects : " + Integer.toString(groups.size()));
 
                 //해당 class 의 모든 object 들에 대해서 토스트 메시지로 확인한다
                 int rank = 1;

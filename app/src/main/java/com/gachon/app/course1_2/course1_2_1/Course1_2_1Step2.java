@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gachon.app.R;
+import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.ContentPagerListener;
 import com.gachon.app.helper.PageHelper;
-import com.gachon.app.helper.TabCodingInterface;
 import com.gachon.app.helper.ViewFactoryCS;
 import com.gachon.app.helper.WidgetSet;
 
@@ -29,10 +29,11 @@ import java.util.ArrayList;
  * step 2 : 연산자 종류 문제 풀이
  */
 
-public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
+public class Course1_2_1Step2 extends Fragment{
 
     View root;
     ViewFactoryCS viewFactory;
+    ContentPagerListener contentPagerListener;
 
     public Course1_2_1Step2() {
         // Required empty public constructor
@@ -53,7 +54,7 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //최상단 루트 레이아웃
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step2);
@@ -76,7 +77,7 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, scrollView, userInputCard, 2);
 
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(0.5f, new int[]{0,0,0,0});
-        viewFactory.addFeedBackText("빈칸에 알맞은 연산자를 넣어주세요! 잘못 입력한 값은 빈칸을 터치하면 취소됩니다", feedBackTextContainer);
+        viewFactory.addFeedBackText(0, "블록을 터치해서 알맞은 연산자를 넣어주세요! 잘못 입력한 값은 빈칸을 터치하면 취소됩니다", feedBackTextContainer);
 
         final LinearLayout answerCheckLayout = viewFactory.createCard(0.0f, Color.WHITE, false, new int[]{0,0,0,0});
         LinearLayout linearLayout = new LinearLayout(getContext());
@@ -87,6 +88,18 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         //answercheckwithadd 동적으로 인플레이트
         LayoutInflater inflater = (LayoutInflater)root.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.answercheck, linearLayout);
+
+        viewFactory.addSpace(0.3f);
+
+        /* 페이지 넘어가는 버튼 */
+        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
+        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
+//        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
+//        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
+        contentPagerListener = new ContentPagerListener(getActivity());
+        goNext.setOnClickListener(contentPagerListener);
+        goPrev.setOnClickListener(contentPagerListener);
+
 
         ImageButton buttonRefresh = (ImageButton)root.findViewById(R.id.button_delete);
         ImageButton buttonCompile = (ImageButton)root.findViewById(R.id.button_compile);
@@ -111,34 +124,35 @@ public class Course1_2_1Step2 extends Fragment implements TabCodingInterface{
         buttonCompile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "성공입니다!", Toast.LENGTH_SHORT).show();
+                if(isCorrect()){
+                    viewFactory.addFeedBackText(1, "축하합니다~ 성공!", feedBackTextContainer);
+                    contentPagerListener.setIsSolved(true);
+                }
+                else{
+                    new AnswerManager(getContext()).vibrate();
+                    viewFactory.addFeedBackText(2, "다시 한 번 확인해주세요!", feedBackTextContainer);
+                }
             }
         });
 
-
-        viewFactory.addSpace(0.3f);
-
-        /* 페이지 넘어가는 버튼 */
-        ImageButton goNext = (ImageButton) root.findViewById(R.id.goNext);
-        ImageButton goPrev = (ImageButton) root.findViewById(R.id.goPrevious);
-//        goNext.setOnClickListener(new ContentPageListener(5, getActivity()));
-//        goPrev.setOnClickListener(new ContentPageListener(4, getActivity()));
-        ContentPagerListener contentPagerListener = new ContentPagerListener(getActivity());
-        goNext.setOnClickListener(contentPagerListener);
-        goPrev.setOnClickListener(contentPagerListener);
-
     }
 
-    /**
-     * resultCard 에 widgetSet 의 내용들을 뿌려줌
-     *
-     * @param widgetSet : 이 페이지에 있는 widget들
-     * @param resultCard : 사용자가 입력한 값을 보여주는 resultCard
-     */
-    public void show(WidgetSet widgetSet, LinearLayout resultCard){
-
-
+    public boolean isCorrect(){
+        WidgetSet widgetSet = viewFactory.getWidgetSet();
+        //radiogroup 은 하나밖에 없음
+        ArrayList<TextView> answerBlocks = widgetSet.getTextView();
+        String str = "";
+        //getAlltext
+        for(TextView block : answerBlocks){
+            str += block.getText();
+        }
+        Log.e("gary", "answerblocks : " + str);
+        if(str.equals("+*-/==")){
+            return true;
+        }
+        return false;
     }
+
 
 
 }

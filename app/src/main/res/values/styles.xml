@@ -23,11 +23,29 @@
         <item name="colorPrimary">@color/codingstarter_background</item>
         <item name="colorPrimaryDark">@color/codingstarter_background</item>
         <item name="colorAccent">#FF0000</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlActivated">@color/codingstarter_background</item>
+        <item name="colorControlHighlight">@color/codingstarter_background</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#8C8C8C</item>
+    </style>
+
+
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/codingstarter_background</item>
+    </style>
+
+
+
 
 
 </resources>

@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,8 +16,6 @@ import com.gachon.app.helper.ViewFactoryCS;
 
 public class Course1_2_1Activity extends AppCompatActivity implements ViewFactoryCS.onGoNext, ViewFactoryCS.onGoPrevious {
     MyViewPager viewPager;
-    ImageView[] progressImageViewList;
-    Button buttonGoNext;
     RoundCornerProgressBar progressBar;
 
     @Override
@@ -47,7 +43,7 @@ public class Course1_2_1Activity extends AppCompatActivity implements ViewFactor
         if (thisPage < PageHelper.courseStepNum-1) {
             viewPager.setCurrentItem(++thisPage);
 
-            PageHelper.setProgressColor(progressBar, thisPage, getApplicationContext());
+            PageHelper.setProgressColor(progressBar, thisPage+1, getApplicationContext());
         }
         //액티비티 종료
         else {
@@ -61,7 +57,7 @@ public class Course1_2_1Activity extends AppCompatActivity implements ViewFactor
 
         if (thisPage > 0) {
             viewPager.setCurrentItem(--thisPage);
-            PageHelper.setProgressColor(progressBar, thisPage, getApplicationContext());
+            PageHelper.setProgressColor(progressBar, thisPage+1, getApplicationContext());
         }
         //액티비티 종료
         else {
