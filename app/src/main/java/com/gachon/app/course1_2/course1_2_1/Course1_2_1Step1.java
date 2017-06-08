@@ -59,6 +59,8 @@ public class Course1_2_1Step1 extends Fragment {
         LinearLayout layout = (LinearLayout) root.findViewById(R.id.fragment_g_step1);
         viewFactory = new ViewFactoryCS(layout);
 
+        //header text 설정
+        viewFactory.createHeaderCard("연산자의 종류", new int[]{0, 0, 0, PageHelper.headerCardMargin});
 
         //카드 1
         viewPagers[0] = new MyViewPager(getContext());
