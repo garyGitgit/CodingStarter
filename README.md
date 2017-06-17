@@ -36,3 +36,4 @@ Middle school/high school students and all beginners for programming in Korea
 <br><br>
 ## *SEE DETAILS IN [OUR WIKI PAGE](https://github.com/garyGitgit/codingstarter/wiki/CodingStarter-Wiki)!*
 
+We are going to update it soon
