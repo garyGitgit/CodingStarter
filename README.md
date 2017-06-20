@@ -30,9 +30,8 @@ Middle school/high school students and all beginners for programming in Korea
 ### Development Tools
 + Android Studio
 + Genymotion
-+ Node.js
 + Heroku
-+ Parse
++ Parse Server, Parse Dashboard 
 <br><br>
 ## *SEE DETAILS IN [OUR WIKI PAGE](https://github.com/garyGitgit/codingstarter/wiki/CodingStarter-Wiki)!*
 
