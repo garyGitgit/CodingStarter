@@ -66,15 +66,18 @@ public class Course1_2_1Step2 extends Fragment{
 
         //사용자 입력 카드 생성
         TableLayout userInputCard = viewFactory.createTableCard(1.0f, Color.WHITE, new int[]{0,0,0,0});
+        //보기 블록 카드 생성
+        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         viewFactory.addQuestion("1. 4 [[+]] 5 = 9", 20, userInputCard);
         viewFactory.addQuestion("2. 6 [[*]] 2 = 12", 20, userInputCard);
         viewFactory.addQuestion("3. 72 [[-]] 44 = 28", 20, userInputCard);
         viewFactory.addQuestion("4. 22 [[/]] 2 = 11", 20, userInputCard);
         viewFactory.addQuestion("5. 6 [[==]] 6 = True", 20, userInputCard);
-
-        //보기 블록 카드 생성
-        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
         viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, scrollView, userInputCard, 2);
+
+//        //보기 블록 카드 생성
+//        HorizontalScrollView scrollView = viewFactory.createHorizontalScrollViewCard(0.0f, Color.WHITE, new int[]{0,0,0,PageHelper.defaultMargin});
+        //viewFactory.createBlocks(new String[]{"+", "-", "*", "/", "%", "==", ";"}, scrollView, userInputCard, 2);
 
         final TextView feedBackTextContainer = viewFactory.createFeedBackCard(0.5f, new int[]{0,0,0,0});
         viewFactory.addFeedBackText(0, "블록을 터치해서 알맞은 연산자를 넣어주세요! 잘못 입력한 값은 빈칸을 터치하면 취소됩니다", feedBackTextContainer);

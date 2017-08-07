@@ -1,5 +1,7 @@
 package com.gachon.app.helper;
 
+import android.util.Log;
+
 /**
  * Created by garyNoh on 2017. 5. 14..
  */
@@ -18,7 +20,7 @@ public class GrammarChecker {
         char v;
         //첫 문자 확인 (숫자 허용안됨)
         v = str.charAt(0);
-        if( !( (('A'<=v) && (v>='Z')) || (('a'<=v) && (v>='z')) || (v=='_')))
+        if( !((('A'<=v) && (v<='Z')) || (('a'<=v) && (v<='z')) || (v=='_')) )
             return false;
         //문자가 하나면 true 리턴
         if(size <= 1) return true;
@@ -28,7 +30,7 @@ public class GrammarChecker {
         while(true) {
             v = str.charAt(i);
             System.out.println(v);
-
+            Log.e("garyTest", Character.toString(v));
             if( (('A'<=v) && (v<='Z')) || (('a'<=v) && (v<='z')) || ('0'<=v)&&(v<='9') || (v=='_') )
                 i++;
             else
@@ -38,5 +40,7 @@ public class GrammarChecker {
         }
         return true;
     }
+
+
 
 }

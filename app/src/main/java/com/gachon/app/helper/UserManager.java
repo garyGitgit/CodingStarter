@@ -99,7 +99,6 @@ public class UserManager {
         user.saveInBackground();
         String myGroup = (String)user.get("group");
 
-
         //내 그룹 포인트에 100 추가
         //ParseObject parseObject = new ParseObject("Groups");
         ParseQuery<ParseObject> query = new ParseQuery<>("Groups");
@@ -120,13 +119,6 @@ public class UserManager {
             }
         });
 
-
-
-
-
-        //user.add("points", getMaxPoints()+getPoints()+100);
-        //user.saveEventually();
-
         //레벨업 할 때
         if(getPoints() == getMaxPoints()){
             editor.putInt(pointsKey, 0); // 0으로 초기화시키고
@@ -136,6 +128,9 @@ public class UserManager {
         }
         return false;
     }
+
+
+
 
     public void setMaxPoints(int maxPoints){
         SharedPreferences.Editor editor = sharedPreferencesMax.edit();
@@ -153,31 +148,31 @@ public class UserManager {
     public int getProgress(){return sharedPreferencesProgress.getInt(progressKey, 0);}
 
 
-
-
-    void resetMaxPoints(){
-        SharedPreferences.Editor editor = sharedPreferencesMax.edit();
-        editor.putInt(maxKey, 100); // max 를 초깃값으로 초기화
-        editor.commit();
-    }
-
-    void resetPoints(){
-        SharedPreferences.Editor editor = sharedPreferencesPoints.edit();
-        editor.putInt(pointsKey, 0);
-        editor.commit();
-    }
-
-    void resetProgress(){
-        SharedPreferences.Editor editor = sharedPreferencesProgress.edit();
-        editor.putInt(progressKey, 1);
-        editor.commit();
-    }
-
     public void reset(){
         resetPoints();
         resetMaxPoints();
         resetProgress();
     }
+
+    public void resetMaxPoints(){
+        SharedPreferences.Editor editor = sharedPreferencesMax.edit();
+        editor.putInt(maxKey, 100); // max 를 초깃값으로 초기화
+        editor.commit();
+    }
+
+    public void resetPoints(){
+        SharedPreferences.Editor editor = sharedPreferencesPoints.edit();
+        editor.putInt(pointsKey, 0);
+        editor.commit();
+    }
+
+    public void resetProgress(){
+        SharedPreferences.Editor editor = sharedPreferencesProgress.edit();
+        editor.putInt(progressKey, 1);
+        editor.commit();
+    }
+
+
 
 
 }

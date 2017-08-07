@@ -4,10 +4,14 @@
     android:layout_height="100dp"
     android:stretchColumns="1,2,3"
     android:padding="10dp">
-    <TableRow>
-        <ImageView android:layout_width="30dp"  android:id="@+id/medal" android:gravity="center"/>
-        <TextView android:id="@+id/group_rank" android:gravity="center" android:textSize="20sp"/>
-        <TextView android:id="@+id/group_name" android:gravity="center" android:textSize="20sp"/>
-        <TextView android:id="@+id/group_point" android:gravity="center" android:textSize="20sp"/>
+    <TableRow android:weightSum="12">
+        <ImageView  android:gravity="center" android:layout_width="0dp"
+            android:id="@+id/medal"  android:layout_weight="1" android:layout_height="match_parent"/>
+        <TextView android:id="@+id/group_rank" android:gravity="center" android:layout_width="0dp"
+            android:textSize="20sp" android:layout_weight="1" android:layout_height="match_parent"/>
+        <TextView android:id="@+id/group_name" android:gravity="center" android:layout_width="0dp"
+            android:textSize="20sp" android:layout_weight="5" android:layout_height="match_parent"/>
+        <TextView android:id="@+id/group_point" android:gravity="center" android:layout_width="0dp"
+            android:textSize="20sp" android:layout_weight="5" android:layout_height="match_parent"/>
     </TableRow>
 </TableLayout>

@@ -32,13 +32,16 @@ fragment2 : 2번째 페이지
  */
 public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessageReceived {
 
-    String[] testList = {"a","b","c","d","e"};
+    //String[] testList = {"a","b","c","d","e"};
     ArrayList<ParseObject> groupLists = new ArrayList<>();
     View root;
     Context rootContext;
 
     ArrayAdapter<Object> adapter;
     ListView listview;
+
+    //상위랭킹 팀이름을 저장한다
+    public static String[] top3 = new String[3];
 
     public Fragment2() {
         // Required empty public constructor
@@ -76,11 +79,15 @@ public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessa
 
                 //해당 class 의 모든 object 들에 대해서 토스트 메시지로 확인한다
                 int rank = 1;
+                int i = 0;
                 for (ParseObject group : groups) {
                     if (e == null) {
                         //username 으로 밖에 못 가져온다 (getString 으로 하니까 안가져와짐)
                         Log.e("gary", "getString group name : " + group.get("name"));
                         Log.e("gary", "getString group point : " + group.getNumber("points"));
+                        //상위 랭크 3개까지만 저장한다
+                        if(i < 3)
+                            top3[i++] = (String)group.get("name");
                         groupLists.add(group);
                     }
                 }

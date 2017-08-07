@@ -4,37 +4,27 @@
     android:layout_height="match_parent"
     tools:context="com.gachon.app.main.Fragment2"
     android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="15sp"
-                    android:text="그룹별 랭킹"/>
-                <!--<Spinner-->
-                    <!--android:text="카테고리"-->
-                    <!--android:id="@+id/category_spinner"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true">-->
-                <!--</Spinner>-->
-        </RelativeLayout>
 
         <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1,2,3">
-                <TableRow >
-                        <Space android:layout_width="30dp"/>
-                        <TextView android:text="순위" android:gravity="center"/>
-                        <TextView android:text="그룹명" android:gravity="center"/>
-                        <TextView android:text="누적포인트" android:gravity="center"/>
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:stretchColumns="1,2,3"
+            android:padding="10dp">
+                <TableRow android:weightSum="12">
+                        <ImageView  android:gravity="center" android:layout_width="0dp"
+                            android:id="@+id/medal"  android:layout_weight="1" android:layout_height="match_parent"/>
+                        <TextView android:id="@+id/group_rank" android:gravity="center" android:layout_width="0dp"
+                            android:textSize="15sp" android:layout_weight="1" android:layout_height="match_parent"
+                            android:text="순위"/>
+                        <TextView android:id="@+id/group_name" android:gravity="center" android:layout_width="0dp"
+                            android:textSize="15sp" android:layout_weight="5" android:layout_height="match_parent"
+                            android:text="그룹명"/>
+                        <TextView android:id="@+id/group_point" android:gravity="center" android:layout_width="0dp"
+                            android:textSize="15sp" android:layout_weight="5" android:layout_height="match_parent"
+                            android:text="누적포인트"/>
                 </TableRow>
         </TableLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
