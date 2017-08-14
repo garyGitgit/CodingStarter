@@ -92,6 +92,11 @@ public class UserManager {
         editor.commit();
 
         ParseUser user = ParseUser.getCurrentUser();
+
+        //로그인없이 시작하기로 하면 nickname 과 group 이 없다
+        if(user == null) return false;
+
+
         Log.e("gary", "user nickname " + user.get("nickname"));
 
         //개인 포인트 적립

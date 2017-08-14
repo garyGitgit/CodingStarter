@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //level 과 point 에 따른 progress 설정
-
 
 
 

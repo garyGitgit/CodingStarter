@@ -135,19 +135,13 @@ public class Course1_1_1Step4 extends Fragment {
                     // 다이얼로그 타이틀
                     //alert.setTitle("완료");
                     // 다이얼로그 보기
-                    alert.show();
                     viewFactory.addFeedBackText(1, "성공", feedBackTextContainer);
+                    alert.show();
                 }
                 else{
                     viewFactory.addFeedBackText(2, "다시 한 번 생각해보세요!", feedBackTextContainer);
                     new AnswerManager(getContext()).vibrate();
                 }
-
-
-
-
-
-
             }
         });
     }
