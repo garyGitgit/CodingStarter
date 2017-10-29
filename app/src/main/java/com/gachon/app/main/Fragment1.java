@@ -21,21 +21,21 @@ import com.gachon.app.course1_1.Course1_1Activity;
 import com.gachon.app.course1_2.Course1_2Activity;
 import com.gachon.app.helper.AnswerManager;
 import com.gachon.app.helper.UserManager;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 
-public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessageReceived {
+public class Fragment1 extends Fragment implements MainActivity.onFragmentMessageReceived {
     View rootView;
 
     //ImageView imageViewMainBlock1_1, imageViewMainBlock1_2, imageViewMainBlock1_3, imageViewMainBlock2_1;
     ImageView[][] mainBlocks = new ImageView[4][3];
 
+    UserManager userManager;
     AnswerManager answerManager;
     int progress = 1;
 
     /*
     fragment 1 : 메인 페이지
      */
-    public static final String TAG = "gachon/Fragment1/";
+    public static final String TAG = "codingstarter";
 
     Bitmap bitmapBlock1_disabled, bitmapBlock2_disabled, bitmapBlock3_disabled;
     Bitmap bitmapBlock1, bitmapBlock2, bitmapBlock3;
@@ -44,8 +44,6 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        int position = FragmentPagerItem.getPosition(getArguments());
-        Log.e("bisecu", "onCreateView : " + Integer.toString(position));
         setRetainInstance(true);
         rootView = inflater.inflate(R.layout.fragment_fragment1, container, false);
 
@@ -99,8 +97,14 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
             }
         }
 
+
         //answer manager
         answerManager = new AnswerManager(rootView.getContext());
+
+        //사용자 관리 매니저 
+        userManager = UserManager.getIntance();
+        userManager.init(rootView.getContext());
+
 
         return rootView;
     }
@@ -183,9 +187,9 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
 
 
 
-        progress = new UserManager(getContext()).getProgress();
+        progress = userManager.getProgress();
 
-        Log.e("gary", "PROGRESS - " + Integer.toString(progress));
+        Log.e(TAG, "PROGRESS - " + Integer.toString(progress));
         if(progress == 1){
             mainBlocks[0][0].setImageBitmap(bitmapBlock1);
         }
@@ -199,44 +203,45 @@ public class Fragment1 extends Fragment implements MainActivity.onBluetoothMessa
 
     @Override
     public void onPause() {
-        Log.e("bisecu", "onPause");
+        Log.e(TAG, "onPause");
         super.onPause();
     }
 
     @Override
     public void onDetach() {
-        Log.e("bisecu", "onDetach");
+        Log.e(TAG, "onDetach");
         super.onDetach();
     }
 
     @Override
     public void onDestroy() {
-        Log.e("bisecu", "onDestroy");
+        Log.e(TAG, "onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.e("bisecu", "onActivityCreated");
+        Log.e(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onAttach(Activity activity) {
-        Log.e("bisecu", "onAttach");
+        Log.e(TAG, "onAttach");
         super.onAttach(activity);
     }
 
     @Override
     public void onStart() {
-        Log.e("bisecu", "onStart");
+        Log.e(TAG, "onStart");
         super.onStart();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.e("bisecu", "onViewCreated");
+        Log.e(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override

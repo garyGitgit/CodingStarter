@@ -11,16 +11,14 @@
             android:stretchColumns="1,2,3"
             android:padding="10dp">
                 <TableRow android:weightSum="12">
-                        <ImageView  android:gravity="center" android:layout_width="0dp"
-                            android:id="@+id/medal"  android:layout_weight="1" android:layout_height="match_parent"/>
                         <TextView android:id="@+id/group_rank" android:gravity="center" android:layout_width="0dp"
-                            android:textSize="15sp" android:layout_weight="1" android:layout_height="match_parent"
+                            android:textSize="15sp" android:layout_weight="2" android:layout_height="match_parent"
                             android:text="순위"/>
                         <TextView android:id="@+id/group_name" android:gravity="center" android:layout_width="0dp"
-                            android:textSize="15sp" android:layout_weight="5" android:layout_height="match_parent"
+                            android:textSize="15sp" android:layout_weight="6" android:layout_height="match_parent"
                             android:text="그룹명"/>
                         <TextView android:id="@+id/group_point" android:gravity="center" android:layout_width="0dp"
-                            android:textSize="15sp" android:layout_weight="5" android:layout_height="match_parent"
+                            android:textSize="15sp" android:layout_weight="4" android:layout_height="match_parent"
                             android:text="누적포인트"/>
                 </TableRow>
         </TableLayout>
@@ -38,6 +36,5 @@
                             android:id="@+id/group_rank_list">
                         </ListView>
                 </LinearLayout>
-
         </ScrollView>
 </LinearLayout>

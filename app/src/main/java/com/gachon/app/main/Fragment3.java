@@ -17,7 +17,7 @@ import com.gachon.app.R;
 /*
 fragment 3번 페이지
  */
-public class Fragment3 extends Fragment implements MainActivity.onBluetoothMessageReceived {
+public class Fragment3 extends Fragment implements MainActivity.onFragmentMessageReceived {
 
 
     String[] testList = {"a","b","c","d","e"};

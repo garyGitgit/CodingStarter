@@ -26,7 +26,7 @@ public class SplashActivity extends Activity {
     public static final int SPLASH_PERIOD = 3000;
 
     Handler mHandler;
-
+    UserManager userManager;
     Bitmap bitmap;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,13 @@ public class SplashActivity extends Activity {
         //3초 후에 화면 종료
         mHandler = new Handler();
         mHandler.postDelayed(new SplashHandler(), SPLASH_PERIOD);
+        userManager = UserManager.getIntance();
+        userManager.init(getApplicationContext());
     }
 
     private class SplashHandler implements Runnable{
         public void run() {
-            boolean isAutoLogin = new UserManager(getApplicationContext()).isAutoLogin();
+            boolean isAutoLogin = userManager.isAutoLogin();
             //자동 로그인인지 확인
             Log.e("gary", Boolean.toString(isAutoLogin));
 

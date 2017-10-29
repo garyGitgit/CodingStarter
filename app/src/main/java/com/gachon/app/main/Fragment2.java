@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.gachon.app.R;
 import com.gachon.app.helper.GroupRankAdapter;
+import com.gachon.app.helper.UserManager;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -30,7 +31,7 @@ import java.util.List;
 /*
 fragment2 : 2번째 페이지
  */
-public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessageReceived {
+public class Fragment2 extends Fragment implements MainActivity.onFragmentMessageReceived {
 
     //String[] testList = {"a","b","c","d","e"};
     ArrayList<ParseObject> groupLists = new ArrayList<>();
@@ -65,6 +66,8 @@ public class Fragment2 extends Fragment implements MainActivity.onBluetoothMessa
         //쿼리전송할 때, points 에 따라서 내림차순으로 정렬이 되게 query 를 보냄
         ParseQuery<ParseObject> orderedQeury = new ParseQuery<ParseObject>("Groups");
         orderedQeury.orderByDescending("points");
+        //가져오는 갯수 제한 100에서 10000으로 확장
+        orderedQeury.setLimit(UserManager.MAX_USER_LIMIT);
         //Parse 를 통해서 group들 가져오기
         ParseQuery<ParseObject> query = orderedQeury;
         query.findInBackground(new FindCallback<ParseObject>() {

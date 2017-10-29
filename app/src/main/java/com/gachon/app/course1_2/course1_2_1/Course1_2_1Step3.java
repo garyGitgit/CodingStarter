@@ -38,6 +38,8 @@ public class Course1_2_1Step3 extends Fragment {
     View root;
     ViewFactoryCS viewFactory;
 
+    UserManager userManager;
+
     public Course1_2_1Step3() {
         // Required empty public constructor
     }
@@ -48,6 +50,8 @@ public class Course1_2_1Step3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_g_step3, container, false);
+        userManager = UserManager.getIntance();
+        userManager.init(root.getContext());
         return root;
 
     }
@@ -186,14 +190,16 @@ public class Course1_2_1Step3 extends Fragment {
 
     public void doFinishJobs(){
         //레벨업인지 확인
-        UserManager ulm = new UserManager(getContext());
+        userManager.incrementPoints();
         //포인트 추가
-        if(ulm.addPoints()){
+        if(userManager.isMaxPoints()){
             Toast.makeText(getContext(), "레벨업을 축하드립니다!", Toast.LENGTH_SHORT).show();
+            userManager.incrementMaxPoints();
         }
 
         //course 1_1 마지막 이므로 progress 증가
-        ulm.incrementProgress();
+        userManager.incrementProgress();
+
 
         //widget set 모두 제거
         WidgetSet widgetSet = viewFactory.getWidgetSet();

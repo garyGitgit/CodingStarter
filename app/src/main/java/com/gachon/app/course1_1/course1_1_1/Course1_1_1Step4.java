@@ -35,10 +35,14 @@ public class Course1_1_1Step4 extends Fragment {
     View root; // 부모 액티비티
     ViewFactoryCS viewFactory;
 
+    //사용자 관리 매니저
+    UserManager userManager;
+
     // Required empty public constructor
     public Course1_1_1Step4() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -144,15 +148,26 @@ public class Course1_1_1Step4 extends Fragment {
                 }
             }
         });
+
+        //usermanager 객체 가져오는 것과 초기화
+        userManager = UserManager.getIntance();
+        userManager.init(root.getContext());
+
     }
 
     public void doFinishJobs(){
         //레벨업인지 확인
-        UserManager ulm = new UserManager(getContext());
+        userManager.incrementPoints();
         //포인트 추가
-        if(ulm.addPoints()){
+        if(userManager.isMaxPoints()){
             Toast.makeText(getContext(), "레벨업을 축하드립니다!", Toast.LENGTH_SHORT).show();
+            userManager.incrementMaxPoints();
         }
+
+        //course 1_1 마지막 이므로 progress 증가
+        userManager.incrementProgress();
+
+
         //widget set 모두 제거
         WidgetSet widgetSet = viewFactory.getWidgetSet();
         widgetSet.removeAllWidgetSets();

@@ -37,6 +37,11 @@
     <string name="parse_app_key">mastergary</string>
     <string name="parse_app_id">gary</string>
 
+    <string name="parse_class_group">group</string>
+    <string name="parse_class_nickname">nickname</string>
+    <string name="parse_class_points">points</string>
+    <string name="parse_class_email">email</string>
+
     <!--end text-->
     <string name="ending_text">{ ; }</string>
     <!--font name-->

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,23 +28,29 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 
+/**
+ * 메인화면
+ *
+ * 페이지 1 : 학습 리스트
+ * 페이지 2 : 그룹 랭킹
+ */
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
 
+    public static String TAG = " COCONUT";
 
-    public static String TAG = "tag";
-    //커스텀화 시킨 뷰 페이저
+    //뷰 페이저
     MyViewPager viewPager;
     FragmentPagerItems pages;
-    //17.4.3 : number of page items
-    public final static int pageCount = 3;
+    //페이지 숫자
+    public final static int pageCount = 2;
+    //페이지 리스너
+    onFragmentMessageReceived mListener, mListener2;
 
-    onBluetoothMessageReceived mListener, mListener2, mListener3, mListener4;
     TextView levelText;
+    UserManager userManager;
 
-    /* ################################### start of life cycle ###################################### */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_drawer); //서비스가 바인딩된 후 controlactivity 가 생성
 
@@ -54,14 +59,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         //툴바 설정
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            toolbar.setNavigationIcon(null);
-
+        toolbar.setNavigationIcon(null);
         setSupportActionBar(toolbar);
-        //TODO gachon : delete menu
         invalidateOptionsMenu();
 
 
-        //drawer
+        //drawer 메뉴 설정
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -70,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
 
         //하단 탭 설정
         ViewGroup tab = (ViewGroup) findViewById(R.id.tab);
@@ -83,20 +83,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         final SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         tabEnum.setup(viewPagerTab);
 
-        //뷰페이저 페이지 설정
+        //뷰페이저 페이지 1,2 설정
         pages = new FragmentPagerItems(this);
-
-        //탭은 학습, 순위 탭만 사용
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[0]), Fragment1.class));
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[1]), Fragment2.class));
-        //pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[2]), Fragment3.class));
-
-        viewPagerTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "tab touched", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), pages);
@@ -114,30 +104,27 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             //17.4.3. : 0 ~ 3 은 위에서 만든 페이지 수와 같아야 함
             Fragment mFragment = adapter.getItem(0);
             Fragment mFragment2 = adapter.getItem(1);
-            //Fragment mFragment3 = adapter.getItem(2);
-            //Fragment mFragment4 = adapter.getItem(3);
 
-            mListener = (onBluetoothMessageReceived) mFragment;
-            mListener2 = (onBluetoothMessageReceived) mFragment2;
-            //TODO : 주석을 해제하면 null point error 가 발생, 어디인지 확인해보자
-            //mListener3 = (onBluetoothMessageReceived) mFragment3;
-            //mListener4 = (onBluetoothMessageReceived) mFragment4;
+            mListener = (onFragmentMessageReceived) mFragment;
+            mListener2 = (onFragmentMessageReceived) mFragment2;
         }
         catch (ClassCastException e) {
           throw new ClassCastException("must implement onBluetoothMessageReceived Listener");
         }
 
-
         //dp 설정
         WidgetSet.setScale(getResources().getDisplayMetrics().density);
 
-
-        //닉네임 설정
-        TextView nickname = (TextView)findViewById(R.id.user_nickname);
-        nickname.setText(new UserManager(getApplicationContext()).getNickname());
-
-        //레벨 텍스트
+        //위젯
         levelText = (TextView)findViewById(R.id.levelText);
+
+        //툴바에 나오는 닉네임 설정
+        userManager = UserManager.getIntance();
+        userManager.init(getApplicationContext()); //꼭 해야한다
+
+        TextView nickname = (TextView)findViewById(R.id.user_nickname);
+        nickname.setText(userManager.getNickname() + "(" + userManager.getMygroup() + ")");
+
     }
 
     private TabEnum getDemo() {
@@ -172,17 +159,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //noinspection SimplifiableIfStatement
         if (id == R.id.reset) {
             Toast.makeText(MainActivity.this, "경험치를 초기화합니다", Toast.LENGTH_SHORT).show();
-            UserManager ulm = new UserManager(getApplicationContext());
-            ulm.reset();
-
+            userManager.reset();
             return true;
         }
+        //로그아웃을 하면 자동 로그인 해제에 포인트를 초기화한다 (혹시라도 다른 계정으로 로그인할 수 있으니까)
         else if(id == R.id.logout){
             Toast.makeText(MainActivity.this, "로그아웃합니다. 다시 시작해주세요", Toast.LENGTH_SHORT).show();
-            UserManager ulm = new UserManager(getApplicationContext());
-            ulm.setAutoLogin(false);
+            userManager.setAutoLogin(false);
+            userManager.reset();
             finish();
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -218,43 +203,33 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         //17.2.7 : 레이아웃 설정을 메인에서 할 필요가 없음
         //TODO onViewCreated 로 이동
         super.onResume();
-        //RoundCornerProgressBar progressBar = (RoundCornerProgressBar)findViewById(R.id.totalProgress);
-        UserManager ulm = new UserManager(getApplicationContext());
-//        progressBar.setMax(ulm.getMaxPoints());
-//        progressBar.setProgress(ulm.getPoints());
-        Log.e("gary", "max point : " + Integer.toString(ulm.getMaxPoints()));
-        Log.e("gary", "points : " + Integer.toString(ulm.getPoints()));
+        Log.e(TAG, "max point : " + Integer.toString(userManager.getMaxPoints()));
+        Log.e(TAG, "points : " + Integer.toString(userManager.getPoints()));
         ImageView levelBadge = (ImageView)findViewById(R.id.levelBadge);
 
-        switch (ulm.getMaxPoints()){
+        switch (userManager.getMaxPoints()){
             case 100:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level1));
                 levelText.setText("Lv.1");
-//                progressBar.setProgressColor(getResources().getColor(R.color.level1_color));
                 break;
             case 200:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level2));
-//                progressBar.setProgressColor(getResources().getColor(R.color.level2_color));
                 levelText.setText("Lv.2");
                 break;
             case 300:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level3));
-//                progressBar.setProgressColor(getResources().getColor(R.color.level3_color));
                 levelText.setText("Lv.3");
                 break;
             case 400:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level4));
-//                progressBar.setProgressColor(getResources().getColor(R.color.level4_color));
                 levelText.setText("Lv.4");
                 break;
             case 500:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level5));
-//                progressBar.setProgressColor(getResources().getColor(R.color.level5_color));
                 levelText.setText("Lv.5");
                 break;
             case 600:
                 levelBadge.setImageDrawable(getResources().getDrawable(R.drawable.level6));
-//                progressBar.setProgressColor(getResources().getColor(R.color.level6_color));
                 levelText.setText("Lv.6");
                 break;
         }
@@ -279,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     /* ################################### end of loading thread #################################### */
 
     //17.2.10
-    public interface onBluetoothMessageReceived{
+    public interface onFragmentMessageReceived{
         void onMessageReceived(byte[] data);
     }
 }
