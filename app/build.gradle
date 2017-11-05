@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.1"
 
     defaultConfig {
-        applicationId "com.gachon.app"
+        applicationId "com.coconutlab.app"
 
         minSdkVersion 16
         targetSdkVersion 25
@@ -25,6 +25,7 @@ android {
 
 dependencies {
 
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     //JUnit Test 용
@@ -67,9 +68,6 @@ dependencies {
 
     //fonts
     compile 'com.tsengvn:Typekit:1.0.0'
-
-
-
 
 
 }

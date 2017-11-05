@@ -8,8 +8,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/CalendarLibrary" />
-            <option value="$PROJECT_DIR$/RippleLibrary" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

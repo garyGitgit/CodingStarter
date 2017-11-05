@@ -3,11 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/slideCard">
-    <com.gachon.app.helper.MyViewPager
+    <com.coconutlab.app.helper.MyViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/slideCard_viewPager">
 
-    </com.gachon.app.helper.MyViewPager>
+    </com.coconutlab.app.helper.MyViewPager>
 
 </LinearLayout>

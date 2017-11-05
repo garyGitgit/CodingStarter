@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        tools:context="com.gachon.app.course1_1.Course1_1Activity"
+        tools:context="com.coconutlab.app.course1_1.Course1_1Activity"
         android:id="@+id/activity_course1_1"
         android:orientation="vertical"
         android:padding="@dimen/activity_padding"

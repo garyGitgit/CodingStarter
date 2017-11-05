@@ -23,12 +23,12 @@
         app:rcProgressColor="@color/codingstarter_background"
         app:rcBackgroundColor="#11000000" />
 
-    <com.gachon.app.helper.MyViewPager
+    <com.coconutlab.app.helper.MyViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:id="@+id/page_container">
-    </com.gachon.app.helper.MyViewPager>
+    </com.coconutlab.app.helper.MyViewPager>
 
     <!--<Button-->
         <!--android:id="@+id/buttonGoNext"-->

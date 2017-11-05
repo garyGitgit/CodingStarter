@@ -16,7 +16,7 @@
 
 
 
-    <com.gachon.app.helper.MyViewPager
+    <com.coconutlab.app.helper.MyViewPager
         android:id="@id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

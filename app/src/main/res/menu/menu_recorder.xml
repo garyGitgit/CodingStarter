@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.gachon.app.RecorderActivity"
+    tools:context="com.coconutlab.app.RecorderActivity"
     >
     <item android:id="@+id/action_delete_all" android:title="1"
         android:orderInCategory="1" app:showAsAction="never" android:checkable="false"  />
