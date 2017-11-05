@@ -94,8 +94,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[0]), Fragment1.class));
         pages.add(FragmentPagerItem.of(getString(tabEnum.tabs()[1]), Fragment2.class));
 
+
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), pages);
+
+
 
 
         viewPager.setOffscreenPageLimit(pageCount); //최대 페이지 값 유지

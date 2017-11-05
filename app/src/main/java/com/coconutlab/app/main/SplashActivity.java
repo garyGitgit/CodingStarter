@@ -23,7 +23,7 @@ import com.coconutlab.app.helper.WidgetSet;
 첫 화면
  */
 public class SplashActivity extends Activity {
-    public static final String TAG = "CodingStarter" ;
+    public static final String TAG = "COCONUTLAB" ;
     public static final int SPLASH_PERIOD = 3000;
 
     Handler mHandler;
@@ -36,7 +36,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
 
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.codingstarter_logo_burned);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.splash);
 
         ImageView logo = (ImageView)findViewById(R.id.codingstarter_logo);
         logo.setImageBitmap(bitmap);
@@ -58,13 +58,17 @@ public class SplashActivity extends Activity {
         public void run() {
             boolean isAutoLogin = userManager.isAutoLogin();
             //자동 로그인인지 확인
-            Log.e("gary", Boolean.toString(isAutoLogin));
+            Log.e(TAG, Boolean.toString(isAutoLogin));
 
+
+            //TODO : 복구
             //자동로그인이면 바로 main 으로 아니면 login 페이지
-            if(isAutoLogin)
-                startActivity(new Intent(getApplication(), MainActivity.class));
-            else
-                startActivity(new Intent(getApplication(), LoginActivity.class));
+//            if(isAutoLogin)
+//                startActivity(new Intent(getApplication(), MainActivity.class));
+//            else
+//                startActivity(new Intent(getApplication(), LoginActivity.class));
+
+            startActivity(new Intent(getApplication(), IntroActivity.class));
             SplashActivity.this.finish();
         }
     }
@@ -73,7 +77,6 @@ public class SplashActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         bitmap.recycle();
-
     }
 
 }
